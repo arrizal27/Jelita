@@ -36,6 +36,22 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        btnJerigen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, NabungActivity.class);
+                startActivity(i);
+            }
+        });
+
+        btnNabung.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, NabungActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     private void findView() {
