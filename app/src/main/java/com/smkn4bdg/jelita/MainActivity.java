@@ -2,16 +2,16 @@ package com.smkn4bdg.jelita;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Window;
-import android.view.WindowManager;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import com.smkn4bdg.jelita.riwayat.RiwayatActivity;
 
 public class MainActivity extends AppCompatActivity {
     ImageView fotoProfil;
@@ -28,7 +28,30 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         findView();
-        
+
+        btnRiwayat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, RiwayatActivity.class);
+                startActivity(i);
+            }
+        });
+
+        btnJerigen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, NabungActivity.class);
+                startActivity(i);
+            }
+        });
+
+        btnNabung.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, NabungActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     private void findView() {

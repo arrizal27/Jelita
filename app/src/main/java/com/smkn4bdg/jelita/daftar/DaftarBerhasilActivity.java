@@ -1,9 +1,11 @@
-package com.smkn4bdg.jelita;
+package com.smkn4bdg.jelita.daftar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.Button;
+
+import com.smkn4bdg.jelita.R;
 
 public class DaftarBerhasilActivity extends AppCompatActivity {
     Button btnsuccess;

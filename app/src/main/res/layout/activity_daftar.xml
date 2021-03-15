@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DaftarActivity"
+    tools:context=".daftar.DaftarActivity"
     android:padding="15dp"
     android:background="@drawable/ic_backgroung_putih">
 
@@ -128,7 +128,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/ic_circle_profil"
                 android:padding="8dp"
-                android:src="@drawable/ic_outline_help_outline_24" />
+                android:src="@drawable/ic_baseline_arrow_back_yellow_24" />
         </FrameLayout>
 
         <Button

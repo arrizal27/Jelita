@@ -1,10 +1,12 @@
-package com.smkn4bdg.jelita;
+package com.smkn4bdg.jelita.daftar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.smkn4bdg.jelita.R;
 
 public class DaftarActivity extends AppCompatActivity {
     EditText nama,username,pass,emailhp,role;
