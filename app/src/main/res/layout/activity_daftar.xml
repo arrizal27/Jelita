@@ -53,7 +53,7 @@
             android:id="@+id/txt_nama"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/yellow"/>
+            android:backgroundTint="@color/yellow"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -65,7 +65,7 @@
             android:id="@+id/txt_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/yellow"/>
+            android:backgroundTint="@color/yellow"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -77,7 +77,7 @@
             android:id="@+id/txt_pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/yellow"/>
+            android:backgroundTint="@color/yellow"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -89,7 +89,7 @@
             android:id="@+id/txt_email_hp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/yellow"/>
+            android:backgroundTint="@color/yellow"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -97,12 +97,11 @@
             android:textColor="@color/yellow"
             android:text="Role"/>
 
-        <EditText
+        <Spinner
             android:id="@+id/txt_role"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Hotel &amp; Penginapan"
-            android:textColor="@color/yellow"/>
+            android:layout_height="50dp"
+            android:backgroundTint="@color/yellow"/>
 
     </LinearLayout>
 
