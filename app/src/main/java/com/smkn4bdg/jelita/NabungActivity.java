@@ -2,6 +2,7 @@ package com.smkn4bdg.jelita;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.smkn4bdg.jelita.riwayat.RiwayatActivity;
 
 public class NabungActivity extends AppCompatActivity {
     MaterialButton btnBack, btnTabung, btnSetor;
@@ -34,6 +36,14 @@ public class NabungActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //method tambah tabungan minyak
                 nabungSuccess();
+            }
+        });
+
+        btnSetor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(NabungActivity.this, SetorActivity.class);
+                startActivity(i);
             }
         });
     }
