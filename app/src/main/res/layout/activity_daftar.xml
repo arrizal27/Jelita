@@ -123,19 +123,20 @@
             android:paddingVertical="4dp">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/ic_circle_profil"
-                android:padding="8dp"
-                android:src="@drawable/ic_baseline_arrow_back_yellow_24" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/button_pengepul_bg"
+                android:padding="20dp"
+                android:src="@drawable/ic_back_arrow" />
         </FrameLayout>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_daftar"
-            android:layout_width="260dp"
-            android:layout_height="70dp"
-            android:textStyle="bold"
-            android:text="Buat Akun"/>
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Buat Akun"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            app:cornerRadius="12dp" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

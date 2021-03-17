@@ -14,6 +14,11 @@
         <activity android:name=".NabungActivity"></activity>
         <activity android:name=".SetorActivity"></activity>
         <activity android:name=".riwayat.RiwayatActivity" />
+        <activity android:name=".EditProfile" />
+        <activity android:name=".SetorBerhasil" />
+        <activity android:name=".WelcomePage" />
+        <activity android:name=".Pengepul" />
+        <activity android:name=".Profile" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
