@@ -19,14 +19,15 @@
         app:layout_constraintRight_toRightOf="parent">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="75dp"
+            android:layout_height="80dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/ic_img_oil"/>
+            android:src="@drawable/ic_logo"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:text="Daftar"
             android:textStyle="bold"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline3"/>
