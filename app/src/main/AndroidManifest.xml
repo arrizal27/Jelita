@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Jelita">
 <<<<<<< HEAD
+<<<<<<< HEAD
         <activity android:name=".SetorActivity"></activity>
         <activity android:name=".NabungActivity" />
 =======
@@ -18,6 +19,12 @@
         <activity android:name=".NabungActivity"></activity>
 >>>>>>> afe5080153b4ca7dcd17523b2e68a5a2b73d52a8
         <activity android:name=".riwayat.RiwayatActivity" />
+=======
+        <activity android:name=".SetorBerhasil"></activity>
+        <activity android:name=".WelcomePage" />
+        <activity android:name=".Pengepul" />
+        <activity android:name=".Profile" />
+>>>>>>> 55775815fd14a76440ea4b6fda1c677c1d5f84f8
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
