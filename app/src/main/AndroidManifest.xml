@@ -12,6 +12,7 @@
         <activity android:name=".daftar.DaftarBerhasilActivity"/>
         <activity android:name=".daftar.DaftarActivity" />
         <activity android:name=".NabungActivity"></activity>
+        <activity android:name=".SetorActivity"></activity>
         <activity android:name=".riwayat.RiwayatActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
