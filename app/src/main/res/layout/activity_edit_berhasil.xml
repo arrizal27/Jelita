@@ -82,10 +82,9 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="40dp"
-            android:text="Lihat Setoran Saya"
-            android:elevation="20dp"
-            app:cornerRadius="12dp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+            android:id="@+id/btn_berhasil"
+            android:text="Profil saya"
+            app:cornerRadius="12dp"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

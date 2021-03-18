@@ -29,6 +29,14 @@ public class MainActivity extends AppCompatActivity {
 
         findView();
 
+        btnProfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, ProfileActivity.class);
+                startActivity(i);
+            }
+        });
+
         btnRiwayat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,4 +77,5 @@ public class MainActivity extends AppCompatActivity {
         btnRiwayat = findViewById(R.id.btn_riwayat);
         btnPoin = findViewById(R.id.btn_poin);
     }
+
 }
