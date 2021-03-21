@@ -10,7 +10,7 @@
         android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="?attr/actionBarSize"
         android:orientation="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -28,7 +28,7 @@
             android:textStyle="bold"
             android:textColor="@color/black"
             android:text="Login"
-            android:textSize="36dp"/>
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"/>
 
     </LinearLayout>
 
@@ -42,29 +42,30 @@
         android:orientation="vertical"
         android:gravity="center_vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Username"
-            android:textColor="@color/yellow" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Username"
+                android:backgroundTint="@android:color/transparent"
+                android:id="@+id/login_username"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/txt_username"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/yellow" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Password"
-            android:textColor="@color/yellow" />
-
-        <EditText
-            android:id="@+id/txt_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/yellow" />
+            android:layout_marginTop="24dp"
+            app:endIconMode="password_toggle">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Password"
+                android:backgroundTint="@android:color/transparent"
+                android:id="@+id/login_password"
+                android:inputType="textPassword"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
@@ -88,12 +89,12 @@
             android:src="@drawable/ic_back_arrow"
             android:text="test" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_masuk"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="60dp"
             android:text="Masuk"
-            android:textStyle="bold" />
+            app:cornerRadius="12dp"/>
 
     </LinearLayout>
 

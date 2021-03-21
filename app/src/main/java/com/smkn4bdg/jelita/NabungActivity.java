@@ -44,6 +44,7 @@ public class NabungActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(NabungActivity.this, SetorActivity.class);
                 startActivity(i);
+                finish();
             }
         });
     }

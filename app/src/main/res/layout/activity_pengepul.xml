@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ic_background_orange"
-    tools:context=".Pengepul">
+    tools:context=".PengepulActivity">
 
     <LinearLayout
         android:id="@+id/toppengepul"
