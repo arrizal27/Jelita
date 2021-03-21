@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".SplashScreen">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -9,9 +11,10 @@
         android:gravity="center">
 
         <ImageView
+            android:id="@+id/logo"
             android:layout_width="160dp"
             android:layout_height="165dp"
-            android:src="@drawable/ic_logo_full"/>
+            android:src="@drawable/ic_img_oil"/>
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
