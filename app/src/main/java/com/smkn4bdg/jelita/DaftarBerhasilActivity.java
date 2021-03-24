@@ -1,4 +1,4 @@
-package com.smkn4bdg.jelita.daftar;
+package com.smkn4bdg.jelita;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +18,19 @@ public class DaftarBerhasilActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daftar_berhasil);
 
+        findView();
+
+        btnsuccess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(DaftarBerhasilActivity.this, MainActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+    }
+
+    private void findView(){
         btnsuccess = findViewById(R.id.btn_daftar_berhasil);
 
         btnsuccess.setOnClickListener(new View.OnClickListener() {

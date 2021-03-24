@@ -2,6 +2,7 @@ package com.smkn4bdg.jelita;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -53,6 +54,9 @@ public class SetorActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 //button setor sekarang diklik
+                Intent i = new Intent(SetorActivity.this, SetorBerhasilActivity.class);
+                startActivity(i);
+                finish();
             }
         });
 

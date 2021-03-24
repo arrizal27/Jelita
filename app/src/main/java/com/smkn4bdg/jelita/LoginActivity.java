@@ -49,14 +49,14 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              LoginActivity.this.login();
+                LoginActivity.this.login();
             }
         });
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent back = new Intent(LoginActivity.this, WelcomePage.class);
+                Intent back = new Intent(LoginActivity.this, WelcomePageActivity.class);
                 startActivity(back);
                 finish();
             }
@@ -72,8 +72,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void findView(){
-        username = findViewById(R.id.txt_username);
-        pass = findViewById(R.id.txt_password);
+        username = findViewById(R.id.login_username);
+        pass = findViewById(R.id.login_password);
         btnLogin = findViewById(R.id.btn_masuk);
         back = findViewById(R.id.back_login);
         googlelogin = findViewById(R.id.googlesignin);

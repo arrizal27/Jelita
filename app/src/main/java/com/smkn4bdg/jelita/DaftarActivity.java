@@ -1,4 +1,4 @@
-package com.smkn4bdg.jelita.daftar;
+package com.smkn4bdg.jelita;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.smkn4bdg.jelita.LoginActivity;
 import com.smkn4bdg.jelita.Models.User;
 import com.smkn4bdg.jelita.R;
-import com.smkn4bdg.jelita.WelcomePage;
+import com.smkn4bdg.jelita.WelcomePageActivity;
 
 public class DaftarActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
@@ -54,7 +54,7 @@ public class DaftarActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent back = new Intent(DaftarActivity.this, WelcomePage.class);
+                Intent back = new Intent(DaftarActivity.this, WelcomePageActivity.class);
                 startActivity(back);
                 finish();
             }
@@ -65,11 +65,11 @@ public class DaftarActivity extends AppCompatActivity {
     private void findView(){
         nama = findViewById(R.id.txt_nama);
         username = findViewById(R.id.txt_username);
-        pass = findViewById(R.id.txt_pass);
-        emailhp = findViewById(R.id.txt_email_hp);
-        role = findViewById(R.id.txt_role);
+        pass = findViewById(R.id.txt_password);
+        emailhp = findViewById(R.id.txt_telp);
+        role = findViewById(R.id.dropdown_role);
         btndaftar = findViewById(R.id.btn_daftar);
-        back = findViewById(R.id.btn_kembali);
+        back = findViewById(R.id.back_daftar);
 
         dbUsers = FirebaseDatabase.getInstance().getReference("users");
         firebaseAuth = FirebaseAuth.getInstance();
@@ -133,7 +133,7 @@ public class DaftarActivity extends AppCompatActivity {
                                         String id = firebaseAuth.getUid();
                                         User user = new User(id, namaFinal, usernameFinal, roleFinal, emailhpFinal,
                                                 passFinal, jenisKelamin, noTlp, jml_minyak, poin, alamat, kelurahan
-                                        , kecamatan, kota);
+                                                , kecamatan, kota);
 
                                         dbUsers.child(id).setValue(user);
                                         DaftarActivity.this.startActivity(new Intent(DaftarActivity.this, DaftarBerhasilActivity.class));
