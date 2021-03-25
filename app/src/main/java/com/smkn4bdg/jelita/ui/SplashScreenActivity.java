@@ -1,10 +1,12 @@
-package com.smkn4bdg.jelita;
+package com.smkn4bdg.jelita.ui;
 
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.smkn4bdg.jelita.R;
 
 public class SplashScreenActivity extends AppCompatActivity{
     private int waktu_loading = 3000;

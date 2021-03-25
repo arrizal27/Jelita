@@ -1,4 +1,4 @@
-package com.smkn4bdg.jelita;
+package com.smkn4bdg.jelita.ui.profile;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.smkn4bdg.jelita.R;
+import com.smkn4bdg.jelita.ui.WelcomePageActivity;
 
 public class ProfileActivity extends AppCompatActivity {
     MaterialButton back, editProfil;

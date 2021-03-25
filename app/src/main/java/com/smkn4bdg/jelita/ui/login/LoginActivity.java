@@ -1,4 +1,4 @@
-package com.smkn4bdg.jelita;
+package com.smkn4bdg.jelita.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,12 +19,17 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.smkn4bdg.jelita.Models.User;
+import com.smkn4bdg.jelita.R;
+import com.smkn4bdg.jelita.ui.main.MainActivity;
+import com.smkn4bdg.jelita.ui.WelcomePageActivity;
 
 
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private DatabaseReference dbUsers;
     private static final String TAG = "LoginActivity";
+    User user = new User();
     EditText username;
     TextInputEditText pass;
     Button btnLogin;
@@ -112,6 +116,8 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             LoginActivity.this.startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             LoginActivity.this.finish();
+                            user.setEmail(usernameFinal);
+                            user.setPassword(passFinal);
                         }
                     }
                 });

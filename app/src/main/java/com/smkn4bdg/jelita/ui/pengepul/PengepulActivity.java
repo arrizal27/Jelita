@@ -1,8 +1,10 @@
-package com.smkn4bdg.jelita;
+package com.smkn4bdg.jelita.ui.pengepul;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.smkn4bdg.jelita.R;
 
 public class PengepulActivity extends AppCompatActivity {
 

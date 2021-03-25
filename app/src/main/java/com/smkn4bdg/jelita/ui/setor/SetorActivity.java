@@ -1,17 +1,16 @@
-package com.smkn4bdg.jelita;
+package com.smkn4bdg.jelita.ui.setor;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
+import com.smkn4bdg.jelita.R;
 
 public class SetorActivity extends AppCompatActivity{
 

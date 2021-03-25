@@ -1,4 +1,4 @@
-package com.smkn4bdg.jelita;
+package com.smkn4bdg.jelita.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,7 +8,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.smkn4bdg.jelita.DaftarActivity;
+import com.smkn4bdg.jelita.R;
+import com.smkn4bdg.jelita.ui.login.DaftarActivity;
+import com.smkn4bdg.jelita.ui.login.LoginActivity;
 
 public class WelcomePageActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
