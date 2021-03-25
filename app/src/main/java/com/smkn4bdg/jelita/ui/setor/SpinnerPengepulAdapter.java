@@ -1,4 +1,4 @@
-package com.smkn4bdg.jelita.ui.pengepul;
+package com.smkn4bdg.jelita.ui.setor;
 
 import android.content.Context;
 import android.view.LayoutInflater;
