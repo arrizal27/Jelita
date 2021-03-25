@@ -93,6 +93,7 @@
             android:id="@+id/btn_masuk"
             android:layout_width="160dp"
             android:layout_height="60dp"
+            android:layout_weight="1"
             android:text="Masuk"
             app:cornerRadius="12dp"/>
 

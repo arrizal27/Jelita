@@ -27,17 +27,6 @@ import com.smkn4bdg.jelita.ui.WelcomePageActivity;
 public class ProfileActivity extends AppCompatActivity {
     MaterialButton back, editProfil;
     MaterialCardView btnLogout;
-<<<<<<< HEAD
-    Context context;
-    TextView editPw, nama, kategori, username, email, password, alamat;
-    private DatabaseReference mdbUsers;
-    private FirebaseDatabase mfirebaseInstance;
-    private FirebaseAuth mfirebaseAuth;
-    private FirebaseUser mUser;
-    private static final String  USERS = "users";
-    private final String TAG = this.getClass().getName().toUpperCase();
-    User user = new User();
-=======
     private DatabaseReference mdbUsers;
     private FirebaseDatabase mfirebaseInstance;
     private FirebaseAuth firebaseAuth;
@@ -46,7 +35,6 @@ public class ProfileActivity extends AppCompatActivity {
     Context context;
     TextView editPw, tvnama,tvkategori,tvusername, tvemail, tvpassword,tvalamat;
 
->>>>>>> b5b5b49e8120c885fdd3a4cefc3b6662befad3ef
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         getdata();
         findView();
-        mfirebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +70,7 @@ public class ProfileActivity extends AppCompatActivity {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mfirebaseAuth.signOut();
+                firebaseAuth.signOut();
                 Intent welcome = new Intent(ProfileActivity.this, WelcomePageActivity.class);
                 startActivity(welcome);
                 finish();
@@ -115,42 +103,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void getDataProfile(){
-        FirebaseApp.initializeApp(this);
-        FirebaseApp.initializeApp(this);
-        mfirebaseInstance = FirebaseDatabase.getInstance();
-        mUser = FirebaseAuth.getInstance().getCurrentUser();
-        mdbUsers = mfirebaseInstance.getReference();
-        mdbUsers.child(USERS).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    if(dataSnapshot.child("id").getValue().equals(mUser.getUid())){
-                        nama.setText(dataSnapshot.child("nama").getValue().toString().toUpperCase());
-                        kategori.setText(dataSnapshot.child("role").getValue().toString());
-                        username.setText(dataSnapshot.child("username").getValue().toString());
-                        email.setText(dataSnapshot.child("email").getValue().toString());
-                        password.setText(dataSnapshot.child("password").getValue().toString());
-                        alamat.setText(dataSnapshot.child("alamat").getValue().toString());
-                        break;
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
-
-    }
-
     private void findView(){
-        nama = findViewById(R.id.nama);
-        kategori = findViewById(R.id.kategori);
-        username = findViewById(R.id.username);
-        password = findViewById(R.id.pass);
-        alamat = findViewById(R.id.alamat);
         back = findViewById(R.id.btn_back);
         editProfil = findViewById(R.id.btn_edit);
         editPw = findViewById(R.id.btn_edit_pw);

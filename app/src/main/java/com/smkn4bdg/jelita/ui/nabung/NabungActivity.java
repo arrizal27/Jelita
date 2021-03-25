@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
@@ -15,6 +16,7 @@ import com.smkn4bdg.jelita.ui.setor.SetorActivity;
 
 public class NabungActivity extends AppCompatActivity {
     MaterialButton btnBack, btnTabung, btnSetor;
+    TextView txtTabungan, txtMaksTabung;
     TextInputEditText txtJumlahMinyak;
     ProgressBar progressBarMinyak;
 
