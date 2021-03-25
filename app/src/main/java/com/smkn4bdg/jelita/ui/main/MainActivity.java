@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                         poin.setText(mdatasnap.child("poin").getValue().toString() + " Poin");
                         tabunganMinyak.setText(String.valueOf(mdatasnap.child("jml_minyak").getValue() + " Liter"));
                         progressBarMinyak.setProgress(Integer.valueOf(mdatasnap.child("jml_minyak").getValue().toString()));
-
+                        user.setEmail(mdatasnap.child("email").getValue(String.class));
 
                         if(mdatasnap.child("role").getValue().toString().equals("Rumah Tangga")){
                             kapasitasMax.setText(Integer.valueOf(5) + " Liter");

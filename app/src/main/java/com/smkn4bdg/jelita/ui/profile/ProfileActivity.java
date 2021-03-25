@@ -27,6 +27,7 @@ import com.smkn4bdg.jelita.ui.WelcomePageActivity;
 public class ProfileActivity extends AppCompatActivity {
     MaterialButton back, editProfil;
     MaterialCardView btnLogout;
+<<<<<<< HEAD
     Context context;
     TextView editPw, nama, kategori, username, email, password, alamat;
     private DatabaseReference mdbUsers;
@@ -36,12 +37,22 @@ public class ProfileActivity extends AppCompatActivity {
     private static final String  USERS = "users";
     private final String TAG = this.getClass().getName().toUpperCase();
     User user = new User();
+=======
+    private DatabaseReference mdbUsers;
+    private FirebaseDatabase mfirebaseInstance;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser mUser;
+    private final String TAG = this.getClass().getName().toUpperCase();
+    Context context;
+    TextView editPw, tvnama,tvkategori,tvusername, tvemail, tvpassword,tvalamat;
+
+>>>>>>> b5b5b49e8120c885fdd3a4cefc3b6662befad3ef
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
+        getdata();
         findView();
         mfirebaseAuth = FirebaseAuth.getInstance();
 
@@ -75,6 +86,31 @@ public class ProfileActivity extends AppCompatActivity {
                 Intent welcome = new Intent(ProfileActivity.this, WelcomePageActivity.class);
                 startActivity(welcome);
                 finish();
+            }
+        });
+    }
+    private void getdata(){
+        FirebaseApp.initializeApp(this);
+        mfirebaseInstance = FirebaseDatabase.getInstance();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        mdbUsers = mfirebaseInstance.getReference();
+        mdbUsers.child("users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot mdata : snapshot.getChildren()){
+                    if (mdata.child("id").getValue().equals(mUser.getUid())){
+                        tvnama.setText(mdata.child("nama").getValue(String.class).toUpperCase());
+                        tvkategori.setText(mdata.child("role").getValue(String.class));
+                        tvalamat.setText(mdata.child("alamat").getValue(String.class));
+                        tvemail.setText(mdata.child("email").getValue(String.class));
+                        tvusername.setText(mdata.child("username").getValue(String.class));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
     }
@@ -119,5 +155,11 @@ public class ProfileActivity extends AppCompatActivity {
         editProfil = findViewById(R.id.btn_edit);
         editPw = findViewById(R.id.btn_edit_pw);
         btnLogout = findViewById(R.id.btn_logout);
+        tvnama = findViewById(R.id.nama);
+        tvkategori = findViewById(R.id.kategori);
+        tvusername = findViewById(R.id.username);
+        tvemail = findViewById(R.id.email);
+        tvpassword = findViewById(R.id.pass);
+        tvalamat = findViewById(R.id.alamat);
     }
 }
