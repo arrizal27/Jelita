@@ -20,6 +20,7 @@ Button btnDaftar;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_page);
         findView();
+        firebaseAuth = FirebaseAuth.getInstance();
         if (firebaseAuth.getCurrentUser() != null) {
             // User is logged in
             System.out.println("Email : " +firebaseAuth.getCurrentUser().getEmail());
@@ -48,7 +49,6 @@ Button btnDaftar;
     private void findView(){
         btnLogin = findViewById(R.id.btnlogin);
         btnDaftar = findViewById(R.id.btndaftar);
-        firebaseAuth = FirebaseAuth.getInstance();
     }
 
 }

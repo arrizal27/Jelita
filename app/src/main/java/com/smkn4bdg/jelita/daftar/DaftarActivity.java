@@ -71,7 +71,7 @@ public class DaftarActivity extends AppCompatActivity {
         btndaftar = findViewById(R.id.btn_daftar);
         back = findViewById(R.id.btn_kembali);
 
-        dbUsers = FirebaseDatabase.getInstance().getReference("users");
+        dbUsers = FirebaseDatabase.getInstance().getReference("Users");
         firebaseAuth = FirebaseAuth.getInstance();
 
     }
@@ -132,10 +132,10 @@ public class DaftarActivity extends AppCompatActivity {
                                     } else {
                                         String id = firebaseAuth.getUid();
                                         User user = new User(id, namaFinal, usernameFinal, roleFinal, emailhpFinal,
-                                                passFinal, jenisKelamin, noTlp, jml_minyak, poin, alamat, kelurahan
+                                                jenisKelamin, noTlp, jml_minyak, poin, alamat, kelurahan
                                         , kecamatan, kota);
 
-                                        dbUsers.child(id).setValue(user);
+                                        dbUsers.child("Pengguna").child(id).setValue(user);
                                         DaftarActivity.this.startActivity(new Intent(DaftarActivity.this, DaftarBerhasilActivity.class));
                                         DaftarActivity.this.finish();
 
