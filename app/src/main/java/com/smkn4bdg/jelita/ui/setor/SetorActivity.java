@@ -11,6 +11,7 @@ import android.widget.Spinner;
 
 import com.google.android.material.button.MaterialButton;
 import com.smkn4bdg.jelita.R;
+import com.smkn4bdg.jelita.ui.pengepul.SpinnerPengepulAdapter;
 
 public class SetorActivity extends AppCompatActivity{
 
