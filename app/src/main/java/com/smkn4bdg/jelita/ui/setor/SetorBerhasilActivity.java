@@ -1,4 +1,4 @@
-package com.smkn4bdg.jelita;
+package com.smkn4bdg.jelita.ui.setor;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.button.MaterialButton;
+import com.smkn4bdg.jelita.R;
 import com.smkn4bdg.jelita.riwayat.RiwayatActivity;
 
 public class SetorBerhasilActivity extends AppCompatActivity {

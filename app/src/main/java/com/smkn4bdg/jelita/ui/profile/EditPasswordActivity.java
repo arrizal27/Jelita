@@ -1,4 +1,4 @@
-package com.smkn4bdg.jelita;
+package com.smkn4bdg.jelita.ui.profile;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,15 +7,17 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.button.MaterialButton;
+import com.smkn4bdg.jelita.R;
 
-public class EditProfileActivity extends AppCompatActivity {
-    MaterialButton simpan;
+public class EditPasswordActivity extends AppCompatActivity {
+
+    MaterialButton simpanPw;
     MaterialButton back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_profile);
+        setContentView(R.layout.activity_edit_password);
 
         findView();
 
@@ -25,10 +27,10 @@ public class EditProfileActivity extends AppCompatActivity {
                 finish();
             }
         });
-        simpan.setOnClickListener(new View.OnClickListener() {
+        simpanPw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(EditProfileActivity.this, EditSuccessActivity.class);
+                Intent i = new Intent(EditPasswordActivity.this, EditSuccessActivity.class);
                 startActivity(i);
                 finish();
             }
@@ -36,7 +38,7 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void findView(){
-        simpan = findViewById(R.id.btnsimpan);
+        simpanPw = findViewById(R.id.simpan_pw);
         back = findViewById(R.id.btnkembali);
     }
 }

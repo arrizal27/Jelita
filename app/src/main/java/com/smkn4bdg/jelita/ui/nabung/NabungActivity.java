@@ -1,4 +1,4 @@
-package com.smkn4bdg.jelita;
+package com.smkn4bdg.jelita.ui.nabung;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,7 +10,8 @@ import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.smkn4bdg.jelita.riwayat.RiwayatActivity;
+import com.smkn4bdg.jelita.R;
+import com.smkn4bdg.jelita.ui.setor.SetorActivity;
 
 public class NabungActivity extends AppCompatActivity {
     MaterialButton btnBack, btnTabung, btnSetor;

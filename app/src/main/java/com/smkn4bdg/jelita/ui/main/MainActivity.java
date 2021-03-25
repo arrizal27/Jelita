@@ -1,4 +1,4 @@
-package com.smkn4bdg.jelita;
+package com.smkn4bdg.jelita.ui.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,7 +11,10 @@ import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import com.smkn4bdg.jelita.R;
 import com.smkn4bdg.jelita.riwayat.RiwayatActivity;
+import com.smkn4bdg.jelita.ui.nabung.NabungActivity;
+import com.smkn4bdg.jelita.ui.profile.ProfileActivity;
 
 public class MainActivity extends AppCompatActivity {
     ImageView fotoProfil;

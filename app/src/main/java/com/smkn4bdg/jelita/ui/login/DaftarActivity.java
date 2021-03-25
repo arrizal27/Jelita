@@ -1,4 +1,4 @@
-package com.smkn4bdg.jelita;
+package com.smkn4bdg.jelita.ui.login;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,10 +23,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.smkn4bdg.jelita.LoginActivity;
 import com.smkn4bdg.jelita.Models.User;
 import com.smkn4bdg.jelita.R;
-import com.smkn4bdg.jelita.WelcomePageActivity;
+import com.smkn4bdg.jelita.ui.WelcomePageActivity;
 
 public class DaftarActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
