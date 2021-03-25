@@ -5,38 +5,50 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
-import com.google.android.material.button.MaterialButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.smkn4bdg.jelita.DaftarActivity;
 
 public class WelcomePageActivity extends AppCompatActivity {
-    MaterialButton daftar, login;
+    FirebaseAuth firebaseAuth;
+    Button btnLogin;
+    Button btnDaftar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_page);
-
         findView();
+        if (firebaseAuth.getCurrentUser() != null) {
+            // User is logged in
+            System.out.println("Email : " +firebaseAuth.getCurrentUser().getEmail());
+            btnLogin.setText("Masuk");
+            btnDaftar.setEnabled(false);
+            btnDaftar.setVisibility(View.INVISIBLE);
+        }
 
-        daftar.setOnClickListener(new View.OnClickListener() {
+        btnDaftar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(WelcomePageActivity.this, DaftarActivity.class);
-                startActivity(i);
+                Intent regis = new Intent(WelcomePageActivity.this, DaftarActivity.class);
+                startActivity(regis);
             }
         });
 
-        login.setOnClickListener(new View.OnClickListener() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(WelcomePageActivity.this, LoginActivity.class);
-                startActivity(i);
+                Intent login = new Intent(WelcomePageActivity.this, LoginActivity.class);
+                startActivity(login);
             }
         });
     }
 
     private void findView(){
-        daftar = findViewById(R.id.btndaftar);
-        login = findViewById(R.id.btnlogin);
+        btnLogin = findViewById(R.id.btnlogin);
+        btnDaftar = findViewById(R.id.btndaftar);
+        firebaseAuth = FirebaseAuth.getInstance();
     }
+
 }

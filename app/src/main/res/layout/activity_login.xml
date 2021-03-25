@@ -48,7 +48,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Username"
+                android:hint="Email"
                 android:backgroundTint="@android:color/transparent"
                 android:id="@+id/login_username"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -84,19 +84,28 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
-            android:layout_marginRight="40dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/button_pengepul_bg"
             android:src="@drawable/ic_back_arrow"
             android:text="test" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_masuk"
-            android:layout_width="match_parent"
+            android:layout_width="160dp"
             android:layout_height="60dp"
             android:text="Masuk"
             app:cornerRadius="12dp"/>
 
-    </LinearLayout>
+        <ImageButton
+            android:id="@+id/googlesignin"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:src="@drawable/common_google_signin_btn_icon_light"
+            android:text="test" />
 
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

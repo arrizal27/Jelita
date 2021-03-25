@@ -61,5 +61,9 @@ public class NabungActivity extends AppCompatActivity {
         String tambah = String.valueOf(txtJumlahMinyak.getText());
         Toast.makeText(this, "Tabungan minyak Anda bertambah " + tambah + " Liter", Toast.LENGTH_SHORT).show();
         txtJumlahMinyak.setText("");
+
+        progressBarMinyak.setMax(21);
+        progressBarMinyak.setProgress(20);
+
     }
 }
