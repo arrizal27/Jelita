@@ -1,4 +1,4 @@
-package com.smkn4bdg.jelita.ui.nabung;
+    package com.smkn4bdg.jelita.ui.nabung;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +11,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.FirebaseApp;
@@ -22,20 +24,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.smkn4bdg.jelita.R;
+import com.smkn4bdg.jelita.ui.main.MainActivity;
 import com.smkn4bdg.jelita.ui.setor.SetorActivity;
 
 public class NabungActivity extends AppCompatActivity {
     private DatabaseReference mdbUsers;
-    private FirebaseDatabase mfirebaseInstance;
+    private FirebaseDatabase reference;
     private FirebaseAuth mfirebaseauth;
     private FirebaseUser mUser;
     private final String TAG = this.getClass().getName().toUpperCase();
     MaterialButton btnBack, btnTabung, btnSetor;
-<<<<<<< HEAD
+
     TextView txtTabungan, txtMaksTabung;
-=======
     TextView tabunganMinyak, kapasitasMax;
->>>>>>> 0865077a590a68171f20366277e7f0b6f2353681
+
     TextInputEditText txtJumlahMinyak;
     ProgressBar progressBarMinyak;
 
@@ -43,8 +45,9 @@ public class NabungActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nabung);
-        initdata();
         findView();
+        initdata();
+
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,35 +74,35 @@ public class NabungActivity extends AppCompatActivity {
         });
     }
     private void initdata(){
-        //for read. and crud
-        // TODO: 25/03/2021 lanjutin crud tabungan minyak antisisapi error 
         FirebaseApp.initializeApp(this);
-        mfirebaseInstance = FirebaseDatabase.getInstance();
+        reference = FirebaseDatabase.getInstance();
         mUser = FirebaseAuth.getInstance().getCurrentUser();
-        mdbUsers = mfirebaseInstance.getReference();
+        mdbUsers = reference.getReference();
         mdbUsers.child("users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot mdata : snapshot.getChildren()){
-                    if (mdata.child("id").getValue().equals(mUser.getUid())){
-                        tabunganMinyak.setText(String.valueOf(mdata.child("jml_minyak").getValue() + " Liter"));
-                        progressBarMinyak.setProgress(Integer.valueOf(mdata.child("jml_minyak").getValue().toString()));
-                        if(mdata.child("role").getValue().toString().equals("Rumah Tangga")){
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    if (dataSnapshot.child("id").getValue().equals(mUser.getUid())){
+                        tabunganMinyak.setText(String.valueOf(dataSnapshot.child("jml_minyak").getValue() + " Liter"));
+                        progressBarMinyak.setProgress(Integer.valueOf(dataSnapshot.child("jml_minyak").getValue().toString()));
+
+                        if(dataSnapshot.child("role").getValue().toString().equals("Rumah Tangga")){
                             kapasitasMax.setText(Integer.valueOf(5) + " Liter");
                             progressBarMinyak.setMax(5);
                         }
-                        if (mdata.child("role").getValue().toString().equals("Pedagang")){
+                        if (dataSnapshot.child("role").getValue().toString().equals("Pedagang")){
                             kapasitasMax.setText(Integer.valueOf(10) + " Liter");
                             progressBarMinyak.setMax(10);
                         }
-                        if (mdata.child("role").getValue().toString().equals("Cafe dan Rumah Makan")){
+                        if (dataSnapshot.child("role").getValue().toString().equals("Cafe dan Rumah Makan")){
                             kapasitasMax.setText(Integer.valueOf(15) + " Liter");
                             progressBarMinyak.setMax(15);
                         }
-                        if (mdata.child("role").getValue().toString().equals("Hotel dan Penginapan")){
+                        if (dataSnapshot.child("role").getValue().toString().equals("Hotel dan Penginapan")){
                             kapasitasMax.setText(Integer.valueOf(20) + " Liter");
                             progressBarMinyak.setMax(20);
                         }
+                        break;
                     }
                 }
             }
@@ -123,12 +126,110 @@ public class NabungActivity extends AppCompatActivity {
     }
 
     private void nabungSuccess() {
-        String tambah = String.valueOf(txtJumlahMinyak.getText());
-        Toast.makeText(this, "Tabungan minyak Anda bertambah " + tambah + " Liter", Toast.LENGTH_SHORT).show();
-        txtJumlahMinyak.setText("");
 
-        progressBarMinyak.setMax(21);
-        progressBarMinyak.setProgress(20);
+        FirebaseApp.initializeApp(this);
+        reference = FirebaseDatabase.getInstance();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        mdbUsers = reference.getReference();
+
+        mdbUsers.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    if (dataSnapshot.child("id").getValue().equals(mUser.getUid())) {
+                        if (dataSnapshot.child("role").getValue().equals("Rumah Tangga")){
+                            if (Integer.parseInt(dataSnapshot.child("jml_minyak").getValue().toString()) == 5){
+                                btnTabung.setEnabled(false);
+                                Toast toast = Toast.makeText(getApplicationContext(), "Tabungan anda sudah penuh silahkan setor terlebih dahulu!!", Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+                            else {
+                                int tabung = Integer.valueOf(txtJumlahMinyak.getText().toString());
+                                int minyakAwal = Integer.valueOf(dataSnapshot.child("jml_minyak").getValue().toString());
+                                int hasilNabung = minyakAwal + tabung;
+                                System.out.println(hasilNabung);
+                                Toast toast = Toast.makeText(getApplicationContext(), "Tabungan Anda Bertambah " + tabung , Toast.LENGTH_SHORT);
+                                toast.show();
+                                mdbUsers.child("users").child(mUser.getUid()).child("jml_minyak").setValue(hasilNabung);
+                                Intent intent = new Intent(NabungActivity.this, MainActivity.class);
+                                startActivity(intent);
+
+                                break;
+                            }
+                        }
+                        if (dataSnapshot.child("role").getValue().equals("Pedagang")){
+                            if (Integer.parseInt(dataSnapshot.child("jml_minyak").getValue().toString()) == 10){
+                                btnTabung.setEnabled(false);
+                                Toast toast = Toast.makeText(getApplicationContext(), "Tabungan anda sudah penuh silahkan setor terlebih dahulu!!", Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+                            else {
+                                int tabung = Integer.valueOf(txtJumlahMinyak.getText().toString());
+                                int minyakAwal = Integer.valueOf(dataSnapshot.child("jml_minyak").getValue().toString());
+                                int hasilNabung = minyakAwal + tabung;
+                                System.out.println(hasilNabung);
+                                Toast toast = Toast.makeText(getApplicationContext(), "Tabungan Anda Bertambah " + tabung , Toast.LENGTH_SHORT);
+                                toast.show();
+                                mdbUsers.child("users").child(mUser.getUid()).child("jml_minyak").setValue(hasilNabung);
+                                Intent intent = new Intent(NabungActivity.this, MainActivity.class);
+                                startActivity(intent);
+
+                                break;
+                            }
+                        }
+                        if (dataSnapshot.child("role").getValue().equals("Cafe dan Rumah Makan")){
+                            if (Integer.parseInt(dataSnapshot.child("jml_minyak").getValue().toString()) == 15){
+                                btnTabung.setEnabled(false);
+                                Toast toast = Toast.makeText(getApplicationContext(), "Tabungan anda sudah penuh silahkan setor terlebih dahulu!!", Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+                            else {
+                                int tabung = Integer.valueOf(txtJumlahMinyak.getText().toString());
+                                int minyakAwal = Integer.valueOf(dataSnapshot.child("jml_minyak").getValue().toString());
+                                int hasilNabung = minyakAwal + tabung;
+                                System.out.println(hasilNabung);
+                                Toast toast = Toast.makeText(getApplicationContext(), "Tabungan Anda Bertambah " + tabung  , Toast.LENGTH_SHORT);
+                                toast.show();
+                                mdbUsers.child("users").child(mUser.getUid()).child("jml_minyak").setValue(hasilNabung);
+                                Intent intent = new Intent(NabungActivity.this, MainActivity.class);
+                                startActivity(intent);
+
+                                break;
+                            }
+                        }
+                        if (dataSnapshot.child("role").getValue().equals("Hotel dan Penginapan")){
+                            if (Integer.parseInt(dataSnapshot.child("jml_minyak").getValue().toString()) == 20){
+                                btnTabung.setEnabled(false);
+                                Toast toast = Toast.makeText(getApplicationContext(), "Tabungan anda sudah penuh silahkan setor terlebih dahulu!!", Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+                            else {
+                                int tabung = Integer.valueOf(txtJumlahMinyak.getText().toString());
+                                int minyakAwal = Integer.valueOf(dataSnapshot.child("jml_minyak").getValue().toString());
+                                int hasilNabung = minyakAwal + tabung;
+                                System.out.println(hasilNabung);
+                                Toast toast = Toast.makeText(getApplicationContext(), "Tabungan Anda Bertambah " + tabung , Toast.LENGTH_SHORT);
+                                toast.show();
+                                mdbUsers.child("users").child(mUser.getUid()).child("jml_minyak").setValue(hasilNabung);
+                                Intent intent = new Intent(NabungActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                break;
+                            }
+                        }
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
 
     }
+
+
 }
