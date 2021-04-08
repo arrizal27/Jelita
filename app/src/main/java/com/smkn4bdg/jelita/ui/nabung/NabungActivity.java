@@ -148,7 +148,7 @@ public class NabungActivity extends AppCompatActivity {
                                 int minyakAwal = Integer.valueOf(dataSnapshot.child("jml_minyak").getValue().toString());
                                 int hasilNabung = minyakAwal + tabung;
                                 System.out.println(hasilNabung);
-                                Toast toast = Toast.makeText(getApplicationContext(), "Tabungan Anda Bertambah " + tabung , Toast.LENGTH_SHORT);
+                                Toast toast = Toast.makeText(getApplicationContext(), "Tabungan Anda Bertambah " + tabung + " Liter" , Toast.LENGTH_SHORT);
                                 toast.show();
                                 mdbUsers.child("users").child(mUser.getUid()).child("jml_minyak").setValue(hasilNabung);
                                 Intent intent = new Intent(NabungActivity.this, MainActivity.class);
@@ -168,7 +168,7 @@ public class NabungActivity extends AppCompatActivity {
                                 int minyakAwal = Integer.valueOf(dataSnapshot.child("jml_minyak").getValue().toString());
                                 int hasilNabung = minyakAwal + tabung;
                                 System.out.println(hasilNabung);
-                                Toast toast = Toast.makeText(getApplicationContext(), "Tabungan Anda Bertambah " + tabung , Toast.LENGTH_SHORT);
+                                Toast toast = Toast.makeText(getApplicationContext(), "Tabungan Anda Bertambah " + tabung + " Liter" , Toast.LENGTH_SHORT);
                                 toast.show();
                                 mdbUsers.child("users").child(mUser.getUid()).child("jml_minyak").setValue(hasilNabung);
                                 Intent intent = new Intent(NabungActivity.this, MainActivity.class);
@@ -188,7 +188,7 @@ public class NabungActivity extends AppCompatActivity {
                                 int minyakAwal = Integer.valueOf(dataSnapshot.child("jml_minyak").getValue().toString());
                                 int hasilNabung = minyakAwal + tabung;
                                 System.out.println(hasilNabung);
-                                Toast toast = Toast.makeText(getApplicationContext(), "Tabungan Anda Bertambah " + tabung  , Toast.LENGTH_SHORT);
+                                Toast toast = Toast.makeText(getApplicationContext(), "Tabungan Anda Bertambah " + tabung + " Liter" , Toast.LENGTH_SHORT);
                                 toast.show();
                                 mdbUsers.child("users").child(mUser.getUid()).child("jml_minyak").setValue(hasilNabung);
                                 Intent intent = new Intent(NabungActivity.this, MainActivity.class);
@@ -208,7 +208,7 @@ public class NabungActivity extends AppCompatActivity {
                                 int minyakAwal = Integer.valueOf(dataSnapshot.child("jml_minyak").getValue().toString());
                                 int hasilNabung = minyakAwal + tabung;
                                 System.out.println(hasilNabung);
-                                Toast toast = Toast.makeText(getApplicationContext(), "Tabungan Anda Bertambah " + tabung , Toast.LENGTH_SHORT);
+                                Toast toast = Toast.makeText(getApplicationContext(), "Tabungan Anda Bertambah " + tabung + " Liter", Toast.LENGTH_SHORT);
                                 toast.show();
                                 mdbUsers.child("users").child(mUser.getUid()).child("jml_minyak").setValue(hasilNabung);
                                 Intent intent = new Intent(NabungActivity.this, MainActivity.class);
