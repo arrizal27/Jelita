@@ -1,9 +1,5 @@
 package com.smkn4bdg.jelita.ui.setor;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,6 +11,10 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,9 +30,12 @@ import com.smkn4bdg.jelita.Models.RequestSetorUser;
 import com.smkn4bdg.jelita.Models.SpinnerPengepul;
 import com.smkn4bdg.jelita.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-import java.util.Set;
+import java.util.Locale;
 
 public class SetorActivity extends AppCompatActivity{
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -159,6 +162,7 @@ public class SetorActivity extends AppCompatActivity{
         String no_telp_pengepul;
 
 
+
         listPengepul.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -178,7 +182,9 @@ public class SetorActivity extends AppCompatActivity{
         dbUser.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                Date c = Calendar.getInstance().getTime();
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+                String formatdate = sdf.format(c);
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     if (dataSnapshot.child("id").equals(mUser.getUid())){
                         dbUser.child("users").child(mUser.getUid()).child("jml_minyak").setValue(0);
@@ -186,13 +192,13 @@ public class SetorActivity extends AppCompatActivity{
                         String id_storeData = dbRequestSetorFinal.getKey();
                         String id_user = mUser.getUid();
                        String alamat_user = dataSnapshot.child("alamat").getValue().toString();
-                       String tanggal_setor = "hari ini";
+                       String tanggal_setor = formatdate;
                        String foto_bukti = "ini";
                        String jenis_pembayaran  = "bayar";
 
                        dbRequestSetorFinal = FirebaseDatabase.getInstance().getReference("requestSetorUser").child(id_user).child(id_storeData);
                        RequestSetorUser requestSetorUser1 = new RequestSetorUser(id_storeData,spinnerPengepul.getNama_pengepul(),spinnerPengepul.getNo_telp(),alamat_user,
-                               tanggal_setor,foto_bukti,jenis_pembayaran,true,false,false,false);
+                               tanggal_setor,foto_bukti,jenis_pembayaran,"",false,false,true,false);
                        System.out.println(requestSetorUser1);
                        dbRequestSetorFinal.setValue(requestSetorUser1);
                        
