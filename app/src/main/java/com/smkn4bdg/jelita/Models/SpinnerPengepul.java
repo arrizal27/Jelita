@@ -36,21 +36,26 @@ public class SpinnerPengepul {
         return nama_pengepul;
     }
 
-    public void setNama_pengepul(String nama_pengepul) {
+    public String setNama_pengepul(String nama_pengepul) {
         this.nama_pengepul = nama_pengepul;
+        return nama_pengepul;
     }
 
     public String getNo_telp() {
         return no_telp;
     }
 
-    public void setNo_telp(String no_telp) {
+    public String setNo_telp(String no_telp) {
         this.no_telp = no_telp;
+        return no_telp;
     }
+
 
     @Override
     public String toString() {
-        return nama_pengepul;
+        return nama_pengepul + no_telp;
+
+
 
     }
 }

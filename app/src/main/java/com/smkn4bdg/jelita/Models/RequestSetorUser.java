@@ -9,6 +9,7 @@ public class RequestSetorUser {
     private String foto_bukti;
     private String jenis_pembayaran;
     private String alasantolak;
+    private double total_uang;
     private boolean status_diterima;
     private boolean status_ditolak;
     private boolean status_pending;
@@ -18,7 +19,7 @@ public class RequestSetorUser {
 
     }
 
-    public RequestSetorUser(String id, String nama_pengepul, String no_telp_pengepul, String alamat_user, String tanggal_setor, String foto_bukti, String jenis_pembayaran, String alasantolak, boolean status_diterima, boolean status_ditolak, boolean status_pending, boolean status_selesai) {
+    public RequestSetorUser(String id, String nama_pengepul, String no_telp_pengepul, String alamat_user, String tanggal_setor, String foto_bukti, String jenis_pembayaran, String alasantolak, double total_uang, boolean status_diterima, boolean status_ditolak, boolean status_pending, boolean status_selesai) {
         this.id = id;
         this.nama_pengepul = nama_pengepul;
         this.no_telp_pengepul = no_telp_pengepul;
@@ -27,10 +28,19 @@ public class RequestSetorUser {
         this.foto_bukti = foto_bukti;
         this.jenis_pembayaran = jenis_pembayaran;
         this.alasantolak = alasantolak;
+        this.total_uang = total_uang;
         this.status_diterima = status_diterima;
         this.status_ditolak = status_ditolak;
         this.status_pending = status_pending;
         this.status_selesai = status_selesai;
+    }
+
+    public double getTotal_uang() {
+        return total_uang;
+    }
+
+    public void setTotal_uang(double total_uang) {
+        this.total_uang = total_uang;
     }
 
     public String getId() {

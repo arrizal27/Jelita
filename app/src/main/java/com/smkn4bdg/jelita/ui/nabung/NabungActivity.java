@@ -1,4 +1,4 @@
-    package com.smkn4bdg.jelita.ui.nabung;
+package com.smkn4bdg.jelita.ui.nabung;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -73,7 +73,8 @@ public class NabungActivity extends AppCompatActivity {
             }
         });
     }
-    private void initdata(){
+
+    private void initdata() {
         FirebaseApp.initializeApp(this);
         reference = FirebaseDatabase.getInstance();
         mUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -81,24 +82,24 @@ public class NabungActivity extends AppCompatActivity {
         mdbUsers.child("users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    if (dataSnapshot.child("id").getValue().equals(mUser.getUid())){
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    if (dataSnapshot.child("id").getValue().equals(mUser.getUid())) {
                         tabunganMinyak.setText(String.valueOf(dataSnapshot.child("jml_minyak").getValue() + " Liter"));
                         progressBarMinyak.setProgress(Integer.valueOf(dataSnapshot.child("jml_minyak").getValue().toString()));
 
-                        if(dataSnapshot.child("role").getValue().toString().equals("Rumah Tangga")){
+                        if (dataSnapshot.child("role").getValue().toString().equals("Rumah Tangga")) {
                             kapasitasMax.setText(Integer.valueOf(5) + " Liter");
                             progressBarMinyak.setMax(5);
                         }
-                        if (dataSnapshot.child("role").getValue().toString().equals("Pedagang")){
+                        if (dataSnapshot.child("role").getValue().toString().equals("Pedagang")) {
                             kapasitasMax.setText(Integer.valueOf(10) + " Liter");
                             progressBarMinyak.setMax(10);
                         }
-                        if (dataSnapshot.child("role").getValue().toString().equals("Cafe dan Rumah Makan")){
+                        if (dataSnapshot.child("role").getValue().toString().equals("Cafe dan Rumah Makan")) {
                             kapasitasMax.setText(Integer.valueOf(15) + " Liter");
                             progressBarMinyak.setMax(15);
                         }
-                        if (dataSnapshot.child("role").getValue().toString().equals("Hotel dan Penginapan")){
+                        if (dataSnapshot.child("role").getValue().toString().equals("Hotel dan Penginapan")) {
                             kapasitasMax.setText(Integer.valueOf(20) + " Liter");
                             progressBarMinyak.setMax(20);
                         }
@@ -115,7 +116,7 @@ public class NabungActivity extends AppCompatActivity {
         });
     }
 
-    private void findView(){
+    private void findView() {
         btnBack = findViewById(R.id.btn_back);
         btnTabung = findViewById(R.id.btn_tambah_minyak);
         btnSetor = findViewById(R.id.btn_setor);
@@ -137,18 +138,17 @@ public class NabungActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     if (dataSnapshot.child("id").getValue().equals(mUser.getUid())) {
-                        if (dataSnapshot.child("role").getValue().equals("Rumah Tangga")){
-                            if (Integer.parseInt(dataSnapshot.child("jml_minyak").getValue().toString()) == 5){
+                        if (dataSnapshot.child("role").getValue().equals("Rumah Tangga")) {
+                            if (Integer.parseInt(dataSnapshot.child("jml_minyak").getValue().toString()) == 5) {
                                 btnTabung.setEnabled(false);
                                 Toast toast = Toast.makeText(getApplicationContext(), "Tabungan anda sudah penuh silahkan setor terlebih dahulu!!", Toast.LENGTH_SHORT);
                                 toast.show();
-                            }
-                            else {
+                            } else {
                                 int tabung = Integer.valueOf(txtJumlahMinyak.getText().toString());
                                 int minyakAwal = Integer.valueOf(dataSnapshot.child("jml_minyak").getValue().toString());
                                 int hasilNabung = minyakAwal + tabung;
                                 System.out.println(hasilNabung);
-                                Toast toast = Toast.makeText(getApplicationContext(), "Tabungan Anda Bertambah " + tabung + " Liter" , Toast.LENGTH_SHORT);
+                                Toast toast = Toast.makeText(getApplicationContext(), "Tabungan Anda Bertambah " + tabung + " Liter", Toast.LENGTH_SHORT);
                                 toast.show();
                                 mdbUsers.child("users").child(mUser.getUid()).child("jml_minyak").setValue(hasilNabung);
                                 Intent intent = new Intent(NabungActivity.this, MainActivity.class);
@@ -157,18 +157,17 @@ public class NabungActivity extends AppCompatActivity {
                                 break;
                             }
                         }
-                        if (dataSnapshot.child("role").getValue().equals("Pedagang")){
-                            if (Integer.parseInt(dataSnapshot.child("jml_minyak").getValue().toString()) == 10){
+                        if (dataSnapshot.child("role").getValue().equals("Pedagang")) {
+                            if (Integer.parseInt(dataSnapshot.child("jml_minyak").getValue().toString()) == 10) {
                                 btnTabung.setEnabled(false);
                                 Toast toast = Toast.makeText(getApplicationContext(), "Tabungan anda sudah penuh silahkan setor terlebih dahulu!!", Toast.LENGTH_SHORT);
                                 toast.show();
-                            }
-                            else {
+                            } else {
                                 int tabung = Integer.valueOf(txtJumlahMinyak.getText().toString());
                                 int minyakAwal = Integer.valueOf(dataSnapshot.child("jml_minyak").getValue().toString());
                                 int hasilNabung = minyakAwal + tabung;
                                 System.out.println(hasilNabung);
-                                Toast toast = Toast.makeText(getApplicationContext(), "Tabungan Anda Bertambah " + tabung + " Liter" , Toast.LENGTH_SHORT);
+                                Toast toast = Toast.makeText(getApplicationContext(), "Tabungan Anda Bertambah " + tabung + " Liter", Toast.LENGTH_SHORT);
                                 toast.show();
                                 mdbUsers.child("users").child(mUser.getUid()).child("jml_minyak").setValue(hasilNabung);
                                 Intent intent = new Intent(NabungActivity.this, MainActivity.class);
@@ -177,18 +176,17 @@ public class NabungActivity extends AppCompatActivity {
                                 break;
                             }
                         }
-                        if (dataSnapshot.child("role").getValue().equals("Cafe dan Rumah Makan")){
-                            if (Integer.parseInt(dataSnapshot.child("jml_minyak").getValue().toString()) == 15){
+                        if (dataSnapshot.child("role").getValue().equals("Cafe dan Rumah Makan")) {
+                            if (Integer.parseInt(dataSnapshot.child("jml_minyak").getValue().toString()) == 15) {
                                 btnTabung.setEnabled(false);
                                 Toast toast = Toast.makeText(getApplicationContext(), "Tabungan anda sudah penuh silahkan setor terlebih dahulu!!", Toast.LENGTH_SHORT);
                                 toast.show();
-                            }
-                            else {
+                            } else {
                                 int tabung = Integer.valueOf(txtJumlahMinyak.getText().toString());
                                 int minyakAwal = Integer.valueOf(dataSnapshot.child("jml_minyak").getValue().toString());
                                 int hasilNabung = minyakAwal + tabung;
                                 System.out.println(hasilNabung);
-                                Toast toast = Toast.makeText(getApplicationContext(), "Tabungan Anda Bertambah " + tabung + " Liter" , Toast.LENGTH_SHORT);
+                                Toast toast = Toast.makeText(getApplicationContext(), "Tabungan Anda Bertambah " + tabung + " Liter", Toast.LENGTH_SHORT);
                                 toast.show();
                                 mdbUsers.child("users").child(mUser.getUid()).child("jml_minyak").setValue(hasilNabung);
                                 Intent intent = new Intent(NabungActivity.this, MainActivity.class);
@@ -197,13 +195,12 @@ public class NabungActivity extends AppCompatActivity {
                                 break;
                             }
                         }
-                        if (dataSnapshot.child("role").getValue().equals("Hotel dan Penginapan")){
-                            if (Integer.parseInt(dataSnapshot.child("jml_minyak").getValue().toString()) == 20){
+                        if (dataSnapshot.child("role").getValue().equals("Hotel dan Penginapan")) {
+                            if (Integer.parseInt(dataSnapshot.child("jml_minyak").getValue().toString()) == 20) {
                                 btnTabung.setEnabled(false);
                                 Toast toast = Toast.makeText(getApplicationContext(), "Tabungan anda sudah penuh silahkan setor terlebih dahulu!!", Toast.LENGTH_SHORT);
                                 toast.show();
-                            }
-                            else {
+                            } else {
                                 int tabung = Integer.valueOf(txtJumlahMinyak.getText().toString());
                                 int minyakAwal = Integer.valueOf(dataSnapshot.child("jml_minyak").getValue().toString());
                                 int hasilNabung = minyakAwal + tabung;
@@ -226,7 +223,6 @@ public class NabungActivity extends AppCompatActivity {
 
             }
         });
-
 
 
     }
