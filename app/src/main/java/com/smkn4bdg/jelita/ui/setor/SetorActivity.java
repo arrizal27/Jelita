@@ -116,7 +116,7 @@ public class SetorActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 2 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
             imageUri = data.getData();
             fotoBukti.setImageURI(imageUri);
         }
@@ -157,6 +157,8 @@ public class SetorActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Uri uri) {
 
+                        String image = uri.toString();
+
                         dbUser.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -165,6 +167,7 @@ public class SetorActivity extends AppCompatActivity {
                                 String formatdate = sdf.format(c);
                                 String nama_pul = spinnerPengepulNama.setNama_pengepul(listPengepul.getSelectedItem().toString());
                                 String nomor_pul = spinnerPengepulNoTelp.setNo_telp(listPengepul.getSelectedItem().toString());
+                                String metode_bayar = listMetodeBayar.getSelectedItem().toString();
                                 double total_uang = 0;
 
                                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
@@ -175,8 +178,8 @@ public class SetorActivity extends AppCompatActivity {
                                     String tanggal_setor = formatdate;
                                     String nama_pengepul = nama_pul;
                                     String nomor_pengepul = nomor_pul;
-                                    String foto_bukti = imageUri.toString();
-                                    String jenis_pembayaran = "bayar";
+                                    String foto_bukti = image;
+                                    String jenis_pembayaran = metode_bayar;
                                     String alasan_tolak = "Gk papa";
                                     if (dataSnapshot.child("id").getValue().equals(mUser.getUid())) {
                                         if (dataSnapshot.child("role").getValue().toString().equals("Rumah Tangga")) {
@@ -264,6 +267,12 @@ public class SetorActivity extends AppCompatActivity {
 
             }
         });
+
+        String[] metode_bayar = {"Bayar Langsung", "Credit"};
+
+        ArrayAdapter<String> metodeAdapter = new ArrayAdapter<String>(SetorActivity.this, android.R.layout.simple_spinner_item,metode_bayar);
+        metodeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        listMetodeBayar.setAdapter(metodeAdapter);
     }
 
     private String getFileExtension(Uri uri) {
