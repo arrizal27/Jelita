@@ -46,7 +46,7 @@ public class DiterimaFragment extends Fragment {
     private void getdata(){
         FirebaseUser auth = FirebaseAuth.getInstance().getCurrentUser();
         String id = auth.getUid();
-        Query q = FirebaseDatabase.getInstance().getReference("requestSetorUser").child(id).orderByChild("status_diterima").equalTo(true);
+        Query q = FirebaseDatabase.getInstance().getReference("requestSetorUser").child(id).orderByChild("status").equalTo("Diterima");
         q.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

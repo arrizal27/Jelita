@@ -11,13 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.smkn4bdg.jelita.Models.RequestSetorUser;
 import com.smkn4bdg.jelita.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class DiterimaAdapter extends RecyclerView.Adapter<DiterimaAdapter.DiterimaViewHolder> {
     private ArrayList<RequestSetorUser> dataSetor;
 
-    public DiterimaAdapter(ArrayList<RequestSetorUser> dataSetor){
+    public DiterimaAdapter(ArrayList<RequestSetorUser> dataSetor) {
         this.dataSetor = dataSetor;
     }
 
@@ -31,6 +32,7 @@ public class DiterimaAdapter extends RecyclerView.Adapter<DiterimaAdapter.Diteri
     @Override
     public void onBindViewHolder(@NonNull DiterimaViewHolder holder, int position) {
         RequestSetorUser requestSetorUser = dataSetor.get(position);
+        Picasso.get().load(requestSetorUser.getFoto_bukti()).into(holder.ivbukti);
         holder.tvpengepul.setText(requestSetorUser.getNama_pengepul());
         holder.tvtelepon.setText(requestSetorUser.getNo_telp_pengepul());
         holder.tvalamat.setText(requestSetorUser.getAlamat_user());
@@ -58,6 +60,7 @@ public class DiterimaAdapter extends RecyclerView.Adapter<DiterimaAdapter.Diteri
             tvjenispembayaran = itemView.findViewById(R.id.txt_jenis_bayar);
             tvstatus = itemView.findViewById(R.id.txt_status);
             tvalasan = itemView.findViewById(R.id.txt_alasan);
+            ivbukti = itemView.findViewById(R.id.foto_bukti);
 
 
         }

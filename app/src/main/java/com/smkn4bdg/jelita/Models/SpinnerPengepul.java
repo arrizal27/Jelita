@@ -53,9 +53,12 @@ public class SpinnerPengepul {
 
     @Override
     public String toString() {
-        return nama_pengepul + no_telp;
-
-
-
+        return nama_pengepul;
+    }
+    public String noString(){
+        return no_telp;
+    }
+    public String beString(){
+        return id_pengepul;
     }
 }

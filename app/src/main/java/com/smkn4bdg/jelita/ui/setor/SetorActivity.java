@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -57,8 +58,9 @@ public class SetorActivity extends AppCompatActivity {
     StorageReference storageReference;
     private Uri imageUri;
     FirebaseUser mUser;
+    TextView id_picker,no_picker;
 
-
+    String id_pul, no_pul, alamat_pul;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,7 +118,7 @@ public class SetorActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 2 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
             imageUri = data.getData();
             fotoBukti.setImageURI(imageUri);
         }
@@ -157,6 +159,8 @@ public class SetorActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Uri uri) {
 
+                        String image = uri.toString();
+
                         dbUser.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -164,20 +168,26 @@ public class SetorActivity extends AppCompatActivity {
                                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
                                 String formatdate = sdf.format(c);
                                 String nama_pul = spinnerPengepulNama.setNama_pengepul(listPengepul.getSelectedItem().toString());
-                                String nomor_pul = spinnerPengepulNoTelp.setNo_telp(listPengepul.getSelectedItem().toString());
+                                String nomor_pul = "08888121212";
+                                String metode_bayar = listMetodeBayar.getSelectedItem().toString();
                                 double total_uang = 0;
 
                                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                                     dbUser.child(mUser.getUid()).child("jml_minyak").setValue(0);
                                     String id_storeData = dbRequestSetorFinal.getKey();
                                     String id_user = mUser.getUid();
+                                    String nama_user = dataSnapshot.child("nama").getValue().toString();
                                     String alamat_user = dataSnapshot.child("alamat").getValue().toString();
                                     String tanggal_setor = formatdate;
                                     String nama_pengepul = nama_pul;
-                                    String nomor_pengepul = nomor_pul;
-                                    String foto_bukti = imageUri.toString();
-                                    String jenis_pembayaran = "bayar";
+                                    getPengepul(nama_pengepul);
+                                    String id_pengepul = id_pul;
+                                    System.out.println("SESESESE "+id_pengepul);;
+                                    String nomor_pengepul = no_pul;
+                                    String foto_bukti = image;
+                                    String jenis_pembayaran = metode_bayar;
                                     String alasan_tolak = "Gk papa";
+                                    String status = "Pending";
                                     if (dataSnapshot.child("id").getValue().equals(mUser.getUid())) {
                                         if (dataSnapshot.child("role").getValue().toString().equals("Rumah Tangga")) {
                                             total_uang = 15000;
@@ -195,8 +205,8 @@ public class SetorActivity extends AppCompatActivity {
 
 
                                     dbRequestSetorFinal = FirebaseDatabase.getInstance().getReference("requestSetorUser").child(id_user).child(id_storeData);
-                                    RequestSetorUser requestSetorUser1 = new RequestSetorUser(id_storeData, nama_pengepul, nomor_pengepul, alamat_user,
-                                            tanggal_setor, foto_bukti, jenis_pembayaran, alasan_tolak, total_uang, false, false, true, false);
+                                    RequestSetorUser requestSetorUser1 = new RequestSetorUser(id_storeData,nama_user,id_pengepul, nama_pengepul, nomor_pengepul, alamat_user,
+                                            tanggal_setor, foto_bukti, jenis_pembayaran, alasan_tolak, total_uang,status);
                                     System.out.println(requestSetorUser1);
                                     dbRequestSetorFinal.setValue(requestSetorUser1);
 
@@ -229,10 +239,29 @@ public class SetorActivity extends AppCompatActivity {
         btnUpload = findViewById(R.id.upload_foto);
         btnBack = findViewById(R.id.btn_back);
         btnSetorNow = findViewById(R.id.btn_setor_now);
+        id_picker = findViewById(R.id.id_picker);
+        no_picker = findViewById(R.id.no_telp_pengepul);
     }
 
+    private void  getPengepul(String nama_pengepul){
+        dbPengepul.orderByChild("nama").equalTo(nama_pengepul).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    id_pul = dataSnapshot.child("nama").getValue().toString();
+                    no_pul = dataSnapshot.child("no_telp").getValue().toString();
+                    alamat_pul = dataSnapshot.child("alamat").getValue().toString();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
     private void fetchData() {
-        dbPengepul.addValueEventListener(new ValueEventListener() {
+        dbPengepul.orderByChild("kecamatan").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -264,6 +293,12 @@ public class SetorActivity extends AppCompatActivity {
 
             }
         });
+
+        String[] metode_bayar = {"Bayar Langsung", "Credit"};
+
+        ArrayAdapter<String> metodeAdapter = new ArrayAdapter<String>(SetorActivity.this, android.R.layout.simple_spinner_item,metode_bayar);
+        metodeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        listMetodeBayar.setAdapter(metodeAdapter);
     }
 
     private String getFileExtension(Uri uri) {
