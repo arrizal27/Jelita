@@ -2,6 +2,8 @@ package com.smkn4bdg.jelita.Models;
 
 public class RequestSetorUser {
     private String id;
+    private String nama_user;
+    private String id_pengepul;
     private String nama_pengepul;
     private String no_telp_pengepul;
     private String alamat_user;
@@ -9,17 +11,17 @@ public class RequestSetorUser {
     private String foto_bukti;
     private String jenis_pembayaran;
     private String alasantolak;
-    private boolean status_diterima;
-    private boolean status_ditolak;
-    private boolean status_pending;
-    private boolean status_selesai;
+    private String status;
+    private String id_pengepul_status;
 
     public RequestSetorUser(){
 
     }
 
-    public RequestSetorUser(String id, String nama_pengepul, String no_telp_pengepul, String alamat_user, String tanggal_setor, String foto_bukti, String jenis_pembayaran, String alasantolak, boolean status_diterima, boolean status_ditolak, boolean status_pending, boolean status_selesai) {
+    public RequestSetorUser(String id, String nama_user, String id_pengepul, String nama_pengepul, String no_telp_pengepul, String alamat_user, String tanggal_setor, String foto_bukti, String jenis_pembayaran, String alasantolak, String status, String id_pengepul_status) {
         this.id = id;
+        this.nama_user = nama_user;
+        this.id_pengepul = id_pengepul;
         this.nama_pengepul = nama_pengepul;
         this.no_telp_pengepul = no_telp_pengepul;
         this.alamat_user = alamat_user;
@@ -27,10 +29,8 @@ public class RequestSetorUser {
         this.foto_bukti = foto_bukti;
         this.jenis_pembayaran = jenis_pembayaran;
         this.alasantolak = alasantolak;
-        this.status_diterima = status_diterima;
-        this.status_ditolak = status_ditolak;
-        this.status_pending = status_pending;
-        this.status_selesai = status_selesai;
+        this.status = status;
+        this.id_pengepul_status = id_pengepul_status;
     }
 
     public String getId() {
@@ -39,6 +39,22 @@ public class RequestSetorUser {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getNama_user() {
+        return nama_user;
+    }
+
+    public void setNama_user(String nama_user) {
+        this.nama_user = nama_user;
+    }
+
+    public String getId_pengepul() {
+        return id_pengepul;
+    }
+
+    public void setId_pengepul(String id_pengepul) {
+        this.id_pengepul = id_pengepul;
     }
 
     public String getNama_pengepul() {
@@ -97,35 +113,19 @@ public class RequestSetorUser {
         this.alasantolak = alasantolak;
     }
 
-    public boolean isStatus_diterima() {
-        return status_diterima;
+    public String getStatus() {
+        return status;
     }
 
-    public void setStatus_diterima(boolean status_diterima) {
-        this.status_diterima = status_diterima;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public boolean isStatus_ditolak() {
-        return status_ditolak;
+    public String getId_pengepul_status() {
+        return id_pengepul_status;
     }
 
-    public void setStatus_ditolak(boolean status_ditolak) {
-        this.status_ditolak = status_ditolak;
-    }
-
-    public boolean isStatus_pending() {
-        return status_pending;
-    }
-
-    public void setStatus_pending(boolean status_pending) {
-        this.status_pending = status_pending;
-    }
-
-    public boolean isStatus_selesai() {
-        return status_selesai;
-    }
-
-    public void setStatus_selesai(boolean status_selesai) {
-        this.status_selesai = status_selesai;
+    public void setId_pengepul_status(String id_pengepul_status) {
+        this.id_pengepul_status = id_pengepul_status;
     }
 }

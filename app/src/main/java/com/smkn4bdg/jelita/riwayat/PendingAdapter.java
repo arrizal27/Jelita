@@ -51,7 +51,7 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingV
         ImageView ivbukti;
         public PendingViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvpengepul = itemView.findViewById(R.id.txt_notelp);
+            tvpengepul = itemView.findViewById(R.id.txt_pengepul);
             tvtelepon = itemView.findViewById(R.id.txt_notelp);
             tvalamat = itemView.findViewById(R.id.txt_alamat);
             tvtanggalsetor = itemView.findViewById(R.id.txt_tgl_setor);

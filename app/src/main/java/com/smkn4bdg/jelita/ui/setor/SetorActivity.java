@@ -160,8 +160,7 @@ public class SetorActivity extends AppCompatActivity{
 
         String nama_pengepul;
         String no_telp_pengepul;
-
-
+        String status = "Pending";
 
         listPengepul.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -197,8 +196,8 @@ public class SetorActivity extends AppCompatActivity{
                        String jenis_pembayaran  = "bayar";
 
                        dbRequestSetorFinal = FirebaseDatabase.getInstance().getReference("requestSetorUser").child(id_user).child(id_storeData);
-                       RequestSetorUser requestSetorUser1 = new RequestSetorUser(id_storeData,spinnerPengepul.getNama_pengepul(),spinnerPengepul.getNo_telp(),alamat_user,
-                               tanggal_setor,foto_bukti,jenis_pembayaran,"",false,false,true,false);
+                       RequestSetorUser requestSetorUser1 = new RequestSetorUser(id_storeData,mUser.getDisplayName(),spinnerPengepul.getId_pengepul(),spinnerPengepul.getNama_pengepul(),spinnerPengepul.getNo_telp(),alamat_user,
+                               tanggal_setor,foto_bukti,jenis_pembayaran,"",status,spinnerPengepul.getId_pengepul()+"_"+status);
                        System.out.println(requestSetorUser1);
                        dbRequestSetorFinal.setValue(requestSetorUser1);
                        
