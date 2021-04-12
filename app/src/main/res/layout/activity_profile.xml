@@ -5,7 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ic_background_profil"
+<<<<<<< HEAD
     tools:context=".Profile">
+=======
+    tools:context=".ui.profile.ProfileActivity">
+>>>>>>> 838e6274763c7c7ed78d960c26fb528a6664aceb
 
     <RelativeLayout
         android:id="@+id/topprofile"
@@ -18,7 +22,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.card.MaterialCardView
+<<<<<<< HEAD
             android:id="@+id/btn_help"
+=======
+            android:id="@+id/btn_logout"
+>>>>>>> 838e6274763c7c7ed78d960c26fb528a6664aceb
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -39,7 +47,7 @@
                     />
 
                 <TextView
-                    android:id="@+id/btn_logout"
+                    android:id="@+id/txt_logout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
@@ -48,6 +56,7 @@
                     android:textSize="12sp"
                     android:textColor="@color/yellow_dark" />
             </LinearLayout>
+
         </com.google.android.material.card.MaterialCardView>
     </RelativeLayout>
 

@@ -4,8 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
     tools:context=".DaftarActivity"
     android:padding="15dp"
+=======
+    tools:context=".ui.login.DaftarActivity"
+    android:padding="16dp"
+>>>>>>> 838e6274763c7c7ed78d960c26fb528a6664aceb
     android:background="@drawable/ic_backgroung_putih">
 
     <LinearLayout
@@ -37,12 +42,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_marginTop="192dp"
+<<<<<<< HEAD
+=======
         android:orientation="vertical"
-        app:layout_constraintHorizontal_bias="1.0"
+>>>>>>> 838e6274763c7c7ed78d960c26fb528a6664aceb
+        android:layout_margin="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+<<<<<<< HEAD
         app:layout_constraintTop_toBottomOf="@id/top">
 
         <TextView
@@ -81,10 +88,65 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/yellow" />
+=======
+        app:layout_constraintTop_toBottomOf="@id/top"
+        app:layout_constraintBottom_toTopOf="@id/grupbtndaftar">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Nama"
+                android:backgroundTint="@android:color/transparent"
+                android:id="@+id/txt_nama"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Username"
+                android:backgroundTint="@android:color/transparent"
+                android:id="@+id/txt_username"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:endIconMode="password_toggle"
+            android:layout_marginTop="16dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:backgroundTint="@android:color/transparent"
+                android:id="@+id/txt_password"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Nomor Telepon"
+                android:backgroundTint="@android:color/transparent"
+                android:id="@+id/txt_telp"
+                android:inputType="phone"/>
+        </com.google.android.material.textfield.TextInputLayout>
+>>>>>>> 838e6274763c7c7ed78d960c26fb528a6664aceb
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+<<<<<<< HEAD
             android:text="Email"
             android:textColor="@color/yellow" />
 
@@ -100,13 +162,22 @@
             android:layout_height="wrap_content"
             android:text="Role"
             android:textColor="@color/yellow" />
+=======
+            android:textColor="@color/yellow_dark"
+            android:text="Role"
+            android:layout_marginTop="16dp"/>
+>>>>>>> 838e6274763c7c7ed78d960c26fb528a6664aceb
 
         <Spinner
             android:id="@+id/txt_role"
             android:layout_width="match_parent"
+<<<<<<< HEAD
             android:layout_height="50dp"
             android:backgroundTint="@color/yellow"
             android:entries="@array/roles"/>
+=======
+            android:layout_height="50dp"/>
+>>>>>>> 838e6274763c7c7ed78d960c26fb528a6664aceb
 
     </LinearLayout>
 
@@ -121,6 +192,7 @@
 
         <FrameLayout
             android:id="@+id/back_daftar"
+<<<<<<< HEAD
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -136,6 +208,14 @@
                 android:src="@drawable/ic_back_arrow"
                 android:text="test" />
         </FrameLayout>
+=======
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="40dp"
+            android:background="@drawable/button_pengepul_bg"
+            android:src="@drawable/ic_back_arrow"/>
+>>>>>>> 838e6274763c7c7ed78d960c26fb528a6664aceb
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_daftar"

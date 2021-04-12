@@ -1,4 +1,7 @@
-package com.smkn4bdg.jelita;
+package com.smkn4bdg.jelita.ui.login;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,9 +14,6 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -24,6 +24,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.smkn4bdg.jelita.Models.User;
+import com.smkn4bdg.jelita.R;
+import com.smkn4bdg.jelita.ui.WelcomePageActivity;
 
 public class DaftarActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
@@ -51,7 +53,7 @@ public class DaftarActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent back = new Intent(DaftarActivity.this, WelcomePage.class);
+                Intent back = new Intent(DaftarActivity.this, WelcomePageActivity.class);
                 startActivity(back);
                 finish();
             }
@@ -62,11 +64,11 @@ public class DaftarActivity extends AppCompatActivity {
     private void findView(){
         nama = findViewById(R.id.txt_nama);
         username = findViewById(R.id.txt_username);
-        pass = findViewById(R.id.txt_pass);
-        emailhp = findViewById(R.id.txt_email_hp);
-        role = findViewById(R.id.txt_role);
+        pass = findViewById(R.id.txt_password);
+        emailhp = findViewById(R.id.txt_telp);
+        role = findViewById(R.id.dropdown_role);
         btndaftar = findViewById(R.id.btn_daftar);
-        back = findViewById(R.id.btn_kembali);
+        back = findViewById(R.id.back_daftar);
 
         dbUsers = FirebaseDatabase.getInstance().getReference("users");
         firebaseAuth = FirebaseAuth.getInstance();

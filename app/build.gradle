@@ -34,16 +34,27 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.android.application'
 
 dependencies {
+<<<<<<< HEAD
     implementation 'com.android.support:multidex:1.0.3'
+=======
+>>>>>>> 838e6274763c7c7ed78d960c26fb528a6664aceb
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
+    implementation 'com.android.support:multidex:1.0.3'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+<<<<<<< HEAD
+=======
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+>>>>>>> 838e6274763c7c7ed78d960c26fb528a6664aceb
 
     //Library Firebase
     implementation 'com.google.firebase:firebase-analytics:18.0.2'
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
     implementation 'com.google.firebase:firebase-database:19.7.0'
     implementation 'com.google.firebase:firebase-auth:20.0.3'
     implementation 'com.google.firebase:firebase-storage:19.2.1'

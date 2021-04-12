@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NabungActivity"
+    tools:context=".ui.nabung.NabungActivity"
     android:background="@drawable/ic_background_orange">
 
     <TextView
@@ -101,7 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:max="15"
-            android:progress="5"
+            android:progress="1"
             android:scaleY="2"
             android:layout_marginTop="16dp"
             android:progressTint="@color/yellow_dark"
