@@ -5,11 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ic_background_profil"
-<<<<<<< HEAD
-    tools:context=".Profile">
-=======
     tools:context=".ui.profile.ProfileActivity">
->>>>>>> 838e6274763c7c7ed78d960c26fb528a6664aceb
 
     <RelativeLayout
         android:id="@+id/topprofile"
@@ -22,11 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.card.MaterialCardView
-<<<<<<< HEAD
-            android:id="@+id/btn_help"
-=======
             android:id="@+id/btn_logout"
->>>>>>> 838e6274763c7c7ed78d960c26fb528a6664aceb
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -167,6 +159,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/btn_edit_pw"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
@@ -193,4 +186,33 @@
             android:textColor="@color/grey" />
     </LinearLayout>
 
+    <RelativeLayout
+        android:id="@+id/botprofile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="?attr/actionBarSize"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_back"
+            app:icon="@drawable/ic_baseline_arrow_back_24"
+            app:iconTint="@color/yellow_dark"
+            app:backgroundTint="@android:color/transparent"
+            android:text="Kembali"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_alignParentLeft="true"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_edit"
+            app:icon="@drawable/ic_baseline_edit_24"
+            android:text="Ubah Profil"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

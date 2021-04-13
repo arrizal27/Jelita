@@ -46,12 +46,12 @@
         app:layout_constraintBottom_toTopOf="@id/layoutbtndaftarberhasil"
         android:gravity="center_vertical">
 
-    <ImageView
-        android:id="@+id/middle"
-        android:layout_width="match_parent"
-        android:layout_height="380dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/ic_daftar_success" />
+        <ImageView
+            android:id="@+id/middle"
+            android:layout_width="match_parent"
+            android:layout_height="380dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_daftar_success" />
     </LinearLayout>
 
     <LinearLayout
@@ -64,14 +64,14 @@
         android:layout_marginLeft="30dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_daftar_berhasil"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:elevation="20dp"
-        android:layout_marginTop="40dp"
-        android:text="Ke Halaman Utama"
-        app:cornerRadius="12dp" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_daftar_berhasil"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:elevation="20dp"
+            android:layout_marginTop="40dp"
+            android:text="Ke Halaman Utama"
+            app:cornerRadius="12dp" />
 
     </LinearLayout>
 

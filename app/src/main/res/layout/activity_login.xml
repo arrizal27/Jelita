@@ -10,7 +10,7 @@
         android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="?attr/actionBarSize"
         android:orientation="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -28,7 +28,7 @@
             android:textStyle="bold"
             android:textColor="@color/black"
             android:text="Login"
-            android:textSize="36dp"/>
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"/>
 
     </LinearLayout>
 
@@ -42,26 +42,6 @@
         android:orientation="vertical"
         android:gravity="center_vertical">
 
-<<<<<<< HEAD
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Email"
-            android:textColor="@color/yellow" />
-
-        <EditText
-            android:id="@+id/txt_username"
-            android:inputType="textEmailAddress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/yellow" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Password"
-            android:textColor="@color/yellow" />
-=======
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -72,22 +52,10 @@
                 android:backgroundTint="@android:color/transparent"
                 android:id="@+id/login_username"/>
         </com.google.android.material.textfield.TextInputLayout>
->>>>>>> 838e6274763c7c7ed78d960c26fb528a6664aceb
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-<<<<<<< HEAD
-            app:passwordToggleEnabled="true">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txt_password"
-                android:inputType="textPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#fff"
-                />
-=======
             android:layout_marginTop="24dp"
             app:endIconMode="password_toggle">
             <com.google.android.material.textfield.TextInputEditText
@@ -97,7 +65,6 @@
                 android:backgroundTint="@android:color/transparent"
                 android:id="@+id/login_password"
                 android:inputType="textPassword"/>
->>>>>>> 838e6274763c7c7ed78d960c26fb528a6664aceb
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
@@ -122,18 +89,13 @@
             android:src="@drawable/ic_back_arrow"
             android:text="test" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_masuk"
-<<<<<<< HEAD
-            android:layout_width="180dp"
-            android:layout_height="70dp"
-=======
             android:layout_width="160dp"
             android:layout_height="60dp"
             android:layout_weight="1"
->>>>>>> 838e6274763c7c7ed78d960c26fb528a6664aceb
             android:text="Masuk"
-            android:textStyle="bold" />
+            app:cornerRadius="12dp"/>
 
         <ImageButton
             android:id="@+id/googlesignin"
