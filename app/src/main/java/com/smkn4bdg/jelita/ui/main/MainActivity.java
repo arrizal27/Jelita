@@ -112,25 +112,31 @@ public class MainActivity extends AppCompatActivity {
                         kategori.setText(mdatasnap.child("role").getValue(String.class));
                         poin.setText(mdatasnap.child("poin").getValue().toString() + " Poin");
                         tabunganMinyak.setText(String.valueOf(mdatasnap.child("jml_minyak").getValue() + " Liter"));
-                        progressBarMinyak.setProgress(Integer.valueOf(mdatasnap.child("jml_minyak").getValue().toString()));
-                        user.setEmail(mdatasnap.child("email").getValue(String.class));
 
                         if(mdatasnap.child("role").getValue().toString().equals("Rumah Tangga")){
                             kapasitasMax.setText(Integer.valueOf(5) + " Liter");
                             progressBarMinyak.setMax(5);
                         }
-                        if (mdatasnap.child("role").getValue().toString().equals("Pedagang")){
+                        else if (mdatasnap.child("role").getValue().toString().equals("Pedagang")){
                             kapasitasMax.setText(Integer.valueOf(10) + " Liter");
                             progressBarMinyak.setMax(10);
                         }
-                        if (mdatasnap.child("role").getValue().toString().equals("Cafe dan Rumah Makan")){
+                        else if (mdatasnap.child("role").getValue().toString().equals("Cafe dan Rumah Makan")){
                             kapasitasMax.setText(Integer.valueOf(15) + " Liter");
                             progressBarMinyak.setMax(15);
                         }
-                        if (mdatasnap.child("role").getValue().toString().equals("Hotel dan Penginapan")){
+                        else if (mdatasnap.child("role").getValue().toString().equals("Hotel dan Penginapan")){
                             kapasitasMax.setText(Integer.valueOf(20) + " Liter");
                             progressBarMinyak.setMax(20);
                         }
+                        else{
+
+                        }
+
+                        progressBarMinyak.setProgress(Integer.valueOf(mdatasnap.child("jml_minyak").getValue().toString()));
+                        user.setEmail(mdatasnap.child("email").getValue(String.class));
+
+
 
 //                        tabunganMinyak.setText(mdatasnap.child("jml_minyak").getValue(String.class));
 //                        Log.d(username.toString(), "kategori");

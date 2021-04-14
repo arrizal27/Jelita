@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,6 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.smkn4bdg.jelita.Models.RequestSetorPengepul;
 import com.smkn4bdg.jelita.Models.RequestSetorUser;
 import com.smkn4bdg.jelita.Models.SpinnerPengepul;
 import com.smkn4bdg.jelita.R;
@@ -44,20 +46,29 @@ public class SetorActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     ImageView fotoBukti;
     Spinner listPengepul, listMetodeBayar;
-    String currentPhotoPath;
     MaterialButton btnUpload;
     MaterialButton btnBack;
     MaterialButton btnSetorNow;
-    EditText test;
+
 
     DatabaseReference dbPengepul;
-    DatabaseReference dbRequestSetor;
-    DatabaseReference dbRequestSetorFinal;
+    DatabaseReference dbRequestSetorUser;
+    DatabaseReference dbRequestSetorUserFinal;
+    DatabaseReference dbRequestSetorPengepul;
+    DatabaseReference dbRequestSetorPengepulFinal;
     DatabaseReference dbUser;
     StorageReference storageReference;
     private Uri imageUri;
     FirebaseUser mUser;
+    TextView id_picker, no_picker;
+    ArrayList<SpinnerPengepul> pengepul;
 
+    private String namaPengepul;
+    private String noPengepul;
+    private String idPengepul;
+
+
+    String id_pul, no_pul, alamat_pul;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +78,11 @@ public class SetorActivity extends AppCompatActivity {
         findView();
 
         dbPengepul = FirebaseDatabase.getInstance().getReference("pengepul");
-        dbRequestSetor = FirebaseDatabase.getInstance().getReference("requestSetorUser");
-        dbRequestSetorFinal = dbRequestSetor.push();
+        dbRequestSetorUser = FirebaseDatabase.getInstance().getReference("requestSetorUser");
+        dbRequestSetorUserFinal = dbRequestSetorUser.push();
+        dbRequestSetorPengepul = FirebaseDatabase.getInstance().getReference("requestSetorPengepul");
+        dbRequestSetorPengepulFinal = dbRequestSetorPengepul.push();
+
 
         storageReference = FirebaseStorage.getInstance().getReference();
         fetchData();
@@ -94,8 +108,8 @@ public class SetorActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //button setor sekarang diklik
                 //uploadImage();
-                storeDataRequest();
-
+                storeDataUserRequest();
+                storeDataPengepulRequest();
 
                 Intent i = new Intent(SetorActivity.this, SetorBerhasilActivity.class);
                 startActivity(i);
@@ -109,46 +123,26 @@ public class SetorActivity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, 2);
+        startActivityForResult(intent, 3);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
+        if (requestCode == 3 && resultCode == RESULT_OK) {
             imageUri = data.getData();
             fotoBukti.setImageURI(imageUri);
+
         }
     }
 
 
-    private void storeDataRequest() {
-        SpinnerPengepul spinnerPengepulNama = new SpinnerPengepul();
-        SpinnerPengepul spinnerPengepulNoTelp = new SpinnerPengepul();
-
+    private void storeDataUserRequest() {
         FirebaseApp.initializeApp(this);
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         dbUser = FirebaseDatabase.getInstance().getReference("users");
 
-        String nama_pengepul;
-        String no_telp_pengepul;
-
         final StorageReference fileRef = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
-
-
-        listPengepul.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                adapterView.getSelectedItem().toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
 
         fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -156,31 +150,35 @@ public class SetorActivity extends AppCompatActivity {
                 fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-
                         String image = uri.toString();
-
+                        fotoBukti.setImageResource(R.drawable.ic_baseline_image_24);
                         dbUser.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 Date c = Calendar.getInstance().getTime();
                                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
                                 String formatdate = sdf.format(c);
-                                String nama_pul = spinnerPengepulNama.setNama_pengepul(listPengepul.getSelectedItem().toString());
-                                String nomor_pul = spinnerPengepulNoTelp.setNo_telp(listPengepul.getSelectedItem().toString());
+
                                 String metode_bayar = listMetodeBayar.getSelectedItem().toString();
                                 double total_uang = 0;
 
                                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                                     dbUser.child(mUser.getUid()).child("jml_minyak").setValue(0);
-                                    String id_storeData = dbRequestSetorFinal.getKey();
+                                    String id_storeData = dbRequestSetorUserFinal.getKey();
                                     String id_user = mUser.getUid();
+                                    String nama_user = dataSnapshot.child("nama").getValue().toString();
                                     String alamat_user = dataSnapshot.child("alamat").getValue().toString();
                                     String tanggal_setor = formatdate;
-                                    String nama_pengepul = nama_pul;
-                                    String nomor_pengepul = nomor_pul;
+
+
+                                    String nama_pengepuls = SetorActivity.this.namaPengepul;
+
+                                    String nomor_pengepul = SetorActivity.this.noPengepul;
+                                    System.out.println("DATAAAA" + nama_pengepuls);
                                     String foto_bukti = image;
                                     String jenis_pembayaran = metode_bayar;
                                     String alasan_tolak = "Gk papa";
+                                    String status = "Pending";
                                     if (dataSnapshot.child("id").getValue().equals(mUser.getUid())) {
                                         if (dataSnapshot.child("role").getValue().toString().equals("Rumah Tangga")) {
                                             total_uang = 15000;
@@ -195,13 +193,11 @@ public class SetorActivity extends AppCompatActivity {
                                             total_uang = 60000;
                                         }
                                     }
-
-
-                                    dbRequestSetorFinal = FirebaseDatabase.getInstance().getReference("requestSetorUser").child(id_user).child(id_storeData);
-                                    RequestSetorUser requestSetorUser1 = new RequestSetorUser(id_storeData, nama_pengepul, nomor_pengepul, alamat_user,
-                                            tanggal_setor, foto_bukti, jenis_pembayaran, alasan_tolak, total_uang, false, false, true, false);
+                                    dbRequestSetorUserFinal = FirebaseDatabase.getInstance().getReference("requestSetorUser").child(id_user).child(id_storeData);
+                                    RequestSetorUser requestSetorUser1 = new RequestSetorUser(id_storeData, nama_pengepuls, nomor_pengepul, alamat_user,
+                                            tanggal_setor, foto_bukti, jenis_pembayaran, alasan_tolak, total_uang, status);
                                     System.out.println(requestSetorUser1);
-                                    dbRequestSetorFinal.setValue(requestSetorUser1);
+                                    dbRequestSetorUserFinal.setValue(requestSetorUser1);
 
                                 }
 
@@ -219,8 +215,83 @@ public class SetorActivity extends AppCompatActivity {
             }
         });
 
+        System.out.println(namaPengepul);
 
         System.out.println("KELUARRRRR");
+
+    }
+
+    private void storeDataPengepulRequest() {
+        FirebaseApp.initializeApp(this);
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        dbUser = FirebaseDatabase.getInstance().getReference("users");
+
+        final StorageReference fileRef = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
+
+        fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        String image = uri.toString();
+
+                        dbUser.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                Date c = Calendar.getInstance().getTime();
+                                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+                                String formatdate = sdf.format(c);
+                                String namaUser = null, alamatUser = null, noTelpUser = null, tanggalSetor = null, Foto= null;
+                                String metode_bayar = listMetodeBayar.getSelectedItem().toString();
+                                double total_uang = 0;
+
+                                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                                    String id_storeData = dbRequestSetorPengepulFinal.getKey();
+                                    tanggalSetor = formatdate;
+                                    Foto = image;
+                                    if (dataSnapshot.child("id").getValue().equals(mUser.getUid())) {
+                                        namaUser = dataSnapshot.child("nama").getValue().toString();
+                                        alamatUser = dataSnapshot.child("alamat").getValue().toString();
+                                        noTelpUser = dataSnapshot.child("no_tlp").getValue().toString();
+
+
+
+                                        if (dataSnapshot.child("role").getValue().toString().equals("Rumah Tangga")) {
+                                            total_uang = 15000;
+                                        }
+                                        if (dataSnapshot.child("role").getValue().toString().equals("Pedagang")) {
+                                            total_uang = 30000;
+                                        }
+                                        if (dataSnapshot.child("role").getValue().toString().equals("Cafe dan Rumah Makan")) {
+                                            total_uang = 45000;
+                                        }
+                                        if (dataSnapshot.child("role").getValue().toString().equals("Hotel dan Penginapan")) {
+                                            total_uang = 60000;
+                                        }
+
+                                    }
+                                    String id_pengepul = SetorActivity.this.idPengepul;
+                                    String status = "Pending";
+                                    dbRequestSetorPengepulFinal = FirebaseDatabase.getInstance().getReference("requestSetorPengepul").child(id_pengepul).child(id_storeData);
+                                    RequestSetorPengepul requestSetorPengepul = new RequestSetorPengepul(id_storeData,namaUser,alamatUser,noTelpUser,tanggalSetor,Foto,total_uang,status);
+                                    dbRequestSetorPengepulFinal.setValue(requestSetorPengepul);
+
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+
+                    }
+                });
+            }
+        });
+
 
     }
 
@@ -232,33 +303,66 @@ public class SetorActivity extends AppCompatActivity {
         btnUpload = findViewById(R.id.upload_foto);
         btnBack = findViewById(R.id.btn_back);
         btnSetorNow = findViewById(R.id.btn_setor_now);
+        id_picker = findViewById(R.id.id_picker);
+        no_picker = findViewById(R.id.no_telp_pengepul);
+    }
+
+    private void getPengepul(String nama_pengepul) {
+        dbPengepul.orderByChild("nama").equalTo(nama_pengepul).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    id_pul = dataSnapshot.child("nama").getValue().toString();
+                    no_pul = dataSnapshot.child("no_telp").getValue().toString();
+                    alamat_pul = dataSnapshot.child("alamat").getValue().toString();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void fetchData() {
+        pengepul = new ArrayList<SpinnerPengepul>();
+        ArrayList<String> listPengepuls = new ArrayList<String>();
         dbPengepul.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onDataChange(final DataSnapshot snapshot) {
+                final List<String> pengepulItems = new ArrayList<String>();
+                for (final DataSnapshot dataSnapshot : snapshot.getChildren()) {
+//                    final String pengepulName = dataSnapshot.child("nama").getValue(String.class);
+//                    pengepulItems.add(pengepulName);
 
-                final List<SpinnerPengepul> pengepul = new ArrayList<>();
+                    SpinnerPengepul Sp = dataSnapshot.getValue(SpinnerPengepul.class);
+                    listPengepuls.add(Sp.getNama());
+                    pengepul.add(Sp);
 
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    String id_pengepul = dataSnapshot.child("id").getValue().toString();
-                    String nama_pengepul = dataSnapshot.child("nama").getValue().toString();
-                    String no_telp = dataSnapshot.child("no_telp").getValue().toString();
-                    String alamat = dataSnapshot.child("alamat").getValue().toString();
-
-                    pengepul.add(new SpinnerPengepul(id_pengepul, nama_pengepul, no_telp, alamat));
-//                    pengepul.add(no_telp);
-//                    pengepul.add(alamat);
 
                 }
-                ArrayAdapter<SpinnerPengepul> pengepulAdapter = new ArrayAdapter<SpinnerPengepul>(SetorActivity.this,
-                        android.R.layout.simple_spinner_item, pengepul);
+                ArrayAdapter<String> pengepulAdapter = new ArrayAdapter<String>(SetorActivity.this,
+                        android.R.layout.simple_spinner_item, listPengepuls);
                 pengepulAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 listPengepul.setAdapter(pengepulAdapter);
                 //SpinnerPengepulAdapter c = new SpinnerPengepulAdapter(SetorActivity.this,.getNama_pengepul(),pengepul.get(1).getNo_telp(),pengepul.get(2).getAlamat());
 //                ArrayAdapter<String> adapterPengepul = new ArrayAdapter<String>(SetorActivity)
 //                listPengepul.setAdapter(c);
+                listPengepul.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        idPengepul = pengepul.get(i).getId();
+                        noPengepul = pengepul.get(i).getNo_telp();
+                        namaPengepul = pengepul.get(i).getNama();
+
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
 
             }
 
@@ -270,7 +374,7 @@ public class SetorActivity extends AppCompatActivity {
 
         String[] metode_bayar = {"Bayar Langsung", "Credit"};
 
-        ArrayAdapter<String> metodeAdapter = new ArrayAdapter<String>(SetorActivity.this, android.R.layout.simple_spinner_item,metode_bayar);
+        ArrayAdapter<String> metodeAdapter = new ArrayAdapter<String>(SetorActivity.this, android.R.layout.simple_spinner_item, metode_bayar);
         metodeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         listMetodeBayar.setAdapter(metodeAdapter);
     }

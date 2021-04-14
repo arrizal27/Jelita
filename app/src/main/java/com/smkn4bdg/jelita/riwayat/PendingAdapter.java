@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.smkn4bdg.jelita.Models.RequestSetorUser;
 import com.smkn4bdg.jelita.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -20,6 +21,7 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingV
     public PendingAdapter(ArrayList<RequestSetorUser> dataSetor){
         this.dataSetor = dataSetor;
     }
+
 
     @NonNull
     @Override
@@ -32,6 +34,7 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingV
     public void onBindViewHolder(@NonNull PendingViewHolder holder, int position) {
         RequestSetorUser requestSetorUser = dataSetor.get(position);
         holder.tvpengepul.setText(requestSetorUser.getNama_pengepul());
+        Picasso.get().load(requestSetorUser.getFoto_bukti()).into(holder.ivbukti);
         holder.tvtelepon.setText(requestSetorUser.getNo_telp_pengepul());
         holder.tvalamat.setText(requestSetorUser.getAlamat_user());
         holder.tvstatus.setText("Pending");
@@ -51,14 +54,14 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingV
         ImageView ivbukti;
         public PendingViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvpengepul = itemView.findViewById(R.id.txt_notelp);
+            tvpengepul = itemView.findViewById(R.id.txt_pengepul);
             tvtelepon = itemView.findViewById(R.id.txt_notelp);
             tvalamat = itemView.findViewById(R.id.txt_alamat);
             tvtanggalsetor = itemView.findViewById(R.id.txt_tgl_setor);
             tvjenispembayaran = itemView.findViewById(R.id.txt_jenis_bayar);
             tvstatus = itemView.findViewById(R.id.txt_status);
             tvalasan = itemView.findViewById(R.id.txt_alasan);
-
+            ivbukti = itemView.findViewById(R.id.foto_bukti);
 
         }
     }
