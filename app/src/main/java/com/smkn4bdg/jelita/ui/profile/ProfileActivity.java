@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.smkn4bdg.jelita.Models.User;
 import com.smkn4bdg.jelita.R;
 import com.smkn4bdg.jelita.ui.WelcomePageActivity;
+import com.squareup.picasso.Picasso;
 
 public class ProfileActivity extends AppCompatActivity {
     MaterialButton back, editProfil;
@@ -33,6 +35,7 @@ public class ProfileActivity extends AppCompatActivity {
     Context context;
     TextView editPw, tvnama,tvusername, tvemail, tvpassword,tvalamat, tvkota, tvkecamatan, tvkelurahan, tvjk,tvrole;
     String id;
+    ImageView imgProfile;
     int poin, jmlminyak;
 
 
@@ -104,6 +107,7 @@ public class ProfileActivity extends AppCompatActivity {
         tvemail.setText(info.getEmail());
         tvalamat.setText(info.getAlamat());
         tvkota.setText(info.getKota());
+        Picasso.get().load(info.getFoto()).into(imgProfile);
         tvkecamatan.setText(info.getKecamatan());
         tvkelurahan.setText(info.getKelurahan());
         tvjk.setText(info.getJenis_kelamin());
@@ -119,6 +123,7 @@ public class ProfileActivity extends AppCompatActivity {
         btnLogout = findViewById(R.id.btn_logout);
         tvnama = findViewById(R.id.nama);
         tvusername = findViewById(R.id.username);
+        imgProfile = findViewById(R.id.img_profil);
         tvemail = findViewById(R.id.email);
         tvpassword = findViewById(R.id.pass);
         tvalamat = findViewById(R.id.alamat);

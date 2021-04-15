@@ -2,6 +2,7 @@ package com.smkn4bdg.jelita.Models;
 
 public class User {
     private String id;
+    private String foto;
     private String nama;
     private String username;
     private String role;
@@ -16,8 +17,13 @@ public class User {
     private String kecamatan;
     private String kota;
 
-    public User(String id, String nama, String username, String role, String email, String password, String jenis_kelamin, String no_tlp, int jml_minyak, int poin, String alamat, String kelurahan, String kecamatan, String kota) {
+    public User() {
+
+    }
+
+    public User(String id, String foto, String nama, String username, String role, String email, String password, String jenis_kelamin, String no_tlp, int jml_minyak, int poin, String alamat, String kelurahan, String kecamatan, String kota) {
         this.id = id;
+        this.foto = foto;
         this.nama = nama;
         this.username = username;
         this.role = role;
@@ -33,16 +39,20 @@ public class User {
         this.kota = kota;
     }
 
-    public User(){
-
-    }
-
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
     public String getNama() {

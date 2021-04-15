@@ -1,18 +1,15 @@
 package com.smkn4bdg.jelita.ui.main;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.service.autofill.Dataset;
-import android.service.autofill.SaveRequest;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
@@ -30,6 +27,7 @@ import com.smkn4bdg.jelita.riwayat.RiwayatActivity;
 import com.smkn4bdg.jelita.ui.nabung.NabungActivity;
 import com.smkn4bdg.jelita.ui.point.PointActivity;
 import com.smkn4bdg.jelita.ui.profile.ProfileActivity;
+import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
     private DatabaseReference mdbUsers;
@@ -123,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
                         username.setText(mdatasnap.child("username").getValue(String.class).toUpperCase());
                         kategori.setText(mdatasnap.child("role").getValue(String.class));
                         poin.setText(mdatasnap.child("poin").getValue().toString() + " Poin");
+                        Picasso.get().load(mdatasnap.child("foto").getValue(String.class)).into(fotoProfil);
                         pointed = mdatasnap.child("poin").getValue().toString() + " Poin";
                         tabunganMinyak.setText(String.valueOf(mdatasnap.child("jml_minyak").getValue() + " Liter"));
 
