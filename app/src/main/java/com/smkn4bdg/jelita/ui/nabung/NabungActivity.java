@@ -157,6 +157,8 @@ public class NabungActivity extends AppCompatActivity {
                                 else {
                                     int minyakAwal = Integer.valueOf(dataSnapshot.child("jml_minyak").getValue().toString());
                                     int hasilNabung = minyakAwal + tabung;
+                                    int pointAwal = Integer.valueOf(dataSnapshot.child("poin").getValue().toString());
+                                    int tambahPoint = pointAwal + tabung;
                                     if (hasilNabung > 5){
                                         Toast toast = Toast.makeText(getApplicationContext(), "Wahhh... hebat sihh...tapi ini kelebihan...!!", Toast.LENGTH_SHORT);
                                         toast.show();
@@ -166,6 +168,7 @@ public class NabungActivity extends AppCompatActivity {
                                         Toast toast = Toast.makeText(getApplicationContext(), "Tabungan Anda Bertambah " + tabung + " Liter", Toast.LENGTH_SHORT);
                                         toast.show();
                                         mdbUsers.child("users").child(mUser.getUid()).child("jml_minyak").setValue(hasilNabung);
+                                        mdbUsers.child("users").child(mUser.getUid()).child("poin").setValue(tambahPoint);
                                         Intent intent = new Intent(NabungActivity.this, MainActivity.class);
                                         startActivity(intent);
                                     }
@@ -193,6 +196,8 @@ public class NabungActivity extends AppCompatActivity {
                                 else{
                                     int minyakAwal = Integer.valueOf(dataSnapshot.child("jml_minyak").getValue().toString());
                                     int hasilNabung = minyakAwal + tabung;
+                                    int pointAwal = Integer.valueOf(dataSnapshot.child("poin").getValue().toString());
+                                    int tambahPoint = pointAwal + tabung;
                                     if (hasilNabung > 10){
                                         Toast toast = Toast.makeText(getApplicationContext(), "Wahhh... hebat sihh...tapi ini kelebihan...!!", Toast.LENGTH_SHORT);
                                         toast.show();
@@ -202,6 +207,7 @@ public class NabungActivity extends AppCompatActivity {
                                         Toast toast = Toast.makeText(getApplicationContext(), "Tabungan Anda Bertambah " + tabung + " Liter", Toast.LENGTH_SHORT);
                                         toast.show();
                                         mdbUsers.child("users").child(mUser.getUid()).child("jml_minyak").setValue(hasilNabung);
+                                        mdbUsers.child("users").child(mUser.getUid()).child("poin").setValue(tambahPoint);
                                         Intent intent = new Intent(NabungActivity.this, MainActivity.class);
                                         startActivity(intent);
                                     }
@@ -230,6 +236,8 @@ public class NabungActivity extends AppCompatActivity {
                                 }
                                 else {
                                     int minyakAwal = Integer.valueOf(dataSnapshot.child("jml_minyak").getValue().toString());
+                                    int pointAwal = Integer.valueOf(dataSnapshot.child("poin").getValue().toString());
+                                    int tambahPoint = pointAwal + tabung;
                                     int hasilNabung = minyakAwal + tabung;
                                     if (hasilNabung > 15) {
                                         Toast toast = Toast.makeText(getApplicationContext(), "Wahhh... hebat sihh...tapi ini kelebihan...!!", Toast.LENGTH_SHORT);
@@ -239,6 +247,7 @@ public class NabungActivity extends AppCompatActivity {
                                         Toast toast = Toast.makeText(getApplicationContext(), "Tabungan Anda Bertambah " + tabung + " Liter", Toast.LENGTH_SHORT);
                                         toast.show();
                                         mdbUsers.child("users").child(mUser.getUid()).child("jml_minyak").setValue(hasilNabung);
+                                        mdbUsers.child("users").child(mUser.getUid()).child("poin").setValue(tambahPoint);
                                         Intent intent = new Intent(NabungActivity.this, MainActivity.class);
                                         startActivity(intent);
                                     }
@@ -266,6 +275,8 @@ public class NabungActivity extends AppCompatActivity {
                                 else{
                                     int minyakAwal = Integer.valueOf(dataSnapshot.child("jml_minyak").getValue().toString());
                                     int hasilNabung = minyakAwal + tabung;
+                                    int pointAwal = Integer.valueOf(dataSnapshot.child("poin").getValue().toString());
+                                    int tambahPoint = pointAwal + tabung;
                                     if (hasilNabung > 20){
                                         Toast toast = Toast.makeText(getApplicationContext(), "Wahhh... hebat sihh...tapi ini kelebihan...!!", Toast.LENGTH_SHORT);
                                         toast.show();
@@ -275,6 +286,7 @@ public class NabungActivity extends AppCompatActivity {
                                         Toast toast = Toast.makeText(getApplicationContext(), "Tabungan Anda Bertambah " + tabung + " Liter", Toast.LENGTH_SHORT);
                                         toast.show();
                                         mdbUsers.child("users").child(mUser.getUid()).child("jml_minyak").setValue(hasilNabung);
+                                        mdbUsers.child("users").child(mUser.getUid()).child("poin").setValue(tambahPoint);
                                         Intent intent = new Intent(NabungActivity.this, MainActivity.class);
                                         startActivity(intent);
                                     }
