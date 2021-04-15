@@ -1,4 +1,4 @@
-<resources>
+<resources  >
     <string name="app_name">Jelita</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -11,4 +11,12 @@
         <item>Rumah Tangga</item>
     </string-array>
 
+    <!-- About -->
+    <string name="daftar">Daftar dengan mengisi form daftar(nama,username,password,nohp,dan role)</string>
+    <string name="login">Login dengan memasukan nohp serta password yang sudah di daftarkan sebelumnya</string>
+    <string name="nabung">Di Menu Utama klik tombol "Lanjut Menanbung"/"jerigen" -> masukan jumlah minyak yang ingin ditabung</string>
+    <string name="setor">Setor Minyak hanya bisa saat Jerigen sudah penuh, klik "Setor Jerigen" pilih Pengepul,
+        lalu foto bukti jerigen minyak sudah penuh, pilih metode pembayaran</string>
+    <string name="setor2">Setor Minyak akan dicek terlebih dahulu apakah memenuhi persyaratan atau tidak, jika tidak
+        setor akan ditolak dan jika iya setor akan diterima dengan mendapatkan poin dan uang</string>
 </resources>

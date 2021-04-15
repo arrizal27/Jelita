@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.smkn4bdg.jelita.Models.User;
 import com.smkn4bdg.jelita.R;
 import com.smkn4bdg.jelita.riwayat.RiwayatActivity;
+import com.smkn4bdg.jelita.ui.help.HelpActivity;
 import com.smkn4bdg.jelita.ui.nabung.NabungActivity;
 import com.smkn4bdg.jelita.ui.profile.ProfileActivity;
 
@@ -54,6 +55,14 @@ public class MainActivity extends AppCompatActivity {
 //        String email =  mfirebaseauth.getCurrentUser().getEmail();
         findView();
         getdata();
+
+        btnHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, HelpActivity.class);
+                startActivity(i);
+            }
+        });
 
         btnProfil.setOnClickListener(new View.OnClickListener() {
             @Override
