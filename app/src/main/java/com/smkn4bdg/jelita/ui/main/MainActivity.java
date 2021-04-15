@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String  USERS = "users";
     public static final String EXTRA_POINT = "";
     private final String TAG = this.getClass().getName().toUpperCase();
+    String pointed;
     User user = new User();
 //    Intent intent = getIntent();
 //    String email = intent.getStringExtra("email");
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent point = new Intent(MainActivity.this, PointActivity.class);
-//                point.putExtra("data", (Parcelable) poin);
+                point.putExtra("data", pointed);
                 startActivity(point);
             }
         });
@@ -122,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
                         username.setText(mdatasnap.child("username").getValue(String.class).toUpperCase());
                         kategori.setText(mdatasnap.child("role").getValue(String.class));
                         poin.setText(mdatasnap.child("poin").getValue().toString() + " Poin");
+                        pointed = mdatasnap.child("poin").getValue().toString() + " Poin";
                         tabunganMinyak.setText(String.valueOf(mdatasnap.child("jml_minyak").getValue() + " Liter"));
 
                         if(mdatasnap.child("role").getValue().toString().equals("Rumah Tangga")){

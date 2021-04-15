@@ -15,8 +15,8 @@ public class PointActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_point);
         findView();
-//        String po = getIntent().getStringExtra("data");
-//        poin.setText(po);
+        String po = getIntent().getStringExtra("data");
+        poin.setText(po);
 
     }
     private void findView(){
