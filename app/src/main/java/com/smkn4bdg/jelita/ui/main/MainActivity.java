@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.service.autofill.Dataset;
 import android.service.autofill.SaveRequest;
 import android.util.Log;
@@ -27,6 +28,7 @@ import com.smkn4bdg.jelita.Models.User;
 import com.smkn4bdg.jelita.R;
 import com.smkn4bdg.jelita.riwayat.RiwayatActivity;
 import com.smkn4bdg.jelita.ui.nabung.NabungActivity;
+import com.smkn4bdg.jelita.ui.point.PointActivity;
 import com.smkn4bdg.jelita.ui.profile.ProfileActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mfirebaseauth;
     private FirebaseUser mUser;
     private static final String  USERS = "users";
+    public static final String EXTRA_POINT = "";
     private final String TAG = this.getClass().getName().toUpperCase();
     User user = new User();
 //    Intent intent = getIntent();
@@ -92,6 +95,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent profile = new Intent(MainActivity.this, ProfileActivity.class);
                 startActivity(profile);
+            }
+        });
+        btnPoin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent point = new Intent(MainActivity.this, PointActivity.class);
+//                point.putExtra("data", (Parcelable) poin);
+                startActivity(point);
             }
         });
     }
