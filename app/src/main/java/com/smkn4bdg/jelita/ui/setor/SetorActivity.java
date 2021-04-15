@@ -183,6 +183,8 @@ public class SetorActivity extends AppCompatActivity {
 
         UploadTask uploadTask = storageReference.child(pathImage).putBytes(bytes);
 
+        
+
         final StorageReference fileRef = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
 
         fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -356,6 +358,8 @@ public class SetorActivity extends AppCompatActivity {
 
     private void fetchData() {
         pengepul = new ArrayList<SpinnerPengepul>();
+        dbUser = FirebaseDatabase.getInstance().getReference("users");
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
         ArrayList<String> listPengepulsNama = new ArrayList<String>();
         ArrayList<String> listPengepulsNoTelp = new ArrayList<String>();
         ArrayList<String> listPengepulsAlamat = new ArrayList<String>();
@@ -364,38 +368,60 @@ public class SetorActivity extends AppCompatActivity {
             public void onDataChange(final DataSnapshot snapshot) {
                 final List<String> pengepulItems = new ArrayList<String>();
                 for (final DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    SpinnerPengepul Sp = dataSnapshot.getValue(SpinnerPengepul.class);
-                    listPengepulsNama.add(Sp.getNama());
-                    listPengepulsNoTelp.add(Sp.getNo_telp());
-                    listPengepulsAlamat.add(Sp.getKecamatan());
-                    pengepul.add(Sp);
+
+                    dbUser.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
+                                SpinnerPengepul Sp = dataSnapshot.getValue(SpinnerPengepul.class);
+                                if (dataSnapshot1.child("id").getValue().equals(mUser.getUid())) {
+                                    if (dataSnapshot1.child("kecamatan").getValue().toString().equals(dataSnapshot.child("kecamatan").getValue().toString())) {
+                                        listPengepulsNama.add(Sp.getNama());
+                                        listPengepulsNoTelp.add(Sp.getNo_telp());
+                                        listPengepulsAlamat.add(Sp.getKecamatan());
+                                        pengepul.add(Sp);
+                                    }
+                                }
+                            }
+                            ArrayAdapter<String> pengepulAdapter = new ArrayAdapter<String>(SetorActivity.this,
+                                    android.R.layout.simple_spinner_item, listPengepulsNama);
+                            pengepulAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            listPengepul.setAdapter(pengepulAdapter);
+
+                            listPengepul.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                    idPengepul = pengepul.get(i).getId();
+                                    noPengepul = pengepul.get(i).getNo_telp();
+                                    namaPengepul = pengepul.get(i).getNama();
+
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                                }
+                            });
+                        }
+
+
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
 
 
                 }
 //                SpinnerPengepulAdapter spinnerPengepulAdapter = new SpinnerPengepulAdapter(SetorActivity.this,
 //                        listPengepulsNama, listPengepulsNoTelp,listPengepulsAlamat);
 
-                ArrayAdapter<String> pengepulAdapter = new ArrayAdapter<String>(SetorActivity.this,
-                        android.R.layout.simple_spinner_item, listPengepulsNama);
-                pengepulAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                listPengepul.setAdapter(pengepulAdapter);
+
                 //SpinnerPengepulAdapter c = new SpinnerPengepulAdapter(SetorActivity.this,.getNama_pengepul(),pengepul.get(1).getNo_telp(),pengepul.get(2).getAlamat());
 //                ArrayAdapter<String> adapterPengepul = new ArrayAdapter<String>(SetorActivity)
 //                listPengepul.setAdapter(c);
-                listPengepul.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        idPengepul = pengepul.get(i).getId();
-                        noPengepul = pengepul.get(i).getNo_telp();
-                        namaPengepul = pengepul.get(i).getNama();
 
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-
-                    }
-                });
 
             }
 
