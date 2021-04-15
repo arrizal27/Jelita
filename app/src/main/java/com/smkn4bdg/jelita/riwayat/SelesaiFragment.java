@@ -55,7 +55,7 @@ public class SelesaiFragment extends Fragment {
                         RequestSetorUser requestSetorUser = datasnap.getValue(RequestSetorUser.class);
                         dataRequest.add(requestSetorUser);
                     }
-                    SelesaiAdapter selesaiAdapter = new SelesaiAdapter(dataRequest);
+                    MixAdapter selesaiAdapter = new MixAdapter(dataRequest);
                     recyclerView.setAdapter(selesaiAdapter);
                 }
             }

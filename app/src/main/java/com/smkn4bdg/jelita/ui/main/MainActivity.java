@@ -1,17 +1,15 @@
 package com.smkn4bdg.jelita.ui.main;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.service.autofill.Dataset;
-import android.service.autofill.SaveRequest;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
@@ -28,7 +26,9 @@ import com.smkn4bdg.jelita.R;
 import com.smkn4bdg.jelita.riwayat.RiwayatActivity;
 import com.smkn4bdg.jelita.ui.help.HelpActivity;
 import com.smkn4bdg.jelita.ui.nabung.NabungActivity;
+import com.smkn4bdg.jelita.ui.point.PointActivity;
 import com.smkn4bdg.jelita.ui.profile.ProfileActivity;
+import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
     private DatabaseReference mdbUsers;
@@ -36,7 +36,9 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mfirebaseauth;
     private FirebaseUser mUser;
     private static final String  USERS = "users";
+    public static final String EXTRA_POINT = "";
     private final String TAG = this.getClass().getName().toUpperCase();
+    String pointed;
     User user = new User();
 //    Intent intent = getIntent();
 //    String email = intent.getStringExtra("email");
@@ -103,6 +105,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(profile);
             }
         });
+        btnPoin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent point = new Intent(MainActivity.this, PointActivity.class);
+                point.putExtra("data", pointed);
+                startActivity(point);
+            }
+        });
     }
 
     private void getdata(){
@@ -120,26 +130,34 @@ public class MainActivity extends AppCompatActivity {
                         username.setText(mdatasnap.child("username").getValue(String.class).toUpperCase());
                         kategori.setText(mdatasnap.child("role").getValue(String.class));
                         poin.setText(mdatasnap.child("poin").getValue().toString() + " Poin");
+                        Picasso.get().load(mdatasnap.child("foto").getValue(String.class)).into(fotoProfil);
+                        pointed = mdatasnap.child("poin").getValue().toString() + " Poin";
                         tabunganMinyak.setText(String.valueOf(mdatasnap.child("jml_minyak").getValue() + " Liter"));
-                        progressBarMinyak.setProgress(Integer.valueOf(mdatasnap.child("jml_minyak").getValue().toString()));
-                        user.setEmail(mdatasnap.child("email").getValue(String.class));
 
                         if(mdatasnap.child("role").getValue().toString().equals("Rumah Tangga")){
                             kapasitasMax.setText(Integer.valueOf(5) + " Liter");
                             progressBarMinyak.setMax(5);
                         }
-                        if (mdatasnap.child("role").getValue().toString().equals("Pedagang")){
+                        else if (mdatasnap.child("role").getValue().toString().equals("Pedagang")){
                             kapasitasMax.setText(Integer.valueOf(10) + " Liter");
                             progressBarMinyak.setMax(10);
                         }
-                        if (mdatasnap.child("role").getValue().toString().equals("Cafe dan Rumah Makan")){
+                        else if (mdatasnap.child("role").getValue().toString().equals("Cafe dan Rumah Makan")){
                             kapasitasMax.setText(Integer.valueOf(15) + " Liter");
                             progressBarMinyak.setMax(15);
                         }
-                        if (mdatasnap.child("role").getValue().toString().equals("Hotel dan Penginapan")){
+                        else if (mdatasnap.child("role").getValue().toString().equals("Hotel dan Penginapan")){
                             kapasitasMax.setText(Integer.valueOf(20) + " Liter");
                             progressBarMinyak.setMax(20);
                         }
+                        else{
+
+                        }
+
+                        progressBarMinyak.setProgress(Integer.valueOf(mdatasnap.child("jml_minyak").getValue().toString()));
+                        user.setEmail(mdatasnap.child("email").getValue(String.class));
+
+
 
 //                        tabunganMinyak.setText(mdatasnap.child("jml_minyak").getValue(String.class));
 //                        Log.d(username.toString(), "kategori");

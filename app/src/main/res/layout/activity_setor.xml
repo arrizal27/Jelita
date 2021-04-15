@@ -67,8 +67,7 @@
             android:layout_height="200dp"
             android:layout_marginTop="8dp"
             android:src="@drawable/ic_baseline_photo_camera_24"
-            app:tint="@color/grey"
-            android:background="#e5e5e5"/>
+            />
         <com.google.android.material.button.MaterialButton
             android:id="@+id/upload_foto"
             android:layout_width="match_parent"

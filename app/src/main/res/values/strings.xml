@@ -10,6 +10,10 @@
         <item>Pabrik</item>
         <item>Rumah Tangga</item>
     </string-array>
+    <string-array name="jk">
+        <item>Laki-laki</item>
+        <item>Perempuan</item>
+    </string-array>
 
     <!-- About -->
     <string name="daftar">Daftar dengan mengisi form daftar(nama,username,password,nohp,dan role)</string>

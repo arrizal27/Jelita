@@ -1,64 +1,102 @@
 package com.smkn4bdg.jelita.Models;
 
 public class SpinnerPengepul {
-    private String id_pengepul;
-    private String nama_pengepul;
+    private String id;
+    private String nama;
     private String no_telp;
     private String alamat;
+    private String jenis_kel;
+    private String email;
+    private String foto;
+    private String kecamatan;
+    private String kelurahan;
+    private String kota;
+    private String password;
+    private String username;
 
-    public SpinnerPengepul(){
 
+    public SpinnerPengepul() {
     }
-    public SpinnerPengepul(String id_pengepul, String nama_pengepul, String no_telp, String alamat) {
-        this.id_pengepul = id_pengepul;
-        this.nama_pengepul = nama_pengepul;
-       this.no_telp = no_telp;
+
+    public SpinnerPengepul(String id, String nama, String no_telp, String alamat, String jenis_kel, String email, String foto, String kecamatan, String kelurahan, String kota, String password, String username) {
+        this.id = id;
+        this.nama = nama;
+        this.no_telp = no_telp;
         this.alamat = alamat;
+        this.jenis_kel = jenis_kel;
+        this.email = email;
+        this.foto = foto;
+        this.kecamatan = kecamatan;
+        this.kelurahan = kelurahan;
+        this.kota = kota;
+        this.password = password;
+        this.username = username;
     }
 
-    public String getAlamat() {
-        return alamat;
+    public String getId() {
+        return id;
     }
 
-    public void setAlamat(String alamat) {
-        this.alamat = alamat;
-    }
-
-    public String getId_pengepul() {
-        return id_pengepul;
-    }
-
-    public void setId_pengepul(String id_pengepul) {
-        this.id_pengepul = id_pengepul;
-    }
-
-    public String getNama_pengepul() {
-        return nama_pengepul;
-    }
-
-    public String setNama_pengepul(String nama_pengepul) {
-        this.nama_pengepul = nama_pengepul;
-        return nama_pengepul;
+    public String getNama() {
+        return nama;
     }
 
     public String getNo_telp() {
         return no_telp;
     }
 
-    public String setNo_telp(String no_telp) {
-        this.no_telp = no_telp;
-        return no_telp;
+    public String getAlamat() {
+        return alamat;
     }
 
+    public String getJenis_kel() {
+        return jenis_kel;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public String getKecamatan() {
+        return kecamatan;
+    }
+
+    public String getKelurahan() {
+        return kelurahan;
+    }
+
+    public String getKota() {
+        return kota;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
 
     @Override
     public String toString() {
-        return nama_pengepul;
-    }
-    public String noString(){
-        return no_telp;
-    }
-    public String beString(){
-        return id_pengepul;
+        return "SpinnerPengepul [id=" + id + ", nama=" + nama + ", no_telp=" + no_telp + ", alamat=" + alamat + ", jenis_kel=" + jenis_kel + ", email=" + email + ", foto=" + foto + ", kecamatan=" + kecamatan + ", kelurahan=" + kelurahan + ", kota=" + kota + ", password=" + password + ", username=" + username + "]";
     }
 }
+
+
+//    @Override
+//    public String toString() {
+//        return nama_pengepul;
+//    }
+//}
+//    public String noString(){
+//        return no_telp;
+//    }
+//    public String beString(){
+//        return id_pengepul;
+//    }
+//}

@@ -2,8 +2,6 @@ package com.smkn4bdg.jelita.Models;
 
 public class RequestSetorUser {
     private String id;
-    private String nama_user;
-    private String id_pengepul;
     private String nama_pengepul;
     private String no_telp_pengepul;
     private String alamat_user;
@@ -18,10 +16,8 @@ public class RequestSetorUser {
 
     }
 
-    public RequestSetorUser(String id, String nama_user, String id_pengepul, String nama_pengepul, String no_telp_pengepul, String alamat_user, String tanggal_setor, String foto_bukti, String jenis_pembayaran, String alasantolak, double total_uang, String status) {
+    public RequestSetorUser(String id, String nama_pengepul, String no_telp_pengepul, String alamat_user, String tanggal_setor, String foto_bukti, String jenis_pembayaran, String alasantolak, double total_uang, String status) {
         this.id = id;
-        this.nama_user = nama_user;
-        this.id_pengepul = id_pengepul;
         this.nama_pengepul = nama_pengepul;
         this.no_telp_pengepul = no_telp_pengepul;
         this.alamat_user = alamat_user;
@@ -39,22 +35,6 @@ public class RequestSetorUser {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getNama_user() {
-        return nama_user;
-    }
-
-    public void setNama_user(String nama_user) {
-        this.nama_user = nama_user;
-    }
-
-    public String getId_pengepul() {
-        return id_pengepul;
-    }
-
-    public void setId_pengepul(String id_pengepul) {
-        this.id_pengepul = id_pengepul;
     }
 
     public String getNama_pengepul() {

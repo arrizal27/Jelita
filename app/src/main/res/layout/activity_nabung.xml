@@ -100,7 +100,7 @@
             android:id="@+id/progres_nabung"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:max="15"
+            android:max="100000"
             android:progress="1"
             android:scaleY="2"
             android:layout_marginTop="16dp"
