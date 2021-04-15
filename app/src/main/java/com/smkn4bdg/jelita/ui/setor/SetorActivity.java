@@ -12,14 +12,12 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -201,7 +199,7 @@ public class SetorActivity extends AppCompatActivity {
                                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
                                 String formatdate = sdf.format(c);
                                 String metode_bayar = listMetodeBayar.getSelectedItem().toString();
-                                String total_uang = null;
+                                double total_uang = 0;
                                 String namaUser = null, alamatUser = null, noTelpUser = null;
                                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                                     dbUser.child(mUser.getUid()).child("jml_minyak").setValue(0);
@@ -231,16 +229,16 @@ public class SetorActivity extends AppCompatActivity {
 
                                         if (metode_bayar.equals("Bayar Langsung")) {
                                             if (dataSnapshot.child("role").getValue().toString().equals("Rumah Tangga")) {
-                                                total_uang = String.valueOf(15000);
+                                                total_uang = 15000;
                                             }
                                             if (dataSnapshot.child("role").getValue().toString().equals("Pedagang")) {
-                                                total_uang = String.valueOf(30000);
+                                                total_uang = 30000;
                                             }
                                             if (dataSnapshot.child("role").getValue().toString().equals("Cafe dan Rumah Makan")) {
-                                                total_uang = String.valueOf(45000);
+                                                total_uang = 45000;
                                             }
                                             if (dataSnapshot.child("role").getValue().toString().equals("Hotel dan Penginapan")) {
-                                                total_uang = String.valueOf(60000);
+                                                total_uang = 60000;
                                             }
                                         }
                                     }

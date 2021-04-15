@@ -57,7 +57,7 @@ public class PendingFragment extends Fragment {
                         RequestSetorUser requestSetorUser = datasnap.getValue(RequestSetorUser.class);
                         dataRequest.add(requestSetorUser);
                     }
-                    PendingAdapter pendingAdapter = new PendingAdapter(dataRequest);
+                    MixAdapter pendingAdapter = new MixAdapter(dataRequest);
                     recyclerView.setAdapter(pendingAdapter);
                 }
             }
