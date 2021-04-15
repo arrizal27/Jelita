@@ -15,22 +15,25 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.smkn4bdg.jelita.Models.SpinnerPengepul;
 import com.smkn4bdg.jelita.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SpinnerPengepulAdapter extends BaseAdapter {
-    private String pengepul;
-    private String noTelp;
-    private String alamat;
+    private ArrayList pengepul;
+    private ArrayList noTelp;
+    private ArrayList alamat;
     private LayoutInflater inflater;
     private int countPengepul;
 
     DatabaseReference mdbPengepul = FirebaseDatabase.getInstance().getReference();
 
 
-    SpinnerPengepulAdapter(Context context, String pengepul, String noTelp, String alamat) {
+
+
+    SpinnerPengepulAdapter(Context context, ArrayList pengepul, ArrayList noTelp, ArrayList alamat) {
         this.pengepul = pengepul;
         this.noTelp = noTelp;
         this.alamat = alamat;
@@ -58,26 +61,8 @@ public class SpinnerPengepulAdapter extends BaseAdapter {
             getcount();
 
 
-//        mdbPengepul.child("pengepul").addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if (snapshot.exists()){
-//                    countPengepul = (int)snapshot.getChildrenCount();
-//                }
-//                else
-//                {
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
 
-            System.out.println(countPengepul);
-            return countPengepul;
+            return SpinnerPengepulAdapter.this.countPengepul;
     }
 
     @Override
@@ -99,9 +84,9 @@ public class SpinnerPengepulAdapter extends BaseAdapter {
 
 
 
-        namaPengepul.setText(pengepul);
-        notelpPengepul.setText(noTelp);
-        alamatPengepul.setText(alamat);
+        namaPengepul.setText(pengepul.toString());
+        notelpPengepul.setText(noTelp.toString());
+        alamatPengepul.setText(alamat.toString());
 
         return view;
     }
