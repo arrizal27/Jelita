@@ -31,8 +31,8 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseUser mUser;
     private final String TAG = this.getClass().getName().toUpperCase();
     Context context;
-    TextView editPw, tvnama,tvkategori,tvusername, tvemail, tvpassword,tvalamat, tvkota, tvkecamatan, tvkelurahan;
-    String id, jeniskel, role;
+    TextView editPw, tvnama,tvusername, tvemail, tvpassword,tvalamat, tvkota, tvkecamatan, tvkelurahan, tvjk,tvrole;
+    String id;
     int poin, jmlminyak;
 
 
@@ -99,7 +99,6 @@ public class ProfileActivity extends AppCompatActivity {
     }
     private void setData(User info) {
         id = info.getId();
-
         tvnama.setText(info.getNama());
         tvusername.setText(info.getUsername());
         tvemail.setText(info.getEmail());
@@ -107,8 +106,8 @@ public class ProfileActivity extends AppCompatActivity {
         tvkota.setText(info.getKota());
         tvkecamatan.setText(info.getKecamatan());
         tvkelurahan.setText(info.getKelurahan());
-        jeniskel = info.getJenis_kelamin();
-        role = info.getRole();
+        tvjk.setText(info.getJenis_kelamin());
+        tvrole.setText(info.getRole());
         poin = info.getPoin();
         jmlminyak = info.getJml_minyak();
     }
@@ -119,7 +118,6 @@ public class ProfileActivity extends AppCompatActivity {
         editPw = findViewById(R.id.btn_edit_pw);
         btnLogout = findViewById(R.id.btn_logout);
         tvnama = findViewById(R.id.nama);
-        tvkategori = findViewById(R.id.kategori);
         tvusername = findViewById(R.id.username);
         tvemail = findViewById(R.id.email);
         tvpassword = findViewById(R.id.pass);
@@ -127,5 +125,7 @@ public class ProfileActivity extends AppCompatActivity {
         tvkota = findViewById(R.id.tvkota);
         tvkecamatan = findViewById(R.id.tvkecamatan);
         tvkelurahan = findViewById(R.id.tvkelurahan);
+        tvjk = findViewById(R.id.jk);
+        tvrole = findViewById(R.id.role);
     }
 }

@@ -31,8 +31,8 @@ public class DaftarActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private DatabaseReference dbUsers;
     private static final String TAG = "DaftarActivity";
-    TextInputEditText nama,username,pass,emailhp, alamat, kota, kecamatan, kelurahan;
-    Spinner role;
+    TextInputEditText nama,username,pass,emailhp, alamat, kota, kecamatan, kelurahan, no_telp;
+    Spinner role,jk;
     Button btndaftar;
     ImageButton back;
 
@@ -67,10 +67,12 @@ public class DaftarActivity extends AppCompatActivity {
         pass = findViewById(R.id.txt_password);
         emailhp = findViewById(R.id.email);
         role = findViewById(R.id.dropdown_role);
+        jk = findViewById(R.id.dropdown_jk);
         btndaftar = findViewById(R.id.btn_daftar);
         back = findViewById(R.id.back_daftar);
         alamat = findViewById(R.id.alamat);
         kota = findViewById(R.id.kota);
+        no_telp = findViewById(R.id.txt_notelp);
         kecamatan = findViewById(R.id.kecamatan);
         kelurahan = findViewById(R.id.kelurahan);
 
@@ -86,6 +88,8 @@ public class DaftarActivity extends AppCompatActivity {
         String passFinal = pass.getText().toString();
         String emailhpFinal = emailhp.getText().toString();
         String roleFinal = role.getSelectedItem().toString();
+        String jkFinal = jk.getSelectedItem().toString();
+        String telpFinal = no_telp.getText().toString();
         String alamatFinal = alamat.getText().toString();
         String kotaFinal = kota.getText().toString();
         String kecamatanFinal = kecamatan.getText().toString();
@@ -108,6 +112,10 @@ public class DaftarActivity extends AppCompatActivity {
         }
         if (TextUtils.isEmpty(passFinal)) {
             showToast("Enter Your Password!");
+            return;
+        }
+        if (TextUtils.isEmpty(telpFinal)) {
+            showToast("Enter Your Phone Number!");
             return;
         }
         if (TextUtils.isEmpty(emailhpFinal)) {
@@ -152,7 +160,7 @@ public class DaftarActivity extends AppCompatActivity {
                                     } else {
                                         String id = firebaseAuth.getUid();
                                         User user = new User(id, namaFinal, usernameFinal, roleFinal, emailhpFinal,passFinal,
-                                                jenisKelamin, noTlp, jml_minyak, poin, alamatFinal, kelurahanFinal
+                                                jkFinal, telpFinal, jml_minyak, poin, alamatFinal, kelurahanFinal
                                                 , kecamatanFinal, kotaFinal);
                                         dbUsers.child(id).setValue(user);
                                         DaftarActivity.this.startActivity(new Intent(DaftarActivity.this, DaftarBerhasilActivity.class));
