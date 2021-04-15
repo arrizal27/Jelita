@@ -223,16 +223,12 @@ public class SetorActivity extends AppCompatActivity {
                                         namaUser = dataSnapshot.child("nama").getValue().toString();
                                         alamatUser = dataSnapshot.child("alamat").getValue().toString();
                                         noTelpUser = dataSnapshot.child("no_tlp").getValue().toString();
+                                        int minyak = Integer.parseInt(dataSnapshot.child("jml_minyak").getValue().toString());
+                                        int poin = Integer.parseInt(dataSnapshot.child("poin").getValue().toString());
+                                        int jumlah_poin = minyak * 10;
+                                        int jumlah_poin_final = poin + jumlah_poin;
+                                        dbUser.child(mUser.getUid()).child("poin").setValue(jumlah_poin_final);
 
-                                        if (metode_bayar.equals("Poin")) {
-                                            int minyak = Integer.parseInt(dataSnapshot.child("jml_minyak").getValue().toString());
-                                            int poin = Integer.parseInt(dataSnapshot.child("poin").getValue().toString());
-                                            int jumlah_poin = minyak * 10;
-                                            int jumlah_poin_final = poin + jumlah_poin;
-                                            dbUser.child(mUser.getUid()).child("poin").setValue(jumlah_poin_final);
-
-                                            total_uang = jumlah_poin + " Poin";
-                                        }
                                         if (metode_bayar.equals("Bayar Langsung")) {
                                             if (dataSnapshot.child("role").getValue().toString().equals("Rumah Tangga")) {
                                                 total_uang = String.valueOf(15000);
@@ -411,7 +407,7 @@ public class SetorActivity extends AppCompatActivity {
             }
         });
 
-        String[] metode_bayar = {"Bayar Langsung", "Poin"};
+        String[] metode_bayar = {"Bayar Langsung", "Credit"};
 
         ArrayAdapter<String> metodeAdapter = new ArrayAdapter<String>(SetorActivity.this, android.R.layout.simple_spinner_item, metode_bayar);
         metodeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
