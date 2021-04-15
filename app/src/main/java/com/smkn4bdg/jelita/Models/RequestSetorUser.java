@@ -11,14 +11,14 @@ public class RequestSetorUser {
     private String foto_bukti;
     private String jenis_pembayaran;
     private String alasantolak;
-    private double total_uang;
+    private String total_uang;
     private String status;
 
     public RequestSetorUser(){
 
     }
 
-    public RequestSetorUser(String id, String nama_pengepul, String no_telp_pengepul, String alamat_user, String tanggal_setor, String foto_bukti, String jenis_pembayaran, String alasantolak, double total_uang, String status) {
+    public RequestSetorUser(String id, String nama_pengepul, String no_telp_pengepul, String alamat_user, String tanggal_setor, String foto_bukti, String jenis_pembayaran, String alasantolak, String total_uang, String status) {
         this.id = id;
         this.nama_pengepul = nama_pengepul;
         this.no_telp_pengepul = no_telp_pengepul;
@@ -104,11 +104,11 @@ public class RequestSetorUser {
         this.alasantolak = alasantolak;
     }
 
-    public double getTotal_uang() {
+    public String getTotal_uang() {
         return total_uang;
     }
 
-    public void setTotal_uang(double total_uang) {
+    public void setTotal_uang(String total_uang) {
         this.total_uang = total_uang;
     }
 

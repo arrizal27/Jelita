@@ -291,7 +291,8 @@ public class NabungActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast toast = Toast.makeText(getApplicationContext(), "Tolong Periksa Lagi Nabungnya.....", Toast.LENGTH_SHORT);
+                toast.show();
             }
         });
 
