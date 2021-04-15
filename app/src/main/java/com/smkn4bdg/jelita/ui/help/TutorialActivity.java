@@ -12,19 +12,9 @@ import com.smkn4bdg.jelita.ui.main.MainActivity;
 
 public class TutorialActivity extends AppCompatActivity {
 
-    MaterialCardView btnkembali;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help_tutorial);
-
-        btnkembali = findViewById(R.id.btn_kembali);
-        btnkembali.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(TutorialActivity.this, HelpActivity.class);
-                startActivity(i);
-            }
-        });
     }
 }

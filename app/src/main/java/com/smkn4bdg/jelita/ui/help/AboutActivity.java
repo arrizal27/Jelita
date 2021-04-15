@@ -11,20 +11,9 @@ import com.smkn4bdg.jelita.R;
 
 public class AboutActivity extends AppCompatActivity {
 
-    MaterialCardView btnkembali;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help_about);
-
-        btnkembali = findViewById(R.id.btn_kembali);
-        btnkembali.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(AboutActivity.this, HelpActivity.class);
-                startActivity(i);
-            }
-        });
     }
 }
