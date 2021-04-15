@@ -1,4 +1,4 @@
-package com.smkn4bdg.jelita.daftar;
+package com.smkn4bdg.jelita.ui.login;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -23,16 +24,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.smkn4bdg.jelita.LoginActivity;
 import com.smkn4bdg.jelita.Models.User;
 import com.smkn4bdg.jelita.R;
-import com.smkn4bdg.jelita.WelcomePage;
+import com.smkn4bdg.jelita.ui.WelcomePageActivity;
 
 public class DaftarActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private DatabaseReference dbUsers;
     private static final String TAG = "DaftarActivity";
-    EditText nama,username,pass,emailhp;
+    TextInputEditText nama,username,pass,emailhp, alamat, kota, kecamatan, kelurahan;
     Spinner role;
     Button btndaftar;
     ImageButton back;
@@ -54,7 +54,7 @@ public class DaftarActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent back = new Intent(DaftarActivity.this, WelcomePage.class);
+                Intent back = new Intent(DaftarActivity.this, WelcomePageActivity.class);
                 startActivity(back);
                 finish();
             }
@@ -65,13 +65,17 @@ public class DaftarActivity extends AppCompatActivity {
     private void findView(){
         nama = findViewById(R.id.txt_nama);
         username = findViewById(R.id.txt_username);
-        pass = findViewById(R.id.txt_pass);
-        emailhp = findViewById(R.id.txt_email_hp);
-        role = findViewById(R.id.txt_role);
+        pass = findViewById(R.id.txt_password);
+        emailhp = findViewById(R.id.email);
+        role = findViewById(R.id.dropdown_role);
         btndaftar = findViewById(R.id.btn_daftar);
-        back = findViewById(R.id.btn_kembali);
+        back = findViewById(R.id.back_daftar);
+        alamat = findViewById(R.id.alamat);
+        kota = findViewById(R.id.kota);
+        kecamatan = findViewById(R.id.kecamatan);
+        kelurahan = findViewById(R.id.kelurahan);
 
-        dbUsers = FirebaseDatabase.getInstance().getReference("Users");
+        dbUsers = FirebaseDatabase.getInstance().getReference("users");
         firebaseAuth = FirebaseAuth.getInstance();
 
     }
@@ -83,16 +87,17 @@ public class DaftarActivity extends AppCompatActivity {
         String passFinal = pass.getText().toString();
         String emailhpFinal = emailhp.getText().toString();
         String roleFinal = role.getSelectedItem().toString();
+        String alamatFinal = alamat.getText().toString();
+        String kotaFinal = kota.getText().toString();
+        String kecamatanFinal = kecamatan.getText().toString();
+        String kelurahanFinal = kelurahan.getText().toString();
 
         //data default
         String jenisKelamin = "tidak disebutkan";
         String noTlp = "08**********";
         int jml_minyak = 0;
         int poin = 0;
-        String alamat = "";
-        String kelurahan = "";
-        String kecamatan = "";
-        String kota = "";
+
 
         if (TextUtils.isEmpty(namaFinal)) {
             showToast("Enter Your Name!");
@@ -108,6 +113,22 @@ public class DaftarActivity extends AppCompatActivity {
         }
         if (TextUtils.isEmpty(emailhpFinal)) {
             showToast("Enter email address!");
+            return;
+        }
+        if (TextUtils.isEmpty(alamatFinal)) {
+            showToast("Enter Your Adress!");
+            return;
+        }
+        if (TextUtils.isEmpty(kotaFinal)) {
+            showToast("Enter Your City!");
+            return;
+        }
+        if (TextUtils.isEmpty(kecamatanFinal)) {
+            showToast("Enter Kecamatan!");
+            return;
+        }
+        if (TextUtils.isEmpty(kelurahanFinal)) {
+            showToast("Enter Kelurahan!");
             return;
         }
         if (roleFinal == null) {
@@ -132,10 +153,9 @@ public class DaftarActivity extends AppCompatActivity {
                                     } else {
                                         String id = firebaseAuth.getUid();
                                         User user = new User(id, namaFinal, usernameFinal, roleFinal, emailhpFinal,
-                                                jenisKelamin, noTlp, jml_minyak, poin, alamat, kelurahan
-                                        , kecamatan, kota);
-
-                                        dbUsers.child("Pengguna").child(id).setValue(user);
+                                              jenisKelamin, noTlp, jml_minyak, poin, alamatFinal, kelurahanFinal
+                                        , kecamatanFinal, kotaFinal);
+                                        dbUsers.child(id).setValue(user);
                                         DaftarActivity.this.startActivity(new Intent(DaftarActivity.this, DaftarBerhasilActivity.class));
                                         DaftarActivity.this.finish();
 

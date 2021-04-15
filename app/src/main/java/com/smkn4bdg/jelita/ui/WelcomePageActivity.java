@@ -1,4 +1,4 @@
-package com.smkn4bdg.jelita;
+package com.smkn4bdg.jelita.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,12 +8,14 @@ import android.view.View;
 import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.smkn4bdg.jelita.daftar.DaftarActivity;
+import com.smkn4bdg.jelita.R;
+import com.smkn4bdg.jelita.ui.login.DaftarActivity;
+import com.smkn4bdg.jelita.ui.login.LoginActivity;
 
-public class WelcomePage extends AppCompatActivity {
-FirebaseAuth firebaseAuth;
-Button btnLogin;
-Button btnDaftar;
+public class WelcomePageActivity extends AppCompatActivity {
+    FirebaseAuth firebaseAuth;
+    Button btnLogin;
+    Button btnDaftar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +34,7 @@ Button btnDaftar;
         btnDaftar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent regis = new Intent(WelcomePage.this, DaftarActivity.class);
+                Intent regis = new Intent(WelcomePageActivity.this, DaftarActivity.class);
                 startActivity(regis);
             }
         });
@@ -40,7 +42,7 @@ Button btnDaftar;
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent login = new Intent(WelcomePage.this, LoginActivity.class);
+                Intent login = new Intent(WelcomePageActivity.this, LoginActivity.class);
                 startActivity(login);
             }
         });

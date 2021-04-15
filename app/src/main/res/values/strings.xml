@@ -6,8 +6,9 @@
     <string name="auth_failed">Authentication failed, check your email and password or sign up</string>
 
     <string-array name="roles">
-        <item>Hotel dan Restaurant</item>
-        <item>Pabrik</item>
+        <item>Hotel dan Penginapan</item>
+        <item>Pedagang</item>
+        <item>Cafe dan Rumah Makan</item>
         <item>Rumah Tangga</item>
     </string-array>
 

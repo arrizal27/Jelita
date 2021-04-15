@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ic_background_profil"
-    tools:context=".Profile">
+    tools:context=".ui.profile.ProfileActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/topprofile"
@@ -17,9 +21,23 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_back"
+            app:icon="@drawable/ic_baseline_arrow_back_24"
+            app:iconTint="@color/white"
+            app:backgroundTint="@color/yellow"
+            android:text="Kembali"
+            android:textColor="@color/white"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_alignParentLeft="true"/>
+
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/btn_help"
+            android:id="@+id/btn_logout"
             android:layout_width="100dp"
+            android:layout_marginTop="5dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:clickable="true"
@@ -39,7 +57,7 @@
                     />
 
                 <TextView
-                    android:id="@+id/btn_logout"
+                    android:id="@+id/txt_logout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
@@ -48,6 +66,7 @@
                     android:textSize="12sp"
                     android:textColor="@color/yellow_dark" />
             </LinearLayout>
+
         </com.google.android.material.card.MaterialCardView>
     </RelativeLayout>
 
@@ -158,6 +177,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/btn_edit_pw"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
@@ -179,8 +199,66 @@
             android:id="@+id/alamat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             android:textColor="@color/grey" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Kota"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tvkota"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textColor="@color/grey" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Kecamatan"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tvkecamatan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textColor="@color/grey" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Kelurahan"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tvkelurahan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textColor="@color/grey" />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center"
+            android:id="@+id/btn_edit"
+            app:icon="@drawable/ic_baseline_edit_24"
+            android:text="Ubah Profil"
+            android:layout_alignParentRight="true"/>
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

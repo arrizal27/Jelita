@@ -1,4 +1,4 @@
-package com.smkn4bdg.jelita;
+package com.smkn4bdg.jelita.ui;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -6,7 +6,9 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class SplashScreen extends AppCompatActivity{
+import com.smkn4bdg.jelita.R;
+
+public class SplashScreenActivity extends AppCompatActivity{
     private int waktu_loading = 3000;
 
     @Override
@@ -16,7 +18,7 @@ public class SplashScreen extends AppCompatActivity{
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent home = new Intent(SplashScreen.this, WelcomePage.class);
+                Intent home = new Intent(SplashScreenActivity.this, WelcomePageActivity.class);
                 startActivity(home);
                 finish();
 
