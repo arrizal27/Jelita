@@ -126,6 +126,22 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="10dp"
+                android:hint="Jenis Kelamin">
+
+                <Spinner
+                    android:id="@+id/dropdown_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:entries="@array/jk" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="10dp"
                 android:hint="Alamat">
 
                 <com.google.android.material.textfield.TextInputEditText
