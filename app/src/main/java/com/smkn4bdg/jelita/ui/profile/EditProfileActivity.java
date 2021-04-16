@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,10 +50,10 @@ public class EditProfileActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser mUser;
     TextInputEditText nama, username, email, notelp, alamat, kota, kelurahan, kecamatan;
-    String id, role;
+    String id, role,oldUri;
     Spinner jeniskel;
     Button btn_gbr;
-    private Uri imageUri;
+    private Uri imageUri = Uri.parse("dummy");
     private StorageReference reference;
     ImageView gbr;
     int poin, jmlminyak;
@@ -93,15 +94,17 @@ public class EditProfileActivity extends AppCompatActivity {
                 gbr.buildDrawingCache();
                 Bitmap bitmap = ((BitmapDrawable) gbr.getDrawable()).getBitmap();
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-
                 //Mengkompress bitmap menjadi JPG dengan kualitas gambar 100%
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                 byte[] bytes = stream.toByteArray();
 
                 //Lokasi lengkap dimana gambar akan disimpan
-                String namaFile = UUID.randomUUID()+".jpg";
-                String pathImage = "File/"+namaFile;
-
+                String namaFile = UUID.randomUUID() + ".jpg";
+                String pathImage = "File/" + namaFile;
+                System.out.println("FILEE : " + imageUri);
+                if (imageUri.toString().equals("dummy")) {
+                    Toast.makeText(EditProfileActivity.this,"Tolong upload ulang gambar!", Toast.LENGTH_LONG).show();
+                } else {
                 UploadTask uploadTask = reference.child(pathImage).putBytes(bytes);
                 final StorageReference fileRef = reference.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
                 uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -126,7 +129,11 @@ public class EditProfileActivity extends AppCompatActivity {
                                 user.setEmail(email.getText().toString());
                                 user.setKecamatan(kecamatan.getText().toString());
                                 user.setKelurahan(kelurahan.getText().toString());
-                                user.setFoto(image);
+                                if (image.isEmpty()) {
+                                    user.setFoto(oldUri);
+                                } else {
+                                    user.setFoto(image);
+                                }
                                 user.setId(id);
                                 user.setRole(role);
                                 user.setJenis_kelamin(jeniskel.getSelectedItem().toString());
@@ -144,6 +151,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         });
                     }
                 });
+            }
             }
         });
     }
@@ -176,6 +184,7 @@ public class EditProfileActivity extends AppCompatActivity {
         kota.setText(info.getKota());
         kecamatan.setText(info.getKecamatan());
         kelurahan.setText(info.getKelurahan());
+        oldUri = info.getFoto();
         role = info.getRole();
         if (info.getFoto().isEmpty()){
 
