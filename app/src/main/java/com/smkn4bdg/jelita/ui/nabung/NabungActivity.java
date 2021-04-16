@@ -86,22 +86,35 @@ public class NabungActivity extends AppCompatActivity {
                     if (dataSnapshot.child("id").getValue().equals(mUser.getUid())) {
                         tabunganMinyak.setText(String.valueOf(dataSnapshot.child("jml_minyak").getValue() + " Liter"));
                         progressBarMinyak.setProgress(Integer.valueOf(dataSnapshot.child("jml_minyak").getValue().toString()));
+                        int jumlah_minyak = Integer.parseInt(dataSnapshot.child("jml_minyak").getValue().toString());
 
                         if (dataSnapshot.child("role").getValue().toString().equals("Rumah Tangga")) {
                             kapasitasMax.setText(Integer.valueOf(5) + " Liter");
                             progressBarMinyak.setMax(5);
+                            if(jumlah_minyak < 5 ){
+                                btnSetor.setEnabled(false);
+                            }
                         }
                         if (dataSnapshot.child("role").getValue().toString().equals("Pedagang")) {
                             kapasitasMax.setText(Integer.valueOf(10) + " Liter");
                             progressBarMinyak.setMax(10);
+                            if(jumlah_minyak < 10 ){
+                                btnSetor.setEnabled(false);
+                            }
                         }
                         if (dataSnapshot.child("role").getValue().toString().equals("Cafe dan Rumah Makan")) {
                             kapasitasMax.setText(Integer.valueOf(15) + " Liter");
                             progressBarMinyak.setMax(15);
+                            if(jumlah_minyak < 15 ){
+                                btnSetor.setEnabled(false);
+                            }
                         }
                         if (dataSnapshot.child("role").getValue().toString().equals("Hotel dan Penginapan")) {
                             kapasitasMax.setText(Integer.valueOf(20) + " Liter");
                             progressBarMinyak.setMax(20);
+                            if(jumlah_minyak < 20 ){
+                                btnSetor.setEnabled(false);
+                            }
                         }
                         break;
                     }

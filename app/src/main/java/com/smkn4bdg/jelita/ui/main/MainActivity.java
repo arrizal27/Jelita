@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.FirebaseApp;
@@ -45,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
     ImageView fotoProfil;
     TextView username, poin, kategori, tabunganMinyak, kapasitasMax;
     ProgressBar progressBarMinyak;
+    LottieAnimationView loading;
+    MaterialCardView card1, card2, card3;
+    LinearLayout top1;
 
     MaterialButton btnNabung;
     MaterialCardView btnHelp, btnProfil, btnJerigen, btnRiwayat, btnPoin;
@@ -56,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        String email =  mfirebaseauth.getCurrentUser().getEmail();
         findView();
+
         getdata();
 
         btnHelp.setOnClickListener(new View.OnClickListener() {
@@ -113,7 +119,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(point);
             }
         });
+
+
+
     }
+
+
+
 
     private void getdata(){
         //read database
@@ -195,6 +207,7 @@ public class MainActivity extends AppCompatActivity {
         btnHelp = findViewById(R.id.btn_help);
         btnRiwayat = findViewById(R.id.btn_riwayat);
         btnPoin = findViewById(R.id.btn_poin);
+
     }
 
 }
