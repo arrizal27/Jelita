@@ -154,10 +154,11 @@ public class LoginActivity extends AppCompatActivity {
                             String name = user.getDisplayName();
                             String Gusername = user.getDisplayName();
                             String Gmail = user.getEmail();
+                            String foto = "unkonwn";
 
                             User usr = new User(id, name, Gusername, role, Gmail,
                                     jenisKelamin, noTlp, jml_minyak, poin, alamat, kelurahan
-                                    , kecamatan, kota);
+                                    , kecamatan, kota, foto);
 
                             dbUsers.child("Pengguna").child(id).setValue(usr);
                             Toast.makeText(LoginActivity.this, "User Signed In", Toast.LENGTH_SHORT).show();

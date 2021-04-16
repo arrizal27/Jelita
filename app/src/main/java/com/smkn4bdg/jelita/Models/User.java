@@ -14,8 +14,9 @@ public class User {
     private String kelurahan;
     private String kecamatan;
     private String kota;
+    private String foto;
 
-    public User(String id, String nama, String username, String role, String email, String jenis_kelamin, String no_tlp, int jml_minyak, int poin, String alamat, String kelurahan, String kecamatan, String kota) {
+    public User(String id, String nama, String username, String role, String email, String jenis_kelamin, String no_tlp, int jml_minyak, int poin, String alamat, String kelurahan, String kecamatan, String kota, String foto) {
         this.id = id;
         this.nama = nama;
         this.username = username;
@@ -29,6 +30,7 @@ public class User {
         this.kelurahan = kelurahan;
         this.kecamatan = kecamatan;
         this.kota = kota;
+        this.foto = foto;
     }
 
     public User(){
@@ -137,5 +139,13 @@ public class User {
 
     public void setKota(String kota) {
         this.kota = kota;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 }

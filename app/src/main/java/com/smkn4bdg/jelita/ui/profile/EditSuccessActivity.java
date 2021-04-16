@@ -22,6 +22,8 @@ public class EditSuccessActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(EditSuccessActivity.this, ProfileActivity.class);
+                startActivity(intent);
                 finish();
             }
         });

@@ -33,7 +33,7 @@ public class DaftarActivity extends AppCompatActivity {
     private DatabaseReference dbUsers;
     private static final String TAG = "DaftarActivity";
     TextInputEditText nama,username,pass,emailhp, alamat, kota, kecamatan, kelurahan;
-    Spinner role;
+    Spinner role, gender;
     Button btndaftar;
     ImageButton back;
 
@@ -74,6 +74,7 @@ public class DaftarActivity extends AppCompatActivity {
         kota = findViewById(R.id.kota);
         kecamatan = findViewById(R.id.kecamatan);
         kelurahan = findViewById(R.id.kelurahan);
+        gender = findViewById(R.id.dropdown_gender);
 
         dbUsers = FirebaseDatabase.getInstance().getReference("users");
         firebaseAuth = FirebaseAuth.getInstance();
@@ -91,9 +92,10 @@ public class DaftarActivity extends AppCompatActivity {
         String kotaFinal = kota.getText().toString();
         String kecamatanFinal = kecamatan.getText().toString();
         String kelurahanFinal = kelurahan.getText().toString();
+        String jenisKelamin = gender.getSelectedItem().toString();
+        String foto = "unknown";
 
         //data default
-        String jenisKelamin = "tidak disebutkan";
         String noTlp = "08**********";
         int jml_minyak = 0;
         int poin = 0;
@@ -131,6 +133,10 @@ public class DaftarActivity extends AppCompatActivity {
             showToast("Enter Kelurahan!");
             return;
         }
+        if (jenisKelamin == null) {
+            showToast("Enter Your Gender!");
+            return;
+        }
         if (roleFinal == null) {
             showToast("Enter Your Roles!");
             return;
@@ -154,7 +160,7 @@ public class DaftarActivity extends AppCompatActivity {
                                         String id = firebaseAuth.getUid();
                                         User user = new User(id, namaFinal, usernameFinal, roleFinal, emailhpFinal,
                                               jenisKelamin, noTlp, jml_minyak, poin, alamatFinal, kelurahanFinal
-                                        , kecamatanFinal, kotaFinal);
+                                        , kecamatanFinal, kotaFinal, foto);
                                         dbUsers.child(id).setValue(user);
                                         DaftarActivity.this.startActivity(new Intent(DaftarActivity.this, DaftarBerhasilActivity.class));
                                         DaftarActivity.this.finish();

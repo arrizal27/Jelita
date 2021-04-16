@@ -191,6 +191,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:text="Jenis Kelamin"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tvjenikel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textColor="@color/grey" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:text="Alamat"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             android:textColor="@color/black" />
