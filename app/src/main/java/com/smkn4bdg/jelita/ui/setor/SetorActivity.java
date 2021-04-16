@@ -182,9 +182,7 @@ public class SetorActivity extends AppCompatActivity {
         String pathImage = "File/" + namaFile;
 
         UploadTask uploadTask = storageReference.child(pathImage).putBytes(bytes);
-
         
-
         final StorageReference fileRef = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
 
         fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
