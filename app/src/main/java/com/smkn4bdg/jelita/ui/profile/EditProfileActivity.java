@@ -177,7 +177,12 @@ public class EditProfileActivity extends AppCompatActivity {
         kecamatan.setText(info.getKecamatan());
         kelurahan.setText(info.getKelurahan());
         role = info.getRole();
-        Picasso.get().load(info.getFoto()).into(gbr);
+        if (info.getFoto().isEmpty()){
+
+        }
+        else{
+            Picasso.get().load(info.getFoto()).into(gbr);
+        }
         poin = info.getPoin();
         jmlminyak = info.getJml_minyak();
         jeniskel.setSelection( ((ArrayAdapter) jeniskel.getAdapter()).getPosition(info.getJenis_kelamin()));
