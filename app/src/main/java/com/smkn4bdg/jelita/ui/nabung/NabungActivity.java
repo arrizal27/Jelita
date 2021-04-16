@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -146,168 +147,170 @@ public class NabungActivity extends AppCompatActivity {
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         mdbUsers = reference.getReference();
 
+        String menabung = txtJumlahMinyak.getText().toString();
+
+
+
         mdbUsers.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     if (dataSnapshot.child("id").getValue().equals(mUser.getUid())) {
-                        if (dataSnapshot.child("role").getValue().equals("Rumah Tangga")) {
-                            if (Integer.parseInt(dataSnapshot.child("jml_minyak").getValue().toString()) == 5) {
-                                btnTabung.setEnabled(false);
-                                Toast toast = Toast.makeText(getApplicationContext(), "Tabungan anda sudah penuh silahkan setor terlebih dahulu!!", Toast.LENGTH_SHORT);
-                                toast.show();
-                            } else {
-                                progressBarMinyak.setMax(5);
-                                int tabung = Integer.valueOf(txtJumlahMinyak.getText().toString());
-                                if (tabung > 5){
-                                    Toast toast = Toast.makeText(getApplicationContext(), "Nabungnya jangan melebihi kapastias yaa....!!", Toast.LENGTH_SHORT);
+                        if(TextUtils.isEmpty(menabung)){
+                            Toast toast = Toast.makeText(getApplicationContext(), "Nabung kok gk ada nominal nya....", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                        else {
+                            if (dataSnapshot.child("role").getValue().equals("Rumah Tangga")) {
+                                if (Integer.parseInt(dataSnapshot.child("jml_minyak").getValue().toString()) == 5) {
+                                    btnTabung.setEnabled(false);
+                                    Toast toast = Toast.makeText(getApplicationContext(), "Tabungan anda sudah penuh silahkan setor terlebih dahulu!!", Toast.LENGTH_SHORT);
                                     toast.show();
-                                }
-                                else if (tabung < 1){
-                                    Toast toast = Toast.makeText(getApplicationContext(), "Nabungnya jangan kurang dari satu, nanti malah ngurang....", Toast.LENGTH_SHORT);
-                                    toast.show();
-                                }
-                                else {
-                                    int minyakAwal = Integer.valueOf(dataSnapshot.child("jml_minyak").getValue().toString());
-                                    int hasilNabung = minyakAwal + tabung;
-                                    int pointAwal = Integer.valueOf(dataSnapshot.child("poin").getValue().toString());
-                                    int tambahPoint = pointAwal + tabung;
-                                    if (hasilNabung > 5){
-                                        Toast toast = Toast.makeText(getApplicationContext(), "Wahhh... hebat sihh...tapi ini kelebihan...!!", Toast.LENGTH_SHORT);
+                                } else {
+                                    progressBarMinyak.setMax(5);
+                                    int tabung = Integer.valueOf(txtJumlahMinyak.getText().toString());
+                                    if (tabung > 5){
+                                        Toast toast = Toast.makeText(getApplicationContext(), "Nabungnya jangan melebihi kapastias yaa....!!", Toast.LENGTH_SHORT);
+                                        toast.show();
+                                    }
+                                    else if (tabung < 1){
+                                        Toast toast = Toast.makeText(getApplicationContext(), "Nabungnya jangan kurang dari satu, nanti malah ngurang....", Toast.LENGTH_SHORT);
                                         toast.show();
                                     }
                                     else {
-                                        System.out.println(hasilNabung);
-                                        Toast toast = Toast.makeText(getApplicationContext(), "Tabungan Anda Bertambah " + tabung + " Liter", Toast.LENGTH_SHORT);
-                                        toast.show();
-                                        mdbUsers.child("users").child(mUser.getUid()).child("jml_minyak").setValue(hasilNabung);
-                                        mdbUsers.child("users").child(mUser.getUid()).child("poin").setValue(tambahPoint);
-                                        Intent intent = new Intent(NabungActivity.this, MainActivity.class);
-                                        startActivity(intent);
+                                        int minyakAwal = Integer.valueOf(dataSnapshot.child("jml_minyak").getValue().toString());
+                                        int hasilNabung = minyakAwal + tabung;
+                                        if (hasilNabung > 5){
+                                            Toast toast = Toast.makeText(getApplicationContext(), "Wahhh... hebat sihh...tapi ini kelebihan...!!", Toast.LENGTH_SHORT);
+                                            toast.show();
+                                        }
+                                        else {
+                                            System.out.println(hasilNabung);
+                                            Toast toast = Toast.makeText(getApplicationContext(), "Tabungan Anda Bertambah " + tabung + " Liter", Toast.LENGTH_SHORT);
+                                            toast.show();
+                                            mdbUsers.child("users").child(mUser.getUid()).child("jml_minyak").setValue(hasilNabung);
+                                            Intent intent = new Intent(NabungActivity.this, MainActivity.class);
+                                            startActivity(intent);
+                                        }
                                     }
-                                }
 
-                                break;
+                                    break;
+                                }
                             }
-                        }
-                        if (dataSnapshot.child("role").getValue().equals("Pedagang")) {
-                            if (Integer.parseInt(dataSnapshot.child("jml_minyak").getValue().toString()) == 10) {
-                                btnTabung.setEnabled(false);
-                                Toast toast = Toast.makeText(getApplicationContext(), "Tabungan anda sudah penuh silahkan setor terlebih dahulu!!", Toast.LENGTH_SHORT);
-                                toast.show();
-                            } else {
-                                progressBarMinyak.setMax(10);
-                                int tabung = Integer.valueOf(txtJumlahMinyak.getText().toString());
-                                if (tabung > 10){
-                                    Toast toast = Toast.makeText(getApplicationContext(), "Nabungnya jangan melebihi kapastias yaa....!!", Toast.LENGTH_SHORT);
+                            if (dataSnapshot.child("role").getValue().equals("Pedagang")) {
+                                if (Integer.parseInt(dataSnapshot.child("jml_minyak").getValue().toString()) == 10) {
+                                    btnTabung.setEnabled(false);
+                                    Toast toast = Toast.makeText(getApplicationContext(), "Tabungan anda sudah penuh silahkan setor terlebih dahulu!!", Toast.LENGTH_SHORT);
                                     toast.show();
-                                }
-                                else if (tabung < 1){
-                                    Toast toast = Toast.makeText(getApplicationContext(), "Nabungnya jangan kurang dari satu, nanti malah ngurang....", Toast.LENGTH_SHORT);
-                                    toast.show();
-                                }
-                                else{
-                                    int minyakAwal = Integer.valueOf(dataSnapshot.child("jml_minyak").getValue().toString());
-                                    int hasilNabung = minyakAwal + tabung;
-                                    int pointAwal = Integer.valueOf(dataSnapshot.child("poin").getValue().toString());
-                                    int tambahPoint = pointAwal + tabung;
-                                    if (hasilNabung > 10){
-                                        Toast toast = Toast.makeText(getApplicationContext(), "Wahhh... hebat sihh...tapi ini kelebihan...!!", Toast.LENGTH_SHORT);
+                                } else {
+                                    progressBarMinyak.setMax(10);
+                                    int tabung = Integer.valueOf(txtJumlahMinyak.getText().toString());
+                                    if (tabung > 10){
+                                        Toast toast = Toast.makeText(getApplicationContext(), "Nabungnya jangan melebihi kapastias yaa....!!", Toast.LENGTH_SHORT);
+                                        toast.show();
+                                    }
+                                    else if (tabung < 1){
+                                        Toast toast = Toast.makeText(getApplicationContext(), "Nabungnya jangan kurang dari satu, nanti malah ngurang....", Toast.LENGTH_SHORT);
                                         toast.show();
                                     }
                                     else{
-                                        System.out.println(hasilNabung);
-                                        Toast toast = Toast.makeText(getApplicationContext(), "Tabungan Anda Bertambah " + tabung + " Liter", Toast.LENGTH_SHORT);
-                                        toast.show();
-                                        mdbUsers.child("users").child(mUser.getUid()).child("jml_minyak").setValue(hasilNabung);
-                                        mdbUsers.child("users").child(mUser.getUid()).child("poin").setValue(tambahPoint);
-                                        Intent intent = new Intent(NabungActivity.this, MainActivity.class);
-                                        startActivity(intent);
+                                        int minyakAwal = Integer.valueOf(dataSnapshot.child("jml_minyak").getValue().toString());
+                                        int hasilNabung = minyakAwal + tabung;
+
+                                        if (hasilNabung > 10){
+                                            Toast toast = Toast.makeText(getApplicationContext(), "Wahhh... hebat sihh...tapi ini kelebihan...!!", Toast.LENGTH_SHORT);
+                                            toast.show();
+                                        }
+                                        else{
+                                            System.out.println(hasilNabung);
+                                            Toast toast = Toast.makeText(getApplicationContext(), "Tabungan Anda Bertambah " + tabung + " Liter", Toast.LENGTH_SHORT);
+                                            toast.show();
+                                            mdbUsers.child("users").child(mUser.getUid()).child("jml_minyak").setValue(hasilNabung);
+                                            Intent intent = new Intent(NabungActivity.this, MainActivity.class);
+                                            startActivity(intent);
+                                        }
+
                                     }
 
+
+                                    break;
                                 }
-
-
-                                break;
                             }
-                        }
-                        if (dataSnapshot.child("role").getValue().equals("Cafe dan Rumah Makan")) {
-                            if (Integer.parseInt(dataSnapshot.child("jml_minyak").getValue().toString()) == 15) {
-                                btnTabung.setEnabled(false);
-                                Toast toast = Toast.makeText(getApplicationContext(), "Tabungan anda sudah penuh silahkan setor terlebih dahulu!!", Toast.LENGTH_SHORT);
-                                toast.show();
-                            } else {
-                                progressBarMinyak.setMax(15);
-                                int tabung = Integer.valueOf(txtJumlahMinyak.getText().toString());
-                                if (tabung > 15 ){
-                                    Toast toast = Toast.makeText(getApplicationContext(), "Nabungnya jangan melebihi kapastias yaa....!!", Toast.LENGTH_SHORT);
+                            if (dataSnapshot.child("role").getValue().equals("Cafe dan Rumah Makan")) {
+                                if (Integer.parseInt(dataSnapshot.child("jml_minyak").getValue().toString()) == 15) {
+                                    btnTabung.setEnabled(false);
+                                    Toast toast = Toast.makeText(getApplicationContext(), "Tabungan anda sudah penuh silahkan setor terlebih dahulu!!", Toast.LENGTH_SHORT);
                                     toast.show();
-                                }
-                                else if (tabung < 1){
-                                    Toast toast = Toast.makeText(getApplicationContext(), "Nabungnya jangan kurang dari satu, nanti malah ngurang....", Toast.LENGTH_SHORT);
-                                    toast.show();
-                                }
-                                else {
-                                    int minyakAwal = Integer.valueOf(dataSnapshot.child("jml_minyak").getValue().toString());
-                                    int pointAwal = Integer.valueOf(dataSnapshot.child("poin").getValue().toString());
-                                    int tambahPoint = pointAwal + tabung;
-                                    int hasilNabung = minyakAwal + tabung;
-                                    if (hasilNabung > 15) {
-                                        Toast toast = Toast.makeText(getApplicationContext(), "Wahhh... hebat sihh...tapi ini kelebihan...!!", Toast.LENGTH_SHORT);
+                                } else {
+                                    progressBarMinyak.setMax(15);
+                                    int tabung = Integer.valueOf(txtJumlahMinyak.getText().toString());
+                                    if (tabung > 15 ){
+                                        Toast toast = Toast.makeText(getApplicationContext(), "Nabungnya jangan melebihi kapastias yaa....!!", Toast.LENGTH_SHORT);
                                         toast.show();
-                                    } else {
-                                        System.out.println(hasilNabung);
-                                        Toast toast = Toast.makeText(getApplicationContext(), "Tabungan Anda Bertambah " + tabung + " Liter", Toast.LENGTH_SHORT);
-                                        toast.show();
-                                        mdbUsers.child("users").child(mUser.getUid()).child("jml_minyak").setValue(hasilNabung);
-                                        mdbUsers.child("users").child(mUser.getUid()).child("poin").setValue(tambahPoint);
-                                        Intent intent = new Intent(NabungActivity.this, MainActivity.class);
-                                        startActivity(intent);
                                     }
-                                }
-
-                                break;
-                            }
-                        }
-                        if (dataSnapshot.child("role").getValue().equals("Hotel dan Penginapan")) {
-                            if (Integer.parseInt(dataSnapshot.child("jml_minyak").getValue().toString()) == 20) {
-                                btnTabung.setEnabled(false);
-                                Toast toast = Toast.makeText(getApplicationContext(), "Tabungan anda sudah penuh silahkan setor terlebih dahulu!!", Toast.LENGTH_SHORT);
-                                toast.show();
-                            } else {
-                                progressBarMinyak.setMax(20);
-                                int tabung = Integer.valueOf(txtJumlahMinyak.getText().toString());
-                                if (tabung > 20){
-                                    Toast toast = Toast.makeText(getApplicationContext(), "Nabungnya jangan melebihi kapastias yaa....!!", Toast.LENGTH_SHORT);
-                                    toast.show();
-                                }
-                                else if (tabung < 1){
-                                    Toast toast = Toast.makeText(getApplicationContext(), "Nabungnya jangan kurang dari satu, nanti malah ngurang....", Toast.LENGTH_SHORT);
-                                    toast.show();
-                                }
-                                else{
-                                    int minyakAwal = Integer.valueOf(dataSnapshot.child("jml_minyak").getValue().toString());
-                                    int hasilNabung = minyakAwal + tabung;
-                                    int pointAwal = Integer.valueOf(dataSnapshot.child("poin").getValue().toString());
-                                    int tambahPoint = pointAwal + tabung;
-                                    if (hasilNabung > 20){
-                                        Toast toast = Toast.makeText(getApplicationContext(), "Wahhh... hebat sihh...tapi ini kelebihan...!!", Toast.LENGTH_SHORT);
+                                    else if (tabung < 1){
+                                        Toast toast = Toast.makeText(getApplicationContext(), "Nabungnya jangan kurang dari satu, nanti malah ngurang....", Toast.LENGTH_SHORT);
                                         toast.show();
                                     }
                                     else {
-                                        System.out.println(hasilNabung);
-                                        Toast toast = Toast.makeText(getApplicationContext(), "Tabungan Anda Bertambah " + tabung + " Liter", Toast.LENGTH_SHORT);
-                                        toast.show();
-                                        mdbUsers.child("users").child(mUser.getUid()).child("jml_minyak").setValue(hasilNabung);
-                                        mdbUsers.child("users").child(mUser.getUid()).child("poin").setValue(tambahPoint);
-                                        Intent intent = new Intent(NabungActivity.this, MainActivity.class);
-                                        startActivity(intent);
+                                        int minyakAwal = Integer.valueOf(dataSnapshot.child("jml_minyak").getValue().toString());
+
+                                        int hasilNabung = minyakAwal + tabung;
+                                        if (hasilNabung > 15) {
+                                            Toast toast = Toast.makeText(getApplicationContext(), "Wahhh... hebat sihh...tapi ini kelebihan...!!", Toast.LENGTH_SHORT);
+                                            toast.show();
+                                        } else {
+                                            System.out.println(hasilNabung);
+                                            Toast toast = Toast.makeText(getApplicationContext(), "Tabungan Anda Bertambah " + tabung + " Liter", Toast.LENGTH_SHORT);
+                                            toast.show();
+                                            mdbUsers.child("users").child(mUser.getUid()).child("jml_minyak").setValue(hasilNabung);
+                                            Intent intent = new Intent(NabungActivity.this, MainActivity.class);
+                                            startActivity(intent);
+                                        }
                                     }
 
+                                    break;
                                 }
-
-                                break;
                             }
+                            if (dataSnapshot.child("role").getValue().equals("Hotel dan Penginapan")) {
+                                if (Integer.parseInt(dataSnapshot.child("jml_minyak").getValue().toString()) == 20) {
+                                    btnTabung.setEnabled(false);
+                                    Toast toast = Toast.makeText(getApplicationContext(), "Tabungan anda sudah penuh silahkan setor terlebih dahulu!!", Toast.LENGTH_SHORT);
+                                    toast.show();
+                                } else {
+                                    progressBarMinyak.setMax(20);
+                                    int tabung = Integer.valueOf(txtJumlahMinyak.getText().toString());
+                                    if (tabung > 20){
+                                        Toast toast = Toast.makeText(getApplicationContext(), "Nabungnya jangan melebihi kapastias yaa....!!", Toast.LENGTH_SHORT);
+                                        toast.show();
+                                    }
+                                    else if (tabung < 1){
+                                        Toast toast = Toast.makeText(getApplicationContext(), "Nabungnya jangan kurang dari satu, nanti malah ngurang....", Toast.LENGTH_SHORT);
+                                        toast.show();
+                                    }
+                                    else{
+                                        int minyakAwal = Integer.valueOf(dataSnapshot.child("jml_minyak").getValue().toString());
+                                        int hasilNabung = minyakAwal + tabung;
+
+                                        if (hasilNabung > 20){
+                                            Toast toast = Toast.makeText(getApplicationContext(), "Wahhh... hebat sihh...tapi ini kelebihan...!!", Toast.LENGTH_SHORT);
+                                            toast.show();
+                                        }
+                                        else {
+                                            System.out.println(hasilNabung);
+                                            Toast toast = Toast.makeText(getApplicationContext(), "Tabungan Anda Bertambah " + tabung + " Liter", Toast.LENGTH_SHORT);
+                                            toast.show();
+                                            mdbUsers.child("users").child(mUser.getUid()).child("jml_minyak").setValue(hasilNabung);
+                                            Intent intent = new Intent(NabungActivity.this, MainActivity.class);
+                                            startActivity(intent);
+                                        }
+
+                                    }
+
+                                    break;
+                                }
+                        }
+
                         }
 
                     }
