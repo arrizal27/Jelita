@@ -36,6 +36,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.smkn4bdg.jelita.Models.User;
 import com.smkn4bdg.jelita.R;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.util.UUID;
@@ -176,6 +177,7 @@ public class EditProfileActivity extends AppCompatActivity {
         kecamatan.setText(info.getKecamatan());
         kelurahan.setText(info.getKelurahan());
         role = info.getRole();
+        Picasso.get().load(info.getFoto()).into(gbr);
         poin = info.getPoin();
         jmlminyak = info.getJml_minyak();
         jeniskel.setSelection( ((ArrayAdapter) jeniskel.getAdapter()).getPosition(info.getJenis_kelamin()));
