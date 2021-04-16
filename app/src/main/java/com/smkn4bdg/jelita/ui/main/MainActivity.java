@@ -178,9 +178,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void findView() {
         fotoProfil = findViewById(R.id.img_profil);
-        username = findViewById(R.id.username);
-        poin = findViewById(R.id.poin);
-        kategori = findViewById(R.id.kategori);
+        username = findViewById(R.id.TVusername);
+        poin = findViewById(R.id.TVpoin);
+        kategori = findViewById(R.id.TVkategori);
         tabunganMinyak = findViewById(R.id.txt_tabungan);
         kapasitasMax = findViewById(R.id.txt_maks);
         progressBarMinyak = findViewById(R.id.progres_nabung);

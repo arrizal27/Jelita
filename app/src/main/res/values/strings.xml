@@ -6,15 +6,16 @@
     <string name="auth_failed">Authentication failed, check your email and password or sign up</string>
 
     <string-array name="roles">
-        <item>Hotel dan Restaurant</item>
-        <item>Pabrik</item>
+        <item>Hotel dan Penginapan</item>
+        <item>Pedagang</item>
+        <item>Cafe dan Rumah Makan</item>
         <item>Rumah Tangga</item>
     </string-array>
     <string-array name="jk">
         <item>Laki-laki</item>
         <item>Perempuan</item>
+        <item>Tidak Disebutkan</item>
     </string-array>
-
     <!-- About -->
     <string name="daftar">Daftar dengan mengisi form daftar(nama,username,password,nohp,dan role)</string>
     <string name="login">Login dengan memasukan nohp serta password yang sudah di daftarkan sebelumnya</string>
@@ -24,4 +25,5 @@
     <string name="setor2">Setor Minyak akan dicek terlebih dahulu apakah memenuhi persyaratan atau tidak, jika tidak
         setor akan ditolak dan jika iya setor akan diterima dengan mendapatkan poin dan uang</string>
     <string name="poin">Poin bisa ditukarkan dengan sembako seperti beras,minyak,dll bisa juga ditukarkan dengan uang tunai/credit</string>
+>>>>>>> 72e79c6762a37df3b4c3c0d2453864ddf0ad1507
 </resources>

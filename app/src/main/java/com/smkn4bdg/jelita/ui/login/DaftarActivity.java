@@ -159,7 +159,7 @@ public class DaftarActivity extends AppCompatActivity {
                                         DaftarActivity.this.showToast("Authentication failed. " + task.getException());
                                     } else {
                                         String id = firebaseAuth.getUid();
-                                        User user = new User(id,"", namaFinal, usernameFinal, roleFinal, emailhpFinal,passFinal,
+                                        User user = new User(id,"", namaFinal, usernameFinal, roleFinal, emailhpFinal,
                                                 jkFinal, telpFinal, jml_minyak, poin, alamatFinal, kelurahanFinal
                                                 , kecamatanFinal, kotaFinal);
                                         dbUsers.child(id).setValue(user);
