@@ -205,13 +205,8 @@ public class SetorActivity extends AppCompatActivity {
                                     dbUser.child(mUser.getUid()).child("jml_minyak").setValue(0);
                                     String id_storeData = dbRequestSetorUserFinal.getKey();
                                     String id_user = mUser.getUid();
-
-
                                     String tanggal_setor = formatdate;
-
-
                                     String nama_pengepuls = SetorActivity.this.namaPengepul;
-
                                     String nomor_pengepul = SetorActivity.this.noPengepul;
                                     String foto_bukti = image;
                                     String jenis_pembayaran = metode_bayar;
@@ -222,35 +217,36 @@ public class SetorActivity extends AppCompatActivity {
                                         alamatUser = dataSnapshot.child("alamat").getValue().toString();
                                         noTelpUser = dataSnapshot.child("no_tlp").getValue().toString();
                                         int minyak = Integer.parseInt(dataSnapshot.child("jml_minyak").getValue().toString());
-                                        int poin = Integer.parseInt(dataSnapshot.child("poin").getValue().toString());
-                                        int jumlah_poin = minyak * 10;
-                                        int jumlah_poin_final = poin + jumlah_poin;
-                                        dbUser.child(mUser.getUid()).child("poin").setValue(jumlah_poin_final);
+                                            int poin = Integer.parseInt(dataSnapshot.child("poin").getValue().toString());
+                                            int jumlah_poin = minyak * 10;
+                                            int jumlah_poin_final = poin + jumlah_poin;
+                                            dbUser.child(mUser.getUid()).child("poin").setValue(jumlah_poin_final);
 
-                                        if (metode_bayar.equals("Bayar Langsung")) {
-                                            if (dataSnapshot.child("role").getValue().toString().equals("Rumah Tangga")) {
-                                                total_uang = 15000;
+                                            if (metode_bayar.equals("Bayar Langsung")) {
+                                                if (dataSnapshot.child("role").getValue().toString().equals("Rumah Tangga")) {
+                                                    total_uang = 15000;
+                                                }
+                                                if (dataSnapshot.child("role").getValue().toString().equals("Pedagang")) {
+                                                    total_uang = 30000;
+                                                }
+                                                if (dataSnapshot.child("role").getValue().toString().equals("Cafe dan Rumah Makan")) {
+                                                    total_uang = 45000;
+                                                }
+                                                if (dataSnapshot.child("role").getValue().toString().equals("Hotel dan Penginapan")) {
+                                                    total_uang = 60000;
+                                                }
                                             }
-                                            if (dataSnapshot.child("role").getValue().toString().equals("Pedagang")) {
-                                                total_uang = 30000;
-                                            }
-                                            if (dataSnapshot.child("role").getValue().toString().equals("Cafe dan Rumah Makan")) {
-                                                total_uang = 45000;
-                                            }
-                                            if (dataSnapshot.child("role").getValue().toString().equals("Hotel dan Penginapan")) {
-                                                total_uang = 60000;
-                                            }
+                                            dbRequestSetorUserFinal = FirebaseDatabase.getInstance().getReference("requestSetorUser").child(id_user).child(id_storeData);
+                                            RequestSetorUser requestSetorUser1 = new RequestSetorUser(id_storeData, nama_pengepuls, nomor_pengepul, alamatUser,
+                                                    tanggal_setor, foto_bukti, jenis_pembayaran, alasan_tolak, total_uang, status);
+                                            System.out.println(requestSetorUser1);
+                                            dbRequestSetorUserFinal.setValue(requestSetorUser1);
+                                            String id_pengepul = SetorActivity.this.idPengepul;
+                                            dbRequestSetorPengepulFinal = FirebaseDatabase.getInstance().getReference("requestSetorPengepul").child(id_pengepul).child(id_storeData);
+                                            RequestSetorPengepul requestSetorPengepul = new RequestSetorPengepul(id_storeData, namaUser, alamatUser, noTelpUser, tanggal_setor, foto_bukti, jenis_pembayaran, alasan_tolak, total_uang, status);
+                                            dbRequestSetorPengepulFinal.setValue(requestSetorPengepul);
                                         }
-                                    }
-                                    dbRequestSetorUserFinal = FirebaseDatabase.getInstance().getReference("requestSetorUser").child(id_user).child(id_storeData);
-                                    RequestSetorUser requestSetorUser1 = new RequestSetorUser(id_storeData, nama_pengepuls, nomor_pengepul, alamatUser,
-                                            tanggal_setor, foto_bukti, jenis_pembayaran, alasan_tolak, total_uang, status);
-                                    System.out.println(requestSetorUser1);
-                                    dbRequestSetorUserFinal.setValue(requestSetorUser1);
-                                    String id_pengepul = SetorActivity.this.idPengepul;
-                                    dbRequestSetorPengepulFinal = FirebaseDatabase.getInstance().getReference("requestSetorPengepul").child(id_pengepul).child(id_storeData);
-                                    RequestSetorPengepul requestSetorPengepul = new RequestSetorPengepul(id_storeData, namaUser, alamatUser, noTelpUser, tanggal_setor, foto_bukti, jenis_pembayaran, alasan_tolak, total_uang, status);
-                                    dbRequestSetorPengepulFinal.setValue(requestSetorPengepul);
+
 
                                 }
 
@@ -349,7 +345,7 @@ public class SetorActivity extends AppCompatActivity {
         btnUpload = findViewById(R.id.upload_foto);
         btnBack = findViewById(R.id.btn_back);
         btnSetorNow = findViewById(R.id.btn_setor_now);
-        id_picker = findViewById(R.id.id_picker);
+
         no_picker = findViewById(R.id.no_telp_pengepul);
     }
 
@@ -440,5 +436,8 @@ public class SetorActivity extends AppCompatActivity {
         ContentResolver cR = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
+    }
+    public void showToast(String toastText) {
+        Toast.makeText(this, toastText, Toast.LENGTH_SHORT).show();
     }
 }

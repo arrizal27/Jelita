@@ -11,8 +11,10 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +36,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.smkn4bdg.jelita.Models.User;
 import com.smkn4bdg.jelita.R;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.util.UUID;
@@ -46,7 +49,8 @@ public class EditProfileActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser mUser;
     TextInputEditText nama, username, email, notelp, alamat, kota, kelurahan, kecamatan;
-    String id, jeniskel, role;
+    String id, role;
+    Spinner jeniskel;
     Button btn_gbr;
     private Uri imageUri;
     private StorageReference reference;
@@ -125,7 +129,7 @@ public class EditProfileActivity extends AppCompatActivity {
                                 user.setFoto(image);
                                 user.setId(id);
                                 user.setRole(role);
-                                user.setJenis_kelamin(jeniskel);
+                                user.setJenis_kelamin(jeniskel.getSelectedItem().toString());
                                 user.setPoin(poin);
                                 user.setJml_minyak(jmlminyak);
                                 mdbUsers.child("users").child(mUser.getUid()).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -172,10 +176,16 @@ public class EditProfileActivity extends AppCompatActivity {
         kota.setText(info.getKota());
         kecamatan.setText(info.getKecamatan());
         kelurahan.setText(info.getKelurahan());
-        jeniskel = info.getJenis_kelamin();
         role = info.getRole();
+        if (info.getFoto().isEmpty()){
+
+        }
+        else{
+            Picasso.get().load(info.getFoto()).into(gbr);
+        }
         poin = info.getPoin();
         jmlminyak = info.getJml_minyak();
+        jeniskel.setSelection( ((ArrayAdapter) jeniskel.getAdapter()).getPosition(info.getJenis_kelamin()));
     }
 
     private void findView(){
@@ -191,6 +201,7 @@ public class EditProfileActivity extends AppCompatActivity {
         gbr = findViewById(R.id.gbr);
         kecamatan = findViewById(R.id.kecamatan);
         kelurahan = findViewById(R.id.kelurahan);
+        jeniskel = findViewById(R.id.dropdown_gender);
 
     }
     private void getImage(){

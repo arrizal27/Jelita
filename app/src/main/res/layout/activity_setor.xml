@@ -41,18 +41,7 @@
             android:id="@+id/list_pengepul"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/telp_picker"
-            android:text="NO PICKER"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-        <TextView
-            android:id="@+id/id_picker"
-            android:text="ID PICKER"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+
 
         <TextView
             android:layout_width="match_parent"

@@ -24,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.smkn4bdg.jelita.Models.User;
 import com.smkn4bdg.jelita.R;
 import com.smkn4bdg.jelita.riwayat.RiwayatActivity;
+import com.smkn4bdg.jelita.ui.help.HelpActivity;
 import com.smkn4bdg.jelita.ui.nabung.NabungActivity;
 import com.smkn4bdg.jelita.ui.point.PointActivity;
 import com.smkn4bdg.jelita.ui.profile.ProfileActivity;
@@ -56,6 +57,14 @@ public class MainActivity extends AppCompatActivity {
 //        String email =  mfirebaseauth.getCurrentUser().getEmail();
         findView();
         getdata();
+
+        btnHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, HelpActivity.class);
+                startActivity(i);
+            }
+        });
 
         btnProfil.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,7 +130,12 @@ public class MainActivity extends AppCompatActivity {
                         username.setText(mdatasnap.child("username").getValue(String.class).toUpperCase());
                         kategori.setText(mdatasnap.child("role").getValue(String.class));
                         poin.setText(mdatasnap.child("poin").getValue().toString() + " Poin");
-                        Picasso.get().load(mdatasnap.child("foto").getValue(String.class)).into(fotoProfil);
+                        if (mdatasnap.child("foto").getValue().toString().isEmpty()){
+
+                        }
+                        else{
+                            Picasso.get().load(mdatasnap.child("foto").getValue(String.class)).into(fotoProfil);
+                        }
                         pointed = mdatasnap.child("poin").getValue().toString() + " Poin";
                         tabunganMinyak.setText(String.valueOf(mdatasnap.child("jml_minyak").getValue() + " Liter"));
 
@@ -169,9 +183,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void findView() {
         fotoProfil = findViewById(R.id.img_profil);
-        username = findViewById(R.id.username);
-        poin = findViewById(R.id.poin);
-        kategori = findViewById(R.id.kategori);
+        username = findViewById(R.id.TVusername);
+        poin = findViewById(R.id.TVpoin);
+        kategori = findViewById(R.id.TVkategori);
         tabunganMinyak = findViewById(R.id.txt_tabungan);
         kapasitasMax = findViewById(R.id.txt_maks);
         progressBarMinyak = findViewById(R.id.progres_nabung);
