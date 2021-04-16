@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="15dp"
+        android:padding="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/img_point"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:background="@drawable/ic_circle_profil"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_outline_help_outline_24" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="24dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/img_point"
+            android:layout_toRightOf="@id/img_point"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:text="Name" />
+
+            <TextView
+                android:id="@+id/tv_namepoin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:text="point" />
+
+        </LinearLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_buy"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:shadowColor="@android:color/transparent"
+            android:text="tukar"
+            app:cornerRadius="10dp"
+            app:elevation="0dp" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

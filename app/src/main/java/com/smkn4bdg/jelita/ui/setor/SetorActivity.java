@@ -12,14 +12,12 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -185,6 +183,8 @@ public class SetorActivity extends AppCompatActivity {
 
         UploadTask uploadTask = storageReference.child(pathImage).putBytes(bytes);
 
+        
+
         final StorageReference fileRef = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
 
         fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -201,7 +201,7 @@ public class SetorActivity extends AppCompatActivity {
                                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
                                 String formatdate = sdf.format(c);
                                 String metode_bayar = listMetodeBayar.getSelectedItem().toString();
-                                String total_uang = null;
+                                double total_uang = 0;
                                 String namaUser = null, alamatUser = null, noTelpUser = null;
                                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                                     dbUser.child(mUser.getUid()).child("jml_minyak").setValue(0);
@@ -223,28 +223,24 @@ public class SetorActivity extends AppCompatActivity {
                                         namaUser = dataSnapshot.child("nama").getValue().toString();
                                         alamatUser = dataSnapshot.child("alamat").getValue().toString();
                                         noTelpUser = dataSnapshot.child("no_tlp").getValue().toString();
+                                        int minyak = Integer.parseInt(dataSnapshot.child("jml_minyak").getValue().toString());
+                                        int poin = Integer.parseInt(dataSnapshot.child("poin").getValue().toString());
+                                        int jumlah_poin = minyak * 10;
+                                        int jumlah_poin_final = poin + jumlah_poin;
+                                        dbUser.child(mUser.getUid()).child("poin").setValue(jumlah_poin_final);
 
-                                        if (metode_bayar.equals("Poin")) {
-                                            int minyak = Integer.parseInt(dataSnapshot.child("jml_minyak").getValue().toString());
-                                            int poin = Integer.parseInt(dataSnapshot.child("poin").getValue().toString());
-                                            int jumlah_poin = minyak * 10;
-                                            int jumlah_poin_final = poin + jumlah_poin;
-                                            dbUser.child(mUser.getUid()).child("poin").setValue(jumlah_poin_final);
-
-                                            total_uang = jumlah_poin + " Poin";
-                                        }
                                         if (metode_bayar.equals("Bayar Langsung")) {
                                             if (dataSnapshot.child("role").getValue().toString().equals("Rumah Tangga")) {
-                                                total_uang = String.valueOf(15000);
+                                                total_uang = 15000;
                                             }
                                             if (dataSnapshot.child("role").getValue().toString().equals("Pedagang")) {
-                                                total_uang = String.valueOf(30000);
+                                                total_uang = 30000;
                                             }
                                             if (dataSnapshot.child("role").getValue().toString().equals("Cafe dan Rumah Makan")) {
-                                                total_uang = String.valueOf(45000);
+                                                total_uang = 45000;
                                             }
                                             if (dataSnapshot.child("role").getValue().toString().equals("Hotel dan Penginapan")) {
-                                                total_uang = String.valueOf(60000);
+                                                total_uang = 60000;
                                             }
                                         }
                                     }
@@ -362,6 +358,8 @@ public class SetorActivity extends AppCompatActivity {
 
     private void fetchData() {
         pengepul = new ArrayList<SpinnerPengepul>();
+        dbUser = FirebaseDatabase.getInstance().getReference("users");
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
         ArrayList<String> listPengepulsNama = new ArrayList<String>();
         ArrayList<String> listPengepulsNoTelp = new ArrayList<String>();
         ArrayList<String> listPengepulsAlamat = new ArrayList<String>();
@@ -370,38 +368,60 @@ public class SetorActivity extends AppCompatActivity {
             public void onDataChange(final DataSnapshot snapshot) {
                 final List<String> pengepulItems = new ArrayList<String>();
                 for (final DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    SpinnerPengepul Sp = dataSnapshot.getValue(SpinnerPengepul.class);
-                    listPengepulsNama.add(Sp.getNama());
-                    listPengepulsNoTelp.add(Sp.getNo_telp());
-                    listPengepulsAlamat.add(Sp.getKecamatan());
-                    pengepul.add(Sp);
+
+                    dbUser.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
+                                SpinnerPengepul Sp = dataSnapshot.getValue(SpinnerPengepul.class);
+                                if (dataSnapshot1.child("id").getValue().equals(mUser.getUid())) {
+                                    if (dataSnapshot1.child("kecamatan").getValue().toString().equals(dataSnapshot.child("kecamatan").getValue().toString())) {
+                                        listPengepulsNama.add(Sp.getNama());
+                                        listPengepulsNoTelp.add(Sp.getNo_telp());
+                                        listPengepulsAlamat.add(Sp.getKecamatan());
+                                        pengepul.add(Sp);
+                                    }
+                                }
+                            }
+                            ArrayAdapter<String> pengepulAdapter = new ArrayAdapter<String>(SetorActivity.this,
+                                    android.R.layout.simple_spinner_item, listPengepulsNama);
+                            pengepulAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            listPengepul.setAdapter(pengepulAdapter);
+
+                            listPengepul.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                    idPengepul = pengepul.get(i).getId();
+                                    noPengepul = pengepul.get(i).getNo_telp();
+                                    namaPengepul = pengepul.get(i).getNama();
+
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                                }
+                            });
+                        }
+
+
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
 
 
                 }
 //                SpinnerPengepulAdapter spinnerPengepulAdapter = new SpinnerPengepulAdapter(SetorActivity.this,
 //                        listPengepulsNama, listPengepulsNoTelp,listPengepulsAlamat);
 
-                ArrayAdapter<String> pengepulAdapter = new ArrayAdapter<String>(SetorActivity.this,
-                        android.R.layout.simple_spinner_item, listPengepulsNama);
-                pengepulAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                listPengepul.setAdapter(pengepulAdapter);
+
                 //SpinnerPengepulAdapter c = new SpinnerPengepulAdapter(SetorActivity.this,.getNama_pengepul(),pengepul.get(1).getNo_telp(),pengepul.get(2).getAlamat());
 //                ArrayAdapter<String> adapterPengepul = new ArrayAdapter<String>(SetorActivity)
 //                listPengepul.setAdapter(c);
-                listPengepul.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        idPengepul = pengepul.get(i).getId();
-                        noPengepul = pengepul.get(i).getNo_telp();
-                        namaPengepul = pengepul.get(i).getNama();
 
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-
-                    }
-                });
 
             }
 
@@ -411,7 +431,7 @@ public class SetorActivity extends AppCompatActivity {
             }
         });
 
-        String[] metode_bayar = {"Bayar Langsung", "Poin"};
+        String[] metode_bayar = {"Bayar Langsung", "Credit"};
 
         ArrayAdapter<String> metodeAdapter = new ArrayAdapter<String>(SetorActivity.this, android.R.layout.simple_spinner_item, metode_bayar);
         metodeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

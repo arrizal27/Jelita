@@ -55,7 +55,7 @@ public class DiterimaFragment extends Fragment {
                         RequestSetorUser requestSetorUser = datasnap.getValue(RequestSetorUser.class);
                         dataRequest.add(requestSetorUser);
                     }
-                    DiterimaAdapter diterimaAdapter = new DiterimaAdapter(dataRequest);
+                    MixAdapter diterimaAdapter = new MixAdapter(dataRequest);
                     recyclerView.setAdapter(diterimaAdapter);
                 }
             }

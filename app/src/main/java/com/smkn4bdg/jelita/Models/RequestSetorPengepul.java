@@ -9,11 +9,11 @@ public class RequestSetorPengepul {
     private String foto;
     private String jenis_bayar;
     private String alasan;
-    private String total_uang;
+    private double total_uang;
     private String status;
+    public RequestSetorPengepul(){}
 
-
-    public RequestSetorPengepul(String id, String nama_user, String alamat_user, String no_telp_user, String tanggal_setor, String foto, String jenis_bayar, String alasan, String total_uang, String status) {
+    public RequestSetorPengepul(String id, String nama_user, String alamat_user, String no_telp_user, String tanggal_setor, String foto, String jenis_bayar, String alasan, double total_uang, String status) {
         this.id = id;
         this.nama_user = nama_user;
         this.alamat_user = alamat_user;
@@ -24,38 +24,6 @@ public class RequestSetorPengepul {
         this.alasan = alasan;
         this.total_uang = total_uang;
         this.status = status;
-    }
-
-    public String getJenis_bayar() {
-        return jenis_bayar;
-    }
-
-    public void setJenis_bayar(String jenis_bayar) {
-        this.jenis_bayar = jenis_bayar;
-    }
-
-    public String getAlasan() {
-        return alasan;
-    }
-
-    public void setAlasan(String alasan) {
-        this.alasan = alasan;
-    }
-
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
-    }
-
-    public String getTotal_uang() {
-        return total_uang;
-    }
-
-    public void setTotal_uang(String total_uang) {
-        this.total_uang = total_uang;
     }
 
     public String getId() {
@@ -96,6 +64,38 @@ public class RequestSetorPengepul {
 
     public void setTanggal_setor(String tanggal_setor) {
         this.tanggal_setor = tanggal_setor;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+
+    public String getJenis_bayar() {
+        return jenis_bayar;
+    }
+
+    public void setJenis_bayar(String jenis_bayar) {
+        this.jenis_bayar = jenis_bayar;
+    }
+
+    public String getAlasan() {
+        return alasan;
+    }
+
+    public void setAlasan(String alasan) {
+        this.alasan = alasan;
+    }
+
+    public double getTotal_uang() {
+        return total_uang;
+    }
+
+    public void setTotal_uang(double total_uang) {
+        this.total_uang = total_uang;
     }
 
     public String getStatus() {

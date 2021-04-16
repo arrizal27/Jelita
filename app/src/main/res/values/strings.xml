@@ -1,4 +1,4 @@
-<resources>
+<resources  >
     <string name="app_name">Jelita</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -11,11 +11,19 @@
         <item>Cafe dan Rumah Makan</item>
         <item>Rumah Tangga</item>
     </string-array>
-
-    <string-array name="gender">
+    <string-array name="jk">
         <item>Laki-laki</item>
         <item>Perempuan</item>
         <item>Tidak Disebutkan</item>
     </string-array>
-
+    <!-- About -->
+    <string name="daftar">Daftar dengan mengisi form daftar(nama,username,password,nohp,dan role)</string>
+    <string name="login">Login dengan memasukan nohp serta password yang sudah di daftarkan sebelumnya</string>
+    <string name="nabung">Di Menu Utama klik tombol "Lanjut Menanbung"/"jerigen" -> masukan jumlah minyak yang ingin ditabung</string>
+    <string name="setor">Setor Minyak hanya bisa saat Jerigen sudah penuh, klik "Setor Jerigen" pilih Pengepul,
+        lalu foto bukti jerigen minyak sudah penuh, pilih metode pembayaran</string>
+    <string name="setor2">Setor Minyak akan dicek terlebih dahulu apakah memenuhi persyaratan atau tidak, jika tidak
+        setor akan ditolak dan jika iya setor akan diterima dengan mendapatkan poin dan uang</string>
+    <string name="poin">Poin bisa ditukarkan dengan sembako seperti beras,minyak,dll bisa juga ditukarkan dengan uang tunai/credit</string>
+>>>>>>> 72e79c6762a37df3b4c3c0d2453864ddf0ad1507
 </resources>

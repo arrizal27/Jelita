@@ -1,18 +1,16 @@
 package com.smkn4bdg.jelita.ui.profile;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -24,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.smkn4bdg.jelita.Models.User;
 import com.smkn4bdg.jelita.R;
 import com.smkn4bdg.jelita.ui.WelcomePageActivity;
+import com.squareup.picasso.Picasso;
 
 public class ProfileActivity extends AppCompatActivity {
     MaterialButton back, editProfil;
@@ -34,8 +33,9 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseUser mUser;
     private final String TAG = this.getClass().getName().toUpperCase();
     Context context;
-    TextView editPw, tvnama,tvkategori,tvusername, tvemail, tvpassword,tvalamat, tvkota, tvkecamatan, tvkelurahan, jeniskel;
-    String id, role;
+    TextView editPw, tvnama,tvusername, tvemail, tvpassword,tvalamat, tvkota, tvkecamatan, tvkelurahan, tvjk,tvrole;
+    String id;
+    ImageView imgProfile;
     int poin, jmlminyak;
 
 
@@ -102,16 +102,16 @@ public class ProfileActivity extends AppCompatActivity {
     }
     private void setData(User info) {
         id = info.getId();
-
         tvnama.setText(info.getNama());
         tvusername.setText(info.getUsername());
         tvemail.setText(info.getEmail());
         tvalamat.setText(info.getAlamat());
         tvkota.setText(info.getKota());
+        Picasso.get().load(info.getFoto()).into(imgProfile);
         tvkecamatan.setText(info.getKecamatan());
         tvkelurahan.setText(info.getKelurahan());
-        jeniskel.setText(info.getJenis_kelamin());
-        role = info.getRole();
+        tvjk.setText(info.getJenis_kelamin());
+        tvrole.setText(info.getRole());
         poin = info.getPoin();
         jmlminyak = info.getJml_minyak();
     }
@@ -122,14 +122,15 @@ public class ProfileActivity extends AppCompatActivity {
         editPw = findViewById(R.id.btn_edit_pw);
         btnLogout = findViewById(R.id.btn_logout);
         tvnama = findViewById(R.id.nama);
-        tvkategori = findViewById(R.id.kategori);
         tvusername = findViewById(R.id.username);
+        imgProfile = findViewById(R.id.img_profil);
         tvemail = findViewById(R.id.email);
         tvpassword = findViewById(R.id.pass);
         tvalamat = findViewById(R.id.alamat);
         tvkota = findViewById(R.id.tvkota);
         tvkecamatan = findViewById(R.id.tvkecamatan);
         tvkelurahan = findViewById(R.id.tvkelurahan);
-        jeniskel = findViewById(R.id.tvjenikel);
+        tvjk = findViewById(R.id.jk);
+        tvrole = findViewById(R.id.role);
     }
 }

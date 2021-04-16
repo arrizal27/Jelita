@@ -2,10 +2,12 @@ package com.smkn4bdg.jelita.Models;
 
 public class User {
     private String id;
+    private String foto;
     private String nama;
     private String username;
     private String role;
     private String email;
+    private String password;
     private String jenis_kelamin;
     private String no_tlp;
     private int jml_minyak;
@@ -14,10 +16,14 @@ public class User {
     private String kelurahan;
     private String kecamatan;
     private String kota;
-    private String foto;
 
-    public User(String id, String nama, String username, String role, String email, String jenis_kelamin, String no_tlp, int jml_minyak, int poin, String alamat, String kelurahan, String kecamatan, String kota, String foto) {
+    public User() {
+
+    }
+
+    public User(String id, String foto, String nama, String username, String role, String email, String jenis_kelamin, String no_tlp, int jml_minyak, int poin, String alamat, String kelurahan, String kecamatan, String kota) {
         this.id = id;
+        this.foto = foto;
         this.nama = nama;
         this.username = username;
         this.role = role;
@@ -30,11 +36,6 @@ public class User {
         this.kelurahan = kelurahan;
         this.kecamatan = kecamatan;
         this.kota = kota;
-        this.foto = foto;
-    }
-
-    public User(){
-
     }
 
     public String getId() {
@@ -43,6 +44,14 @@ public class User {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
     public String getNama() {
@@ -75,6 +84,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getJenis_kelamin() {
@@ -139,13 +156,5 @@ public class User {
 
     public void setKota(String kota) {
         this.kota = kota;
-    }
-
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
     }
 }

@@ -13,12 +13,13 @@ import com.smkn4bdg.jelita.Models.RequestSetorUser;
 import com.smkn4bdg.jelita.R;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class DitolakAdapter extends RecyclerView.Adapter<DitolakAdapter.DitolakViewHolder> {
     private ArrayList<RequestSetorUser> dataSetor;
 
-    public DitolakAdapter(ArrayList<RequestSetorUser> dataSetor){
+    public DitolakAdapter(ArrayList<RequestSetorUser> dataSetor) {
         this.dataSetor = dataSetor;
     }
 
@@ -32,13 +33,15 @@ public class DitolakAdapter extends RecyclerView.Adapter<DitolakAdapter.DitolakV
     @Override
     public void onBindViewHolder(@NonNull DitolakViewHolder holder, int position) {
         RequestSetorUser requestSetorUser = dataSetor.get(position);
-        holder.tvpengepul.setText(requestSetorUser.getNama_pengepul());
+        NumberFormat nm = NumberFormat.getInstance();
         Picasso.get().load(requestSetorUser.getFoto_bukti()).into(holder.ivbukti);
+        holder.tvpengepul.setText(requestSetorUser.getNama_pengepul());
         holder.tvtelepon.setText(requestSetorUser.getNo_telp_pengepul());
         holder.tvalamat.setText(requestSetorUser.getAlamat_user());
-        holder.tvstatus.setText("Ditolak");
+        holder.tvstatus.setText(requestSetorUser.getStatus());
         holder.tvtanggalsetor.setText(requestSetorUser.getTanggal_setor());
         holder.tvjenispembayaran.setText(requestSetorUser.getJenis_pembayaran());
+        holder.tvbayar.setText("Rp."+nm.format(requestSetorUser.getTotal_uang()));
         holder.tvalasan.setText(requestSetorUser.getAlasantolak());
 
     }
@@ -49,7 +52,7 @@ public class DitolakAdapter extends RecyclerView.Adapter<DitolakAdapter.DitolakV
     }
 
     public class DitolakViewHolder extends RecyclerView.ViewHolder {
-        TextView tvpengepul,tvtelepon,tvalamat,tvtanggalsetor,tvjenispembayaran,tvstatus,tvalasan;
+        TextView tvpengepul,tvtelepon,tvalamat,tvtanggalsetor,tvjenispembayaran,tvstatus,tvalasan,txtalasan,tvbayar;
         ImageView ivbukti;
         public DitolakViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -60,8 +63,12 @@ public class DitolakAdapter extends RecyclerView.Adapter<DitolakAdapter.DitolakV
             tvjenispembayaran = itemView.findViewById(R.id.txt_jenis_bayar);
             tvstatus = itemView.findViewById(R.id.txt_status);
             tvalasan = itemView.findViewById(R.id.txt_alasan);
+            txtalasan = itemView.findViewById(R.id.ttl_alasan);
+            tvbayar = itemView.findViewById(R.id.txt_bayar);
             ivbukti = itemView.findViewById(R.id.foto_bukti);
+
 
         }
     }
 }
+

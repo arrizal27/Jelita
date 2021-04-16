@@ -156,9 +156,9 @@ public class LoginActivity extends AppCompatActivity {
                             String Gmail = user.getEmail();
                             String foto = "unkonwn";
 
-                            User usr = new User(id, name, Gusername, role, Gmail,
+                            User usr = new User(id, foto, name, Gusername, role, Gmail,
                                     jenisKelamin, noTlp, jml_minyak, poin, alamat, kelurahan
-                                    , kecamatan, kota, foto);
+                                    , kecamatan, kota);
 
                             dbUsers.child("Pengguna").child(id).setValue(usr);
                             Toast.makeText(LoginActivity.this, "User Signed In", Toast.LENGTH_SHORT).show();
