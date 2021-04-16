@@ -130,7 +130,12 @@ public class MainActivity extends AppCompatActivity {
                         username.setText(mdatasnap.child("username").getValue(String.class).toUpperCase());
                         kategori.setText(mdatasnap.child("role").getValue(String.class));
                         poin.setText(mdatasnap.child("poin").getValue().toString() + " Poin");
-                        Picasso.get().load(mdatasnap.child("foto").getValue(String.class)).into(fotoProfil);
+                        if (mdatasnap.child("foto").getValue().toString().isEmpty()){
+
+                        }
+                        else{
+                            Picasso.get().load(mdatasnap.child("foto").getValue(String.class)).into(fotoProfil);
+                        }
                         pointed = mdatasnap.child("poin").getValue().toString() + " Poin";
                         tabunganMinyak.setText(String.valueOf(mdatasnap.child("jml_minyak").getValue() + " Liter"));
 
