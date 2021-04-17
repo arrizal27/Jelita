@@ -1,14 +1,13 @@
 package com.smkn4bdg.jelita.ui.setor;
 
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.TextUtils;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
@@ -70,7 +69,8 @@ public class SetorActivity extends AppCompatActivity {
     FirebaseUser mUser;
     TextView id_picker, no_picker;
     ArrayList<SpinnerPengepul> pengepul;
-    private Uri imageUri;
+    private Uri imageUri = Uri.parse("dummy");
+    private String kak = "";
     private String namaPengepul;
     private String noPengepul;
     private String idPengepul;
@@ -114,11 +114,10 @@ public class SetorActivity extends AppCompatActivity {
                 //button setor sekarang diklik
                 //uploadImage();
                 storeDataUserRequest();
+
                 //storeDataPengepulRequest();
 
-                Intent i = new Intent(SetorActivity.this, SetorBerhasilActivity.class);
-                startActivity(i);
-                finish();
+
             }
         });
 
@@ -155,13 +154,17 @@ public class SetorActivity extends AppCompatActivity {
             case REQUEST_CODE_CAMERA:
                 if (resultCode == RESULT_OK) {
                     Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                    imageUri = getImageUri(SetorActivity.this,bitmap);
                     fotoBukti.setImageBitmap(bitmap);
+                    fotoBukti.setImageURI(imageUri);
+                    kak = "papilung";
                 }
                 break;
             case REQUEST_CODE_GALLERY:
                 if (resultCode == RESULT_OK) {
                     imageUri = data.getData();
                     fotoBukti.setImageURI(imageUri);
+                    kak = "papipap";
                 }
                 break;
         }
@@ -179,23 +182,26 @@ public class SetorActivity extends AppCompatActivity {
 //        ByteArrayOutputStream stream = new ByteArrayOutputStream();
 //        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 //        byte[] bytes = stream.toByteArray();
-//
-//        String namaFile = UUID.randomUUID() + ".jpg";
-//        String pathImage = "File/" + namaFile;
-//
+
+        String namaFile = UUID.randomUUID() + ".jpg";
+        String pathImage = "File/" + namaFile;
+
 //        UploadTask uploadTask = storageReference.child(pathImage).putBytes(bytes);
-        
-        final StorageReference fileRef = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
+        System.out.println("PAPAPA : "+imageUri);
+        if (kak.equals("")) {
+            Toast.makeText(SetorActivity.this,"Tolong upload gambar bukti!", Toast.LENGTH_LONG).show();
+        }
+            else{
+            final StorageReference fileRef = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
 
 
-
-        fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        String image = uri.toString();
+            fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            String image = uri.toString();
 
                             dbUser.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
@@ -242,10 +248,9 @@ public class SetorActivity extends AppCompatActivity {
                                                 }
                                             }
 
-                                            if (imageUri.toString().isEmpty()){
+                                            if (imageUri.toString().isEmpty()) {
                                                 Toast.makeText(getApplicationContext(), "FOTO NYA MANA..... !!", Toast.LENGTH_SHORT).show();
-                                            }
-                                            else {
+                                            } else {
                                                 dbRequestSetorUserFinal = FirebaseDatabase.getInstance().getReference("requestSetorUser").child(id_user).child(id_storeData);
                                                 RequestSetorUser requestSetorUser1 = new RequestSetorUser(id_storeData, nama_pengepuls, nomor_pengepul, alamatUser,
                                                         tanggal_setor, foto_bukti, jenis_pembayaran, alasan_tolak, total_uang, status);
@@ -255,6 +260,9 @@ public class SetorActivity extends AppCompatActivity {
                                                 dbRequestSetorPengepulFinal = FirebaseDatabase.getInstance().getReference("requestSetorPengepul").child(id_pengepul).child(id_storeData);
                                                 RequestSetorPengepul requestSetorPengepul = new RequestSetorPengepul(id_storeData, namaUser, alamatUser, noTelpUser, tanggal_setor, foto_bukti, jenis_pembayaran, alasan_tolak, total_uang, status);
                                                 dbRequestSetorPengepulFinal.setValue(requestSetorPengepul);
+                                                Intent i = new Intent(SetorActivity.this, SetorBerhasilActivity.class);
+                                                startActivity(i);
+                                                finish();
                                             }
 
                                         }
@@ -273,20 +281,18 @@ public class SetorActivity extends AppCompatActivity {
                             });
 
 
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast toast = Toast.makeText(getApplicationContext(), "FOTO NYA MANA....!!!", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                    });
+                }
 
-
-
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast toast = Toast.makeText(getApplicationContext(), "FOTO NYA MANA....!!!", Toast.LENGTH_SHORT);
-                        toast.show();
-                    }
-                });
-            }
-
-        });
+            });
+        }
 
 
 
@@ -394,5 +400,11 @@ public class SetorActivity extends AppCompatActivity {
     }
     public void showToast(String toastText) {
         Toast.makeText(this, toastText, Toast.LENGTH_SHORT).show();
+    }
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
     }
 }

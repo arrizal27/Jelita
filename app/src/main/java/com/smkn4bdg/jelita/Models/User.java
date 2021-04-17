@@ -21,13 +21,14 @@ public class User {
 
     }
 
-    public User(String id, String foto, String nama, String username, String role, String email, String jenis_kelamin, String no_tlp, int jml_minyak, int poin, String alamat, String kelurahan, String kecamatan, String kota) {
+    public User(String id, String foto, String nama, String username, String role, String email, String password, String jenis_kelamin, String no_tlp, int jml_minyak, int poin, String alamat, String kelurahan, String kecamatan, String kota) {
         this.id = id;
         this.foto = foto;
         this.nama = nama;
         this.username = username;
         this.role = role;
         this.email = email;
+        this.password = password;
         this.jenis_kelamin = jenis_kelamin;
         this.no_tlp = no_tlp;
         this.jml_minyak = jml_minyak;

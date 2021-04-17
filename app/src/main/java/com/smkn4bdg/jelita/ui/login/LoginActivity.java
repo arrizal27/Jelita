@@ -26,8 +26,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.smkn4bdg.jelita.Models.User;
 import com.smkn4bdg.jelita.R;
 import com.smkn4bdg.jelita.ui.main.MainActivity;
@@ -155,12 +158,13 @@ public class LoginActivity extends AppCompatActivity {
                             String Gusername = user.getDisplayName();
                             String Gmail = user.getEmail();
                             String foto = "unkonwn";
+                            String pw = pass.getText().toString();
 
-                            User usr = new User(id, foto, name, Gusername, role, Gmail,
+                            User usr = new User(id, foto, name, Gusername, role, Gmail,pw,
                                     jenisKelamin, noTlp, jml_minyak, poin, alamat, kelurahan
                                     , kecamatan, kota);
 
-                            dbUsers.child("Pengguna").child(id).setValue(usr);
+                            dbUsers.child("users").child(id).setValue(usr);
                             Toast.makeText(LoginActivity.this, "User Signed In", Toast.LENGTH_SHORT).show();
                             LoginActivity.this.startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             LoginActivity.this.finish();
@@ -178,7 +182,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btn_masuk);
         back = findViewById(R.id.back_login);
         googlelogin = findViewById(R.id.googlesignin);
-        dbUsers = FirebaseDatabase.getInstance().getReference("Users");
+        dbUsers = FirebaseDatabase.getInstance().getReference("users");
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
@@ -197,26 +201,42 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         //login user
-        firebaseAuth.signInWithEmailAndPassword(usernameFinal, passFinal)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+        dbUsers.orderByChild("email").equalTo(usernameFinal).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    firebaseAuth.signInWithEmailAndPassword(usernameFinal, passFinal)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
 
-                        if (!task.isSuccessful()) {
+                                    if (!task.isSuccessful()) {
 
-                            if (passFinal.length() < 6) {
-                                pass.setError(LoginActivity.this.getString(R.string.minimum_password));
-                            } else {
-                                Toast.makeText(LoginActivity.this, LoginActivity.this.getString(R.string.auth_failed), Toast.LENGTH_SHORT).show();
-                            }
+                                        if (passFinal.length() < 6) {
+                                            pass.setError(LoginActivity.this.getString(R.string.minimum_password));
+                                        } else {
+                                            Toast.makeText(LoginActivity.this, LoginActivity.this.getString(R.string.auth_failed), Toast.LENGTH_SHORT).show();
+                                        }
 
-                        } else {
-                            LoginActivity.this.startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                            LoginActivity.this.finish();
-                            user.setEmail(usernameFinal);
-                        }
-                    }
-                });
+                                    } else {
+                                        LoginActivity.this.startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                        LoginActivity.this.finish();
+                                        user.setEmail(usernameFinal);
+                                    }
+                                }
+                            });
+
+                }else {
+                    Toast.makeText(LoginActivity.this,"Data tidak ditemukan",Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
     }
 
