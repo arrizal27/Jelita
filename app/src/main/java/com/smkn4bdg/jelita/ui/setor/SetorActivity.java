@@ -154,8 +154,8 @@ public class SetorActivity extends AppCompatActivity {
             case REQUEST_CODE_CAMERA:
                 if (resultCode == RESULT_OK) {
                     Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-                    imageUri = getImageUri(SetorActivity.this,bitmap);
                     fotoBukti.setImageBitmap(bitmap);
+                    imageUri = getImageUri(SetorActivity.this,bitmap);
                     fotoBukti.setImageURI(imageUri);
                     kak = "papilung";
                 }

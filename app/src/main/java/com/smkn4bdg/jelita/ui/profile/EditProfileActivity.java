@@ -51,7 +51,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser mUser;
     TextInputEditText nama, username, email, notelp, alamat, kota, kelurahan, kecamatan;
-    String id, role,oldUri;
+    String id, role,oldUri = "kak";
     Spinner jeniskel;
     Button btn_gbr;
     private Uri imageUri = Uri.parse("dummy");
