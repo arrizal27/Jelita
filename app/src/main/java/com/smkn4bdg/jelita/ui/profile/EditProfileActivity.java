@@ -2,6 +2,7 @@ package com.smkn4bdg.jelita.ui.profile;
 
 import android.app.AlertDialog;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -50,7 +51,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser mUser;
     TextInputEditText nama, username, email, notelp, alamat, kota, kelurahan, kecamatan;
-    String id, role,oldUri;
+    String id, role,oldUri = "kak";
     Spinner jeniskel;
     Button btn_gbr;
     private Uri imageUri = Uri.parse("dummy");
@@ -248,6 +249,8 @@ public class EditProfileActivity extends AppCompatActivity {
                 if(resultCode == RESULT_OK){
                     Bitmap bitmap = (Bitmap) data.getExtras().get("data");
                     gbr.setImageBitmap(bitmap);
+                    imageUri = getImageUri(EditProfileActivity.this,bitmap);
+                    gbr.setImageURI(imageUri);
                 }
                 break;
 
@@ -263,5 +266,11 @@ public class EditProfileActivity extends AppCompatActivity {
         ContentResolver cR = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
+    }
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
     }
 }
