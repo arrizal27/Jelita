@@ -153,16 +153,12 @@ public class SetorActivity extends AppCompatActivity {
         switch (requestCode) {
             case REQUEST_CODE_CAMERA:
                 if (resultCode == RESULT_OK) {
-<<<<<<< HEAD
-                    imageUri = data.getData();
-                    fotoBukti.setImageURI(imageUri);
-=======
+
                     Bitmap bitmap = (Bitmap) data.getExtras().get("data");
                     fotoBukti.setImageBitmap(bitmap);
                     imageUri = getImageUri(SetorActivity.this,bitmap);
                     fotoBukti.setImageURI(imageUri);
                     kak = "papilung";
->>>>>>> refs/remotes/origin/master
                 }
                 break;
             case REQUEST_CODE_GALLERY:
@@ -183,24 +179,11 @@ public class SetorActivity extends AppCompatActivity {
 
         fotoBukti.setDrawingCacheEnabled(true);
         fotoBukti.buildDrawingCache();
-<<<<<<< HEAD
-        Bitmap bitmap = ((BitmapDrawable) fotoBukti.getDrawable()).getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        byte[] bytes = stream.toByteArray();
 
-        String namaFile = UUID.randomUUID() + ".jpg";
-        String pathImage = "File/" + namaFile;
-
-        UploadTask uploadTask = storageReference.child(pathImage).putBytes(bytes);
-        
-        final StorageReference fileRef = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
-=======
 //        Bitmap bitmap = ((BitmapDrawable) fotoBukti.getDrawable()).getBitmap();
 //        ByteArrayOutputStream stream = new ByteArrayOutputStream();
 //        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 //        byte[] bytes = stream.toByteArray();
->>>>>>> refs/remotes/origin/master
 
         String namaFile = UUID.randomUUID() + ".jpg";
         String pathImage = "File/" + namaFile;
@@ -270,23 +253,20 @@ public class SetorActivity extends AppCompatActivity {
                                             if (imageUri.toString().isEmpty()) {
                                                 Toast.makeText(getApplicationContext(), "FOTO NYA MANA..... !!", Toast.LENGTH_SHORT).show();
                                             } else {
+                                                String id_pengepul = SetorActivity.this.idPengepul;
                                                 dbRequestSetorUserFinal = FirebaseDatabase.getInstance().getReference("requestSetorUser").child(id_user).child(id_storeData);
-                                                RequestSetorUser requestSetorUser1 = new RequestSetorUser(id_storeData, nama_pengepuls, nomor_pengepul, alamatUser,
+                                                RequestSetorUser requestSetorUser1 = new RequestSetorUser(id_storeData,id_pengepul, nama_pengepuls, nomor_pengepul, alamatUser,
                                                         tanggal_setor, foto_bukti, jenis_pembayaran, alasan_tolak, total_uang, status);
                                                 System.out.println(requestSetorUser1);
                                                 dbRequestSetorUserFinal.setValue(requestSetorUser1);
-                                                String id_pengepul = SetorActivity.this.idPengepul;
                                                 dbRequestSetorPengepulFinal = FirebaseDatabase.getInstance().getReference("requestSetorPengepul").child(id_pengepul).child(id_storeData);
-                                                RequestSetorPengepul requestSetorPengepul = new RequestSetorPengepul(id_storeData, namaUser, alamatUser, noTelpUser, tanggal_setor, foto_bukti, jenis_pembayaran, alasan_tolak, total_uang, status);
+                                                RequestSetorPengepul requestSetorPengepul = new RequestSetorPengepul(id_storeData,id_user, namaUser, alamatUser, noTelpUser, tanggal_setor, foto_bukti, jenis_pembayaran, alasan_tolak, total_uang, status);
                                                 dbRequestSetorPengepulFinal.setValue(requestSetorPengepul);
                                                 Intent i = new Intent(SetorActivity.this, SetorBerhasilActivity.class);
                                                 startActivity(i);
                                                 finish();
                                             }
-
                                         }
-
-
                                     }
 
 
@@ -299,19 +279,7 @@ public class SetorActivity extends AppCompatActivity {
                                 }
                             });
 
-<<<<<<< HEAD
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast toast = Toast.makeText(getApplicationContext(), "FOTO NYA MANA....!!!", Toast.LENGTH_SHORT);
-                        toast.show();
-                    }
-                });
-            }
 
-        });
-=======
 
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -325,7 +293,6 @@ public class SetorActivity extends AppCompatActivity {
 
             });
         }
->>>>>>> refs/remotes/origin/master
 
 
 

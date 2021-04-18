@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -42,6 +43,8 @@ public class DaftarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_daftar);
 
         findView();
+        fillSpinnerGender();
+        fillSpinnerRole();
 
         btndaftar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,6 +184,22 @@ public class DaftarActivity extends AppCompatActivity {
 
     public void showToast(String toastText) {
         Toast.makeText(this, toastText, Toast.LENGTH_SHORT).show();
+    }
+    private void fillSpinnerGender(){
+        String[] jenis_kelamin = {"Laki - Laki","Perempuan"};
+
+        ArrayAdapter<String> genderAdapter = new ArrayAdapter<String>(DaftarActivity.this, android.R.layout.simple_spinner_item, jenis_kelamin);
+        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        jk.setAdapter(genderAdapter);
+
+    }
+    private void fillSpinnerRole(){
+        String[] roles = {"Rumah Tangga","Pedagang","Cafe dan Rumah Makan","Hotel dan Penginapan"};
+
+        ArrayAdapter<String> genderAdapter = new ArrayAdapter<String>(DaftarActivity.this, android.R.layout.simple_spinner_item, roles);
+        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        role.setAdapter(genderAdapter);
+
     }
 
 }
