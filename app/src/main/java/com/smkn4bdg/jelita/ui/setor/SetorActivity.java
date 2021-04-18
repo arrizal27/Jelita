@@ -154,8 +154,8 @@ public class SetorActivity extends AppCompatActivity {
         switch (requestCode) {
             case REQUEST_CODE_CAMERA:
                 if (resultCode == RESULT_OK) {
-                    Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-                    fotoBukti.setImageBitmap(bitmap);
+                    imageUri = data.getData();
+                    fotoBukti.setImageURI(imageUri);
                 }
                 break;
             case REQUEST_CODE_GALLERY:
@@ -175,15 +175,15 @@ public class SetorActivity extends AppCompatActivity {
 
         fotoBukti.setDrawingCacheEnabled(true);
         fotoBukti.buildDrawingCache();
-//        Bitmap bitmap = ((BitmapDrawable) fotoBukti.getDrawable()).getBitmap();
-//        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-//        byte[] bytes = stream.toByteArray();
-//
-//        String namaFile = UUID.randomUUID() + ".jpg";
-//        String pathImage = "File/" + namaFile;
-//
-//        UploadTask uploadTask = storageReference.child(pathImage).putBytes(bytes);
+        Bitmap bitmap = ((BitmapDrawable) fotoBukti.getDrawable()).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] bytes = stream.toByteArray();
+
+        String namaFile = UUID.randomUUID() + ".jpg";
+        String pathImage = "File/" + namaFile;
+
+        UploadTask uploadTask = storageReference.child(pathImage).putBytes(bytes);
         
         final StorageReference fileRef = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
 
@@ -221,11 +221,11 @@ public class SetorActivity extends AppCompatActivity {
                                             namaUser = dataSnapshot.child("nama").getValue().toString();
                                             alamatUser = dataSnapshot.child("alamat").getValue().toString();
                                             noTelpUser = dataSnapshot.child("no_tlp").getValue().toString();
-                                            int minyak = Integer.parseInt(dataSnapshot.child("jml_minyak").getValue().toString());
-                                            int poin = Integer.parseInt(dataSnapshot.child("poin").getValue().toString());
-                                            int jumlah_poin = minyak * 10;
-                                            int jumlah_poin_final = poin + jumlah_poin;
-                                            dbUser.child(mUser.getUid()).child("poin").setValue(jumlah_poin_final);
+//                                            int minyak = Integer.parseInt(dataSnapshot.child("jml_minyak").getValue().toString());
+//                                            int poin = Integer.parseInt(dataSnapshot.child("poin").getValue().toString());
+//                                            int jumlah_poin = minyak * 10;
+//                                            int jumlah_poin_final = poin + jumlah_poin;
+//                                            dbUser.child(mUser.getUid()).child("poin").setValue(jumlah_poin_final);
 
                                             if (metode_bayar.equals("Bayar Langsung")) {
                                                 if (dataSnapshot.child("role").getValue().toString().equals("Rumah Tangga")) {
@@ -271,10 +271,6 @@ public class SetorActivity extends AppCompatActivity {
                                     toast.show();
                                 }
                             });
-
-
-
-
 
                     }
                 }).addOnFailureListener(new OnFailureListener() {
