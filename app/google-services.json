@@ -37,9 +37,9 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:280826785622:android:3a9810ea8270141d1af0f7",
+        "mobilesdk_app_id": "1:280826785622:android:fddd80ee23d667971af0f7",
         "android_client_info": {
-          "package_name": "satria.xiirpl2.tutorfirebase"
+          "package_name": "com.smkn4bdg.jelitapicker"
         }
       },
       "oauth_client": [
