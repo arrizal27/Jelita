@@ -73,18 +73,18 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         //Login Google
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-        googlelogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                LoginActivity.this.googleSign();
-            }
-        });
+//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestIdToken(getString(R.string.default_web_client_id))
+//                .requestEmail()
+//                .build();
+//        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+//
+//        googlelogin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                LoginActivity.this.googleSign();
+//            }
+//        });
 
     }
 
@@ -101,86 +101,85 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        //if the requestCode is the Google Sign In code that we defined at starting
-        if (requestCode == RC_SIGN_IN) {
-
-            //Getting the GoogleSignIn Task
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                //Google Sign In was successful, authenticate with Firebase
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                //authenticating with firebase
-                firebaseAuthWithGoogle(account);
-            } catch (ApiException e) {
-                Toast.makeText(LoginActivity.this, "Api Exception Failed", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        //data default
-        String jenisKelamin = "tidak disebutkan";
-        String noTlp = "08**********";
-        int jml_minyak = 0;
-        int poin = 0;
-        String alamat = "";
-        String kelurahan = "";
-        String kecamatan = "";
-        String kota = "";
-        String role = "Rumah Tangga";
-
-        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
-
-        //getting the auth credential
-        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-
-        //Now using firebase we are signing in the user here
-        firebaseAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (!task.isSuccessful()) {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-
-                            Log.d(TAG, "signInWithCredential:success");
-                        } else {
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
-                            String id = firebaseAuth.getUid();
-                            String name = user.getDisplayName();
-                            String Gusername = user.getDisplayName();
-                            String Gmail = user.getEmail();
-                            String foto = "unkonwn";
-                            String pw = pass.getText().toString();
-
-                            User usr = new User(id, foto, name, Gusername, role, Gmail,pw,
-                                    jenisKelamin, noTlp, jml_minyak, poin, alamat, kelurahan
-                                    , kecamatan, kota);
-
-                            dbUsers.child("users").child(id).setValue(usr);
-                            Toast.makeText(LoginActivity.this, "User Signed In", Toast.LENGTH_SHORT).show();
-                            LoginActivity.this.startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                            LoginActivity.this.finish();
-
-                        }
-
-                        // ...
-                    }
-                });
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        //if the requestCode is the Google Sign In code that we defined at starting
+//        if (requestCode == RC_SIGN_IN) {
+//
+//            //Getting the GoogleSignIn Task
+//            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+//            try {
+//                //Google Sign In was successful, authenticate with Firebase
+//                GoogleSignInAccount account = task.getResult(ApiException.class);
+//                //authenticating with firebase
+//                firebaseAuthWithGoogle(account);
+//            } catch (ApiException e) {
+//                Toast.makeText(LoginActivity.this, "Api Exception Failed", Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//    }
+//
+//    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+//        //data default
+//        String jenisKelamin = "tidak disebutkan";
+//        String noTlp = "08**********";
+//        int jml_minyak = 0;
+//        int poin = 0;
+//        String alamat = "";
+//        String kelurahan = "";
+//        String kecamatan = "";
+//        String kota = "";
+//        String role = "Rumah Tangga";
+//
+//        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
+//
+//        //getting the auth credential
+//        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+//
+//        //Now using firebase we are signing in the user here
+//        firebaseAuth.signInWithCredential(credential)
+//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if (!task.isSuccessful()) {
+//                            // If sign in fails, display a message to the user.
+//                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+//                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+//                                    Toast.LENGTH_SHORT).show();
+//
+//                            Log.d(TAG, "signInWithCredential:success");
+//                        } else {
+//                            FirebaseUser user = firebaseAuth.getCurrentUser();
+//                            String id = firebaseAuth.getUid();
+//                            String name = user.getDisplayName();
+//                            String Gusername = user.getDisplayName();
+//                            String Gmail = user.getEmail();
+//                            String foto = "unkonwn";
+//                            String pw = pass.getText().toString();
+//
+//                            User usr = new User(id, foto, name, Gusername, role, Gmail,pw,
+//                                    jenisKelamin, noTlp, jml_minyak, poin, alamat, kelurahan
+//                                    , kecamatan, kota);
+//
+//                            dbUsers.child("users").child(id).setValue(usr);
+//                            Toast.makeText(LoginActivity.this, "User Signed In", Toast.LENGTH_SHORT).show();
+//                            LoginActivity.this.startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                            LoginActivity.this.finish();
+//
+//                        }
+//
+//                        // ...
+//                    }
+//                });
+//    }
 
     private void findView(){
         username = findViewById(R.id.login_username);
         pass = findViewById(R.id.login_password);
         btnLogin = findViewById(R.id.btn_masuk);
         back = findViewById(R.id.back_login);
-        googlelogin = findViewById(R.id.googlesignin);
         dbUsers = FirebaseDatabase.getInstance().getReference("users");
         firebaseAuth = FirebaseAuth.getInstance();
     }
