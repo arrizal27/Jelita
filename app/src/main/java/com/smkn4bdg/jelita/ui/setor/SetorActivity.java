@@ -35,6 +35,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.smkn4bdg.jelita.Models.RequestSetorAdmin;
 import com.smkn4bdg.jelita.Models.RequestSetorPengepul;
 import com.smkn4bdg.jelita.Models.RequestSetorUser;
 import com.smkn4bdg.jelita.Models.SpinnerPengepul;
@@ -64,6 +65,8 @@ public class SetorActivity extends AppCompatActivity {
     DatabaseReference dbRequestSetorUserFinal;
     DatabaseReference dbRequestSetorPengepul;
     DatabaseReference dbRequestSetorPengepulFinal;
+    DatabaseReference dbRequestSetorAdmin;
+    DatabaseReference dbRequestSetorAdminFinal;
     DatabaseReference dbUser;
     StorageReference storageReference;
     FirebaseUser mUser;
@@ -87,6 +90,8 @@ public class SetorActivity extends AppCompatActivity {
         dbRequestSetorUserFinal = dbRequestSetorUser.push();
         dbRequestSetorPengepul = FirebaseDatabase.getInstance().getReference("requestSetorPengepul");
         dbRequestSetorPengepulFinal = dbRequestSetorPengepul.push();
+        dbRequestSetorAdmin = FirebaseDatabase.getInstance().getReference("requestSetorAdmin");
+        dbRequestSetorAdminFinal = dbRequestSetorAdmin.push();
 
 
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -113,7 +118,7 @@ public class SetorActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //button setor sekarang diklik
                 //uploadImage();
-                storeDataUserRequest();
+                storeDataRequest();
 
                 //storeDataPengepulRequest();
 
@@ -158,21 +163,22 @@ public class SetorActivity extends AppCompatActivity {
                     fotoBukti.setImageBitmap(bitmap);
                     imageUri = getImageUri(SetorActivity.this,bitmap);
                     fotoBukti.setImageURI(imageUri);
-                    kak = "papilung";
+                    kak = "pap";
+
                 }
                 break;
             case REQUEST_CODE_GALLERY:
                 if (resultCode == RESULT_OK) {
                     imageUri = data.getData();
                     fotoBukti.setImageURI(imageUri);
-                    kak = "papipap";
+                    kak = "pap";
                 }
                 break;
         }
     }
 
 
-    private void storeDataUserRequest() {
+    private void storeDataRequest() {
         FirebaseApp.initializeApp(this);
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         dbUser = FirebaseDatabase.getInstance().getReference("users");
@@ -180,15 +186,7 @@ public class SetorActivity extends AppCompatActivity {
         fotoBukti.setDrawingCacheEnabled(true);
         fotoBukti.buildDrawingCache();
 
-//        Bitmap bitmap = ((BitmapDrawable) fotoBukti.getDrawable()).getBitmap();
-//        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-//        byte[] bytes = stream.toByteArray();
 
-        String namaFile = UUID.randomUUID() + ".jpg";
-        String pathImage = "File/" + namaFile;
-
-//        UploadTask uploadTask = storageReference.child(pathImage).putBytes(bytes);
         System.out.println("PAPAPA : "+imageUri);
         if (kak.equals("")) {
             Toast.makeText(SetorActivity.this,"Tolong upload gambar bukti!", Toast.LENGTH_LONG).show();
@@ -254,14 +252,22 @@ public class SetorActivity extends AppCompatActivity {
                                                 Toast.makeText(getApplicationContext(), "FOTO NYA MANA..... !!", Toast.LENGTH_SHORT).show();
                                             } else {
                                                 String id_pengepul = SetorActivity.this.idPengepul;
+                                                //Setor User
                                                 dbRequestSetorUserFinal = FirebaseDatabase.getInstance().getReference("requestSetorUser").child(id_user).child(id_storeData);
                                                 RequestSetorUser requestSetorUser1 = new RequestSetorUser(id_storeData,id_pengepul, nama_pengepuls, nomor_pengepul, alamatUser,
                                                         tanggal_setor, foto_bukti, jenis_pembayaran, alasan_tolak, total_uang, status);
-                                                System.out.println(requestSetorUser1);
                                                 dbRequestSetorUserFinal.setValue(requestSetorUser1);
+
+                                                //Setor Pengepul
                                                 dbRequestSetorPengepulFinal = FirebaseDatabase.getInstance().getReference("requestSetorPengepul").child(id_pengepul).child(id_storeData);
                                                 RequestSetorPengepul requestSetorPengepul = new RequestSetorPengepul(id_storeData,id_user, namaUser, alamatUser, noTelpUser, tanggal_setor, foto_bukti, jenis_pembayaran, alasan_tolak, total_uang, status);
                                                 dbRequestSetorPengepulFinal.setValue(requestSetorPengepul);
+
+                                                //Setor Admin
+                                                dbRequestSetorAdminFinal = FirebaseDatabase.getInstance().getReference("requestSetorAdmin").child(id_storeData);
+                                                RequestSetorAdmin requestSetorAdmin = new RequestSetorAdmin(id_storeData,namaUser, nama_pengepuls,status,tanggal_setor,alamatUser,jenis_pembayaran,total_uang,nomor_pengepul,foto_bukti);
+                                                dbRequestSetorAdminFinal.setValue(requestSetorAdmin);
+                                                
                                                 Intent i = new Intent(SetorActivity.this, SetorBerhasilActivity.class);
                                                 startActivity(i);
                                                 finish();
@@ -316,8 +322,6 @@ public class SetorActivity extends AppCompatActivity {
         dbUser = FirebaseDatabase.getInstance().getReference("users");
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         ArrayList<String> listPengepulsNama = new ArrayList<String>();
-        ArrayList<String> listPengepulsNoTelp = new ArrayList<String>();
-        ArrayList<String> listPengepulsAlamat = new ArrayList<String>();
         dbPengepul.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(final DataSnapshot snapshot) {
@@ -332,8 +336,6 @@ public class SetorActivity extends AppCompatActivity {
                                 if (dataSnapshot1.child("id").getValue().equals(mUser.getUid())) {
                                     if (dataSnapshot1.child("kecamatan").getValue().toString().equals(dataSnapshot.child("kecamatan").getValue().toString())) {
                                         listPengepulsNama.add(Sp.getNama());
-                                        listPengepulsNoTelp.add(Sp.getNo_telp());
-                                        listPengepulsAlamat.add(Sp.getKecamatan());
                                         pengepul.add(Sp);
                                     }
                                 }

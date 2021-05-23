@@ -147,6 +147,7 @@ public class EditProfileActivity extends AppCompatActivity {
                                         startActivity(i);
                                         finish();
                                     }
+
                                 });
                             }
                         });

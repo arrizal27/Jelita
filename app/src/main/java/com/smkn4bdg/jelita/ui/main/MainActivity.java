@@ -35,7 +35,6 @@ import com.squareup.picasso.Picasso;
 public class MainActivity extends AppCompatActivity {
     private DatabaseReference mdbUsers;
     private FirebaseDatabase mfirebaseInstance;
-    private FirebaseAuth mfirebaseauth;
     private FirebaseUser mUser;
     private static final String  USERS = "users";
     public static final String EXTRA_POINT = "";
@@ -47,9 +46,8 @@ public class MainActivity extends AppCompatActivity {
     ImageView fotoProfil;
     TextView username, poin, kategori, tabunganMinyak, kapasitasMax;
     ProgressBar progressBarMinyak;
-    LottieAnimationView loading;
-    MaterialCardView card1, card2, card3;
-    LinearLayout top1;
+
+
 
     MaterialButton btnNabung;
     MaterialCardView btnHelp, btnProfil, btnJerigen, btnRiwayat, btnPoin;

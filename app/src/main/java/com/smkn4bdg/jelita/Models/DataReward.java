@@ -9,7 +9,7 @@ public class DataReward {
         this.harga = harga;
         this.foto = foto;
     }
-
+//
     public String getIdreward() {
         return idreward;
     }
